@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK — Laporan Stok &amp; Komisi Terapis (PRD 3.3.2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'JetBrains Mono', 'Roboto Mono', 'Courier New', monospace; background: #fff; color: #000; font-size: 11.5px; line-height: 1.3; }
+  .page { max-width: 100%; margin: 0; padding: 24px 32px; background: #fff; }
+  .topbar { display: flex; align-items: center; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #000; }
+  .topbar h1 { font-size: 16px; font-weight: 700; margin: 0; }
+  .filter-row { display: flex; align-items: center; gap: 14px; padding: 8px 0 16px; }
+  .filter-row .lbl { font-weight: 700; }
+  .filter-row input, .filter-row select { font: inherit; border: 1px solid #000; padding: 2px 6px; background: #fff; }
+  .filter-row .count { margin-left: auto; }
+  .filter-row button { font: inherit; font-weight: 700; padding: 4px 10px; border: 1px solid #000; background: #000; color: #fff; cursor: pointer; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  thead th { background: #d9d9d9; font-weight: 700; padding: 6px 4px; border: 1px solid #000; text-align: center; }
+  thead th.l { text-align: left; }
+  thead th.r { text-align: right; }
+  tbody td { padding: 4px 6px; border: 1px solid #c8c8c8; }
+  tbody td.l { text-align: left; }
+  tbody td.r { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody td.c { text-align: center; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f4f4f4; }
+  tfoot td { padding: 6px; border: 1px solid #000; font-weight: 700; background: #d9d9d9; }
+  .note { margin-top: 12px; font-size: 10.5px; color: #000; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <h1>Laporan Stok &amp; Komisi Terapis</h1>
+    </div>
+    <div class="filter-row">
+      <span class="lbl">PERIODE :</span>
+      <input type="text" value="01 May 2026" size="10" />
+      <span class="lbl">S/D</span>
+      <input type="text" value="31 May 2026" size="10" />
+      <span class="lbl">BRANCH :</span>
+      <select><option>NGI-SMD01</option></select>
+      <button>XLSX</button>
+      <span class="count">Total 4 terapis.</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="l">ID Pegawai</th>
+          <th class="l">Nama Terapis</th>
+          <th class="r">Jumlah<br>Tindakan</th>
+          <th class="r">Total Nominal<br>Komisi</th>
+          <th class="r">Gaji<br>Pokok</th>
+          <th class="r">Grand Total<br>Take-Home Pay</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="l">TRP-0001</td><td class="l">Rani Wulandari</td><td class="c">28</td><td class="r">1,260,000.00</td><td class="r">3,500,000.00</td><td class="r">4,760,000.00</td></tr>
+        <tr><td class="l">TRP-0002</td><td class="l">Dewi Anggraini</td><td class="c">22</td><td class="r">990,000.00</td><td class="r">3,500,000.00</td><td class="r">4,490,000.00</td></tr>
+        <tr><td class="l">TRP-0003</td><td class="l">Sari Wulandari</td><td class="c">19</td><td class="r">855,000.00</td><td class="r">3,500,000.00</td><td class="r">4,355,000.00</td></tr>
+        <tr><td class="l">TRP-0004</td><td class="l">Maya Sari</td><td class="c">15</td><td class="r">675,000.00</td><td class="r">3,500,000.00</td><td class="r">4,175,000.00</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="l" colspan="2">TOTAL</td>
+          <td class="c">84</td>
+          <td class="r">3,780,000.00</td>
+          <td class="r">14,000,000.00</td>
+          <td class="r">17,780,000.00</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="note">
+      Catatan: Nilai kolom Gaji Pokok, Total Nominal Komisi, dan Grand Total Take-Home Pay dihitung otomatis dari riwayat transaksi yang telah disahkan kasir (status Lunas). Nilai tidak dapat dimanipulasi dari aplikasi.
+    </div>
+  </div>
+</body>
+</html>
