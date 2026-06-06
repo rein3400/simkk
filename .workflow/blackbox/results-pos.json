@@ -1,0 +1,72 @@
+﻿[
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_happy_path",
+        "expected":  "201 + receipt.id + commission",
+        "actual":  "201 receipt=RCPT-TRX-260606-00005 comm=34200",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.1090486+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_stock_insufficient",
+        "expected":  "422 (not 500)",
+        "actual":  "422 body={\"message\":\"The items.0.qty field must not be greater than 9999.\",\"errors\":{\"items.0.qty\":[\"The items.0.qty field must not be greater than 9999.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.3561935+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_qty_zero",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.5854632+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_qty_negative",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.8017720+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_service_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.0024021+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_therapist_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.2593929+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "idempotency_same_key",
+        "expected":  "same transaction.id",
+        "actual":  "TRX-260606-00006 vs TRX-260606-00006",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.7540862+07:00"
+    }
+]

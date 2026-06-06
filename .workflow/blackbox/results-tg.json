@@ -1,0 +1,52 @@
+﻿[
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_no_chat_id",
+        "expected":  "200/422",
+        "actual":  "422 body={\"message\":\"The telegram chat id field is required when phone is not present.\",\"errors\":{\"telegram_chat_id\":[\"The telegram chat id field is required when phone is not present.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:18.2111972+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "aftercare_200_or_422",
+        "expected":  "200/422",
+        "actual":  "422 body={\"message\":\"The telegram chat id field is required when phone is not present.\",\"errors\":{\"telegram_chat_id\":[\"The telegram chat id field is required when phone is not present.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:18.4483468+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_gudang_forbidden",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.1419187+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_graceful_no_token",
+        "expected":  "200 sent=false",
+        "actual":  "200 body={\"sent\":false,\"to\":\"12345678\",\"patient\":\"Alya Maharani\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.4009643+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "webhook_get",
+        "expected":  "200",
+        "actual":  "200 body={\"ok\":true,\"webhook\":\"sim-kk-telegram\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.5970731+07:00"
+    }
+]

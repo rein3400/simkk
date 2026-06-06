@@ -1,0 +1,72 @@
+﻿[
+    {
+        "suite":  "BB-MED",
+        "scenario":  "treatment_create_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":6,\"date\":\"06 Jun\",\"therapist\":\"dr. Melati\",\"title\":\"Test judul\",\"notes\":\"Test catatan body\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.4376251+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "treatment_patient_not_exist",
+        "expected":  "422/404",
+        "actual":  "404",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.6767200+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_png_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":\"6\",\"label\":\"Before\",\"date\":\"06 Jun\",\"objectRef\":\"clinical\\/RM-2026-0018\\/e510aa84-ff6f-45e0-9ddf-c0663eda8f9b-test-20260606165924.png\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.9679922+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_php_rejected",
+        "expected":  "4xx (allowlist)",
+        "actual":  "422 body={\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.2084797+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_path_traversal",
+        "expected":  "4xx",
+        "actual":  "422 body={\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.4359330+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_missing_label",
+        "expected":  "4xx (missing label)",
+        "actual":  "422 body={\"message\":\"The label field is required.\",\"errors\":{\"label\":[\"The label field is required.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.6526592+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "list_treatments_present",
+        "expected":  "data present",
+        "actual":  "found=True",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.9018265+07:00"
+    }
+]

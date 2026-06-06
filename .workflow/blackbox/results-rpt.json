@@ -1,0 +1,122 @@
+﻿[
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "daily_report_manajer",
+        "expected":  "200 PDF",
+        "actual":  "409 pdf={\"message\":\"Call to ",
+        "pass":  false,
+        "note":  "body={\"message\":\"Call to undefined relationship [produk] on model [App\\\\Models\\\\TransaksiDetail].\"}",
+        "severity":  "High",
+        "timestamp":  "2026-06-06T17:01:43.0004574+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "daily_report_kasir_forbidden",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.3078567+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "movements_gudang",
+        "expected":  "200",
+        "actual":  "200",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.6238079+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "movements_invalid_date",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_daily_report",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_cash_at_cashier",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9127497+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_net_sales",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9167090+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_total_card",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_pnl",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_ttd",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_size_gt_5kb",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_header_percent",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+    }
+]

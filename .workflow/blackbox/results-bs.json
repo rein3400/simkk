@@ -1,0 +1,52 @@
+﻿[
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_complete",
+        "expected":  "all 5 fields",
+        "actual":  "200 u=    s=          t=     i=        p=     ",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.7805316+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_signature_path_field",
+        "expected":  "field present",
+        "actual":  "first user has signaturePath=",
+        "pass":  true,
+        "note":  "field present (value may be null/empty until user uploads signature)",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.8172359+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_telegram_chat_id_field",
+        "expected":  "field present",
+        "actual":  "first patient has telegramChatId=",
+        "pass":  true,
+        "note":  "field present (value may be null until patient links bot)",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.8197971+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "role_filtering_services",
+        "expected":  "kasir \u003c= manajer",
+        "actual":  "kasir=10 manajer=10",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:15.6775399+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "logout_invalidates",
+        "expected":  "401 after logout",
+        "actual":  "logout=200 after=401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:16.6055910+07:00"
+    }
+]

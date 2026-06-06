@@ -1,0 +1,512 @@
+﻿[
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_kasir",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:56.9006143+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_terapis",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:57.3888104+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_gudang",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:57.8383758+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_manajer",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:58.3465671+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_wrong_password",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:58.8119000+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_no_level",
+        "expected":  "422/400/401 (not 500)",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.0028414+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_no_username",
+        "expected":  "422/400 (not 500)",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.2153768+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "bootstrap_no_token",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.4154254+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "kasir_to_gudang_endpoint",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:54:00.1114547+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "garbage_token",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:54:00.3255749+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_complete",
+        "expected":  "all 5 fields",
+        "actual":  "200 u=    s=          t=     i=        p=     ",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.7805316+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_signature_path_field",
+        "expected":  "field present",
+        "actual":  "first user has signaturePath=",
+        "pass":  true,
+        "note":  "field present (value may be null/empty until user uploads signature)",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.8172359+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "bootstrap_telegram_chat_id_field",
+        "expected":  "field present",
+        "actual":  "first patient has telegramChatId=",
+        "pass":  true,
+        "note":  "field present (value may be null until patient links bot)",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:14.8197971+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "role_filtering_services",
+        "expected":  "kasir \u003c= manajer",
+        "actual":  "kasir=10 manajer=10",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:15.6775399+07:00"
+    },
+    {
+        "suite":  "BB-BS",
+        "scenario":  "logout_invalidates",
+        "expected":  "401 after logout",
+        "actual":  "logout=200 after=401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:03:16.6055910+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":1,\"name\":\"Barrier Serum\",\"category\":\"Skincare\",\"totalStock\":44,\"newBatch\":{\"code\":\"TEST-20260606170003\",\"qty\":10,\"hpp\":50000,\"expiry\":\"2027-12-31\",\"supplier\":\"PT Test Supplier\"}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.3373568+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_product_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.5806098+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_qty_zero",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.7867995+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "fifo_movements_queryable",
+        "expected":  "200",
+        "actual":  "200 length=1991",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:05.3080081+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "expired_stock_chip",
+        "expected":  "status field in bootstrap",
+        "actual":  "has=True",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:05.5569796+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "treatment_create_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":6,\"date\":\"06 Jun\",\"therapist\":\"dr. Melati\",\"title\":\"Test judul\",\"notes\":\"Test catatan body\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.4376251+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "treatment_patient_not_exist",
+        "expected":  "422/404",
+        "actual":  "404",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.6767200+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_png_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":\"6\",\"label\":\"Before\",\"date\":\"06 Jun\",\"objectRef\":\"clinical\\/RM-2026-0018\\/e510aa84-ff6f-45e0-9ddf-c0663eda8f9b-test-20260606165924.png\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:24.9679922+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_php_rejected",
+        "expected":  "4xx (allowlist)",
+        "actual":  "422 body={\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.2084797+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_path_traversal",
+        "expected":  "4xx",
+        "actual":  "422 body={\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.4359330+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "photo_upload_missing_label",
+        "expected":  "4xx (missing label)",
+        "actual":  "422 body={\"message\":\"The label field is required.\",\"errors\":{\"label\":[\"The label field is required.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.6526592+07:00"
+    },
+    {
+        "suite":  "BB-MED",
+        "scenario":  "list_treatments_present",
+        "expected":  "data present",
+        "actual":  "found=True",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:59:25.9018265+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_happy_path",
+        "expected":  "201 + receipt.id + commission",
+        "actual":  "201 receipt=RCPT-TRX-260606-00005 comm=34200",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.1090486+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_stock_insufficient",
+        "expected":  "422 (not 500)",
+        "actual":  "422 body={\"message\":\"The items.0.qty field must not be greater than 9999.\",\"errors\":{\"items.0.qty\":[\"The items.0.qty field must not be greater than 9999.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.3561935+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_qty_zero",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.5854632+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_qty_negative",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:49.8017720+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_service_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.0024021+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "pay_therapist_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.2593929+07:00"
+    },
+    {
+        "suite":  "BB-POS",
+        "scenario":  "idempotency_same_key",
+        "expected":  "same transaction.id",
+        "actual":  "TRX-260606-00006 vs TRX-260606-00006",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:56:50.7540862+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "daily_report_manajer",
+        "expected":  "200 PDF",
+        "actual":  "409 pdf={\"message\":\"Call to ",
+        "pass":  false,
+        "note":  "body={\"message\":\"Call to undefined relationship [produk] on model [App\\\\Models\\\\TransaksiDetail].\"}",
+        "severity":  "High",
+        "timestamp":  "2026-06-06T17:01:43.0004574+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "daily_report_kasir_forbidden",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.3078567+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "movements_gudang",
+        "expected":  "200",
+        "actual":  "200",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.6238079+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "movements_invalid_date",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_daily_report",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_cash_at_cashier",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9127497+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_net_sales",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9167090+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_total_card",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_pnl",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_has_ttd",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_size_gt_5kb",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+    },
+    {
+        "suite":  "BB-RPT",
+        "scenario":  "pdf_header_percent",
+        "expected":  "yes",
+        "actual":  "blocked by 500/409",
+        "pass":  false,
+        "note":  "endpoint returns 422",
+        "severity":  "Critical",
+        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_no_chat_id",
+        "expected":  "200/422",
+        "actual":  "422 body={\"message\":\"The telegram chat id field is required when phone is not present.\",\"errors\":{\"telegram_chat_id\":[\"The telegram chat id field is required when phone is not present.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:18.2111972+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "aftercare_200_or_422",
+        "expected":  "200/422",
+        "actual":  "422 body={\"message\":\"The telegram chat id field is required when phone is not present.\",\"errors\":{\"telegram_chat_id\":[\"The telegram chat id field is required when phone is not present.\"]}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:18.4483468+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_gudang_forbidden",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.1419187+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "reminder_graceful_no_token",
+        "expected":  "200 sent=false",
+        "actual":  "200 body={\"sent\":false,\"to\":\"12345678\",\"patient\":\"Alya Maharani\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.4009643+07:00"
+    },
+    {
+        "suite":  "BB-TG",
+        "scenario":  "webhook_get",
+        "expected":  "200",
+        "actual":  "200 body={\"ok\":true,\"webhook\":\"sim-kk-telegram\"}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:02:19.5970731+07:00"
+    }
+]

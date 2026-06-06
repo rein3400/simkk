@@ -1,0 +1,52 @@
+﻿[
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_valid",
+        "expected":  "201",
+        "actual":  "201 body={\"id\":1,\"name\":\"Barrier Serum\",\"category\":\"Skincare\",\"totalStock\":44,\"newBatch\":{\"code\":\"TEST-20260606170003\",\"qty\":10,\"hpp\":50000,\"expiry\":\"2027-12-31\",\"supplier\":\"PT Test Supplier\"}}",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.3373568+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_product_not_exist",
+        "expected":  "422/404",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.5806098+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "purchase_qty_zero",
+        "expected":  "422",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:03.7867995+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "fifo_movements_queryable",
+        "expected":  "200",
+        "actual":  "200 length=1991",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:05.3080081+07:00"
+    },
+    {
+        "suite":  "BB-INV",
+        "scenario":  "expired_stock_chip",
+        "expected":  "status field in bootstrap",
+        "actual":  "has=True",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T17:00:05.5569796+07:00"
+    }
+]

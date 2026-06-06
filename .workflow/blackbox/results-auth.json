@@ -1,0 +1,102 @@
+﻿[
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_kasir",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:56.9006143+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_terapis",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:57.3888104+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_gudang",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:57.8383758+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_valid_manajer",
+        "expected":  "200 + token",
+        "actual":  "200 + token",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:58.3465671+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_wrong_password",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:58.8119000+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_no_level",
+        "expected":  "422/400/401 (not 500)",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.0028414+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "login_no_username",
+        "expected":  "422/400 (not 500)",
+        "actual":  "422",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.2153768+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "bootstrap_no_token",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:53:59.4154254+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "kasir_to_gudang_endpoint",
+        "expected":  "403",
+        "actual":  "403",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:54:00.1114547+07:00"
+    },
+    {
+        "suite":  "BB-AUTH",
+        "scenario":  "garbage_token",
+        "expected":  "401",
+        "actual":  "401",
+        "pass":  true,
+        "note":  "",
+        "severity":  "Info",
+        "timestamp":  "2026-06-06T16:54:00.3255749+07:00"
+    }
+]
