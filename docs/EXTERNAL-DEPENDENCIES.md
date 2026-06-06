@@ -78,21 +78,35 @@ Dokumen ini mencatat semua API eksternal, layanan, dan infrastruktur yang dibutu
 
 ## Platform & Infrastruktur (LOCKED)
 
-### 3. Server Hosting — Railway ✅
+### 3. Server Hosting — VPS ✅
 
-**Status:** Decided. Railway Hobby plan $5/mo per service. See [`DEPLOY-RAILWAY.md`](DEPLOY-RAILWAY.md).
+**Status:** Decided. VPS dengan PHP 8.3 + nginx + php-fpm. Laravel app stay on VPS (per `deploy/cloudflare/02-vps-provision.md`).
 
 | Service | Root dir | Build | Start |
 |---|---|---|---|
-| API (Laravel) | `apps/api` | `composer install --no-dev` | `php artisan serve` |
+| API (Laravel) | `apps/api` | `composer install --no-dev` | `php artisan serve` (or php-fpm) |
 | Web (Vue 3) | `apps/web` | `npm ci && npm run build` | `npx serve dist -s` |
-| PostgreSQL | Railway managed | auto | auto |
 
-### 4. Database Hosting — Railway PostgreSQL ✅
+### 4. Database Hosting — Cloudflare D1 ✅
 
-**Status:** Decided. Railway PostgreSQL Starter $5/mo. `DATABASE_URL` auto-injected. Local dev uses sqlite.
+**Status:** Decided. D1 SQLite at edge, accessed from VPS via Cloudflare API. D1 = `simkk` database.
 
-### 5. Domain + DNS + SSL — Cloudflare (pending klien) ⚠️
+Local dev: SQLite file. Production: D1 via `wrangler d1` migration.
+
+- **Setup**: `wrangler d1 create simkk` → dapat `database_id` → update `wrangler.toml` → `wrangler d1 migrations apply simkk --remote`
+- **Cost**: Free tier 5GB storage + 5M reads/day + 100K writes/day — lebih dari cukup untuk 1 klinik Samarinda (1-5 transaksi/jam)
+- **Prerequisites**: D1 driver shim in `apps/api/config/database.php` (D1 SQLite wire protocol)
+
+### 5. Object Storage — Cloudflare R2 ✅
+
+**Status:** Decided. R2 bucket `simkk-clinical` untuk foto Before/After klinis. S3-compatible.
+
+- **Setup**: Cloudflare dashboard → R2 → Create bucket → Create API token scoped to bucket
+- **Env vars**: `STORAGE_DISK=r2`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET=simkk-clinical`, `R2_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com`
+- **Cost**: $0.015/GB stored, **egress free** (vs AWS S3 yang charge egress)
+- **Use case**: foto before/after upload, served via signed URLs atau R2 public domain
+
+### 6. Domain + DNS + SSL — Cloudflare (pending klien) ⚠️
 
 **Status:** Pending decision klien. Cloudflare (free tier) di-rekomendasikan.
 
@@ -116,19 +130,22 @@ Dokumen ini mencatat semua API eksternal, layanan, dan infrastruktur yang dibutu
 
 ---
 
-## Estimasi Biaya Bulanan (LOCKED: Railway + R2 + Telegram)
+## Estimasi Biaya Bulanan (LOCKED: VPS + D1 + R2 + Telegram)
 
 | Komponen | Harga/bulan |
 |---|---|
-| Railway Web (API + Vue) | $5 |
-| Railway PostgreSQL | $5 |
-| Cloudflare R2 (10 GB free) | $0 |
+| VPS (Laravel + nginx + php-fpm) | $5-10 (DigitalOcean/Linode) |
+| Cloudflare D1 | $0 (free tier 5GB cukup) |
+| Cloudflare R2 (10 GB free) | $0 (free tier) |
 | Cloudflare DNS + SSL | $0 |
 | Telegram Bot API | $0 (gratis unlimited) |
 | Domain (.id/.com) | ~$1/tahun |
-| **Total production** | **~$10/bulan** |
+| **Total production** | **~$5-10/bulan** |
 
-Lebih murah dari estimasi sebelumnya karena WA Business API berbayar per conversation.
+Lebih murah dari estimasi sebelumnya karena:
+- WA Business API (per conversation billing) → Telegram (gratis)
+- D1 free tier lebih dari cukup untuk klinik kecil
+- R2 egress gratis (vs AWS S3)
 
 ---
 
@@ -138,25 +155,24 @@ Lebih murah dari estimasi sebelumnya karena WA Business API berbayar per convers
 ┌─────────────────────────────────────────────────────┐
 │                    CLOUDFLARE                        │
 │         (DNS + CDN + SSL + DDoS Protection)          │
-│         (R2 bucket: foto klinis)                      │
+│         (D1: simkk database)                          │
+│         (R2: simkk-clinical bucket)                   │
+└──────────────────────┬──────────────────────────────┘
+                       │ HTTPS API
+                       ▼
+┌─────────────────────────────────────────────────────┐
+│  VPS (Laravel + Vue static + nginx + php-fpm)        │
+│  ├─ apps/api (PHP 8.3)                              │
+│  └─ apps/web/dist (Vue 3, served by nginx)         │
 └──────────────────────┬──────────────────────────────┘
                        │
-        ┌──────────────┴──────────────┐
-        │                             │
-        ▼                             ▼
-┌───────────────┐           ┌─────────────────┐
-│  VPS (Laravel │           │  Object Storage  │
-│   + Vue +     │◄─────────►│  (Cloudflare R2) │
-│   Nginx)      │  HTTPS    │  Foto Klinis     │
-└───────┬───────┘           └─────────────────┘
-        │
-        ├──────────────┬──────────────┐
-        ▼              ▼              ▼
-┌──────────────┐ ┌──────────┐ ┌────────────┐
-│  PostgreSQL  │ │  Laravel  │ │  Telegram   │
-│  (Railway)   │ │  Sanctum  │ │  Bot API    │
-│              │ │  (Auth)   │ │  (gratis)   │
-└──────────────┘ └──────────┘ └────────────┘
+                       ├──────────────┐
+                       ▼              ▼
+              ┌──────────────┐ ┌────────────┐
+              │  Telegram     │ │  D1 (SQLite │
+              │  Bot API      │ │  at edge)   │
+              │  (gratis)     │ │             │
+              └──────────────┘ └────────────┘
 ```
 
 ---
@@ -176,4 +192,6 @@ Lebih murah dari estimasi sebelumnya karena WA Business API berbayar per convers
 - **Removed**: `netflie/whatsapp-cloud-api` composer dep, `app/Services/WhatsAppService.php`, `app/Http/Controllers/Api/WhatsAppController.php`, `whatsapp` config section, `whatsapp/*` routes, `WHATSAPP_*` env vars
 - **Added**: `app/Services/TelegramService.php`, `app/Http/Controllers/Api/TelegramController.php`, `telegram` config section, `telegram/*` routes, `TELEGRAM_BOT_TOKEN` env var, migration `2026_06_06_120000_add_telegram_chat_id_to_pasien`
 - **Updated**: `BootstrapController` now exposes `telegramChatId` per pasien
-- **Tested**: 5/5 PHPUnit TelegramServiceTest pass
+- **Tested**: 13/13 PHPUnit TelegramServiceTest + TelegramWebhookTest pass
+- **Updated platform**: Railway + PostgreSQL replaced with **VPS + Cloudflare D1** (sesuai spec 2026-06-05 D1-Readiness)
+- **Updated storage**: PostgreSQL replaced with **Cloudflare D1**; foto klinis tetap di **Cloudflare R2** (sudah configured)
