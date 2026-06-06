@@ -36,15 +36,17 @@ Lihat folder `assets/` untuk screenshot otomatis dari Playwright headless. File 
 
 ## File index
 
-| File | Layar | Fungsi |
-|---|---|---|
-| `login.html` | Login full-bleed | Editorial split layout. Role chip click interaktif. |
-| `pos.html` | POS bento | 6 service tiles + cart panel + avatar therapist picker + metode pill row. |
-| `rekam-medis.html` | Rekam Medis kanvas | Tabs (Catatan/Foto/History) + autosave indicator + portrait photo + serif italic timeline. |
-| `gudang.html` | Gudang table | Filter chip + striped table + status chips + slide-in drawer. |
-| `laporan.html` | Laporan hub | 4 report card (Arus Kas, Stok&Komisi, Daily Report, Inventory Movements). |
-| `laporan-daily.html` | Daily Report PDF mock | 8 section (CASH AT CASHIER, NET SALES, PENDAPATAN CARD, dll) + dual TTD (Manajer + Kasir sesuai PRD 3.3.1). |
-| `laporan-inventory-movements.html` | Inventory Movements XLSX mock | Filter range + 11-column table per barang per hari. |
+| File | Layar | Fungsi | PRD |
+|---|---|---|---|
+| `login.html` | Login full-bleed | Editorial split layout. Role chip click interaktif. | — |
+| `pos.html` | POS bento | 6 service tiles + cart panel + avatar therapist picker + metode pill row. | 3.2 |
+| `rekam-medis.html` | Rekam Medis kanvas | Tabs (Catatan/Foto/History) + autosave indicator + portrait photo + serif italic timeline. | 3.2 |
+| `gudang.html` | Gudang table | Filter chip + striped table + status chips + slide-in drawer. | 2.2.4 |
+| `laporan.html` | Laporan hub | 4 report card (Arus Kas, Stok&Komisi, Daily Report, Inventory Movements). | — |
+| `laporan-arus-kas.html` | Laporan Arus Kas PDF | KOP, ID Transaksi, Debit, Kredit, Saldo, dual TTD pojok kanan bawah. Utilitarian B&W. | 3.3.1 |
+| `laporan-stok-komisi.html` | Laporan Stok & Komisi Terapis XLSX | 6 kolom (ID Pegawai, Nama, Jumlah Tindakan, Komisi, Gaji Pokok, Take-Home Pay). Utilitarian B&W. | 3.3.2 |
+| `laporan-daily.html` | Daily Report PDF (Naavagreen) | Extension PRD 3.3.1 — 8 section detail operasional + dual TTD. | 3.3.1+ |
+| `laporan-inventory-movements.html` | Inventory Movements XLSX | 11 kolom mutasi barang per hari. Tidak di PRD — ekstensi user request. | ext |
 
 ## Security note
 
