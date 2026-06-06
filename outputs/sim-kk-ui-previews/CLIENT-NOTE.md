@@ -92,6 +92,7 @@ Screenshots tersedia di folder `assets/` untuk preview cepat tanpa buka browser.
 5. **Nama klinik** — Sample pakai "KLINIK KECANTIKAN SIM-KK" + "Jl. Klinik No. 1, Samarinda". Real info?
 6. **Daily Report sections** — 8 section sesuai image Naavagreen adalah extension dari PRD 3.3.1 yang minimal. Klien konfirmasi mau 8 section atau cukup minimal?
 7. **Inventory Movements** — Ekstensi user request, tidak di PRD. Klien konfirmasi mau include?
+8. **Telegram bot token** — Untuk notifikasi pasien, perlu bot via @BotFather. Token di mana?
 
 ## Timeline estimate
 
