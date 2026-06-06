@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK — Laporan Arus Kas (PRD 3.3.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'JetBrains Mono', 'Roboto Mono', 'Courier New', monospace; background: #fff; color: #000; font-size: 11.5px; line-height: 1.3; }
+  .page { max-width: 800px; margin: 0 auto; padding: 48px 56px 80px; background: #fff; }
+  .kop { text-align: center; }
+  .kop h1 { font-size: 16px; font-weight: 700; margin: 0; letter-spacing: 0.05em; }
+  .kop .address { margin-top: 2px; font-size: 11px; }
+  .kop .contact { margin-top: 1px; font-size: 11px; }
+  .kop-divider { border-bottom: 2px solid #000; margin-top: 12px; }
+
+  .title-block { text-align: center; margin-top: 24px; }
+  .title-block h2 { font-size: 14px; font-weight: 700; margin: 0; letter-spacing: 0.1em; }
+  .title-block .period { font-size: 11.5px; margin-top: 4px; }
+
+  .filter-row { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+  .filter-row .lbl { font-weight: 700; }
+  .filter-row input { font: inherit; border: 1px solid #000; padding: 2px 6px; background: #fff; }
+  .filter-row button { font: inherit; font-weight: 700; padding: 4px 12px; border: 1px solid #000; background: #000; color: #fff; cursor: pointer; }
+  .filter-row .spacer { flex: 1; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 12px; }
+  thead th { background: #d9d9d9; font-weight: 700; padding: 6px 4px; border: 1px solid #000; text-align: center; }
+  thead th.l { text-align: left; }
+  thead th.r { text-align: right; }
+  tbody td { padding: 4px 6px; border: 1px solid #c8c8c8; }
+  tbody td.l { text-align: left; }
+  tbody td.r { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody td.c { text-align: center; }
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f4f4f4; }
+  tbody tr.saldo td { font-weight: 700; background: #d9d9d9; }
+  tfoot td { padding: 6px; border: 1px solid #000; font-weight: 700; background: #d9d9d9; }
+  tfoot td.r { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .ttd-area { margin-top: 56px; display: flex; justify-content: flex-end; }
+  .ttd-block { width: 360px; }
+  .ttd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+  .ttd-cell { text-align: center; }
+  .ttd-label { font-size: 11px; margin-bottom: 4px; }
+  .ttd-role { font-size: 11px; font-style: italic; margin-bottom: 56px; }
+  .ttd-img { height: 56px; display: flex; align-items: flex-end; justify-content: center; }
+  .ttd-name { border-top: 1px solid #000; padding-top: 4px; font-size: 11.5px; font-weight: 700; }
+  .ttd-name-paren { font-weight: 400; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="kop">
+      <h1>KLINIK KECANTIKAN SIM-KK</h1>
+      <div class="address">Jl. Klinik No. 1, Samarinda, Kalimantan Timur</div>
+      <div class="contact">Telp. (0541) 123456 &middot; Email: admin@sim-kk.example.id</div>
+    </div>
+    <div class="kop-divider"></div>
+
+    <div class="title-block">
+      <h2>LAPORAN ARUS KAS</h2>
+      <div class="period">Periode: Mei 2026</div>
+    </div>
+
+    <div class="filter-row">
+      <span class="lbl">PERIODE :</span>
+      <input type="text" value="01 May 2026" size="10" />
+      <span class="lbl">S/D</span>
+      <input type="text" value="31 May 2026" size="10" />
+      <span class="spacer"></span>
+      <button>PDF</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="l">ID Transaksi</th>
+          <th class="l">Tanggal</th>
+          <th class="l">Keterangan</th>
+          <th class="r">Debit</th>
+          <th class="r">Kredit</th>
+          <th class="r">Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="l">TRX-20260501-001</td><td class="c">01/05/2026</td><td class="l">Saldo Awal Mei 2026</td><td class="r">-</td><td class="r">-</td><td class="r">2,000,000.00</td></tr>
+        <tr><td class="l">TRX-20260501-002</td><td class="c">01/05/2026</td><td class="l">Facial Basic - Rina Marlina</td><td class="r">150,000.00</td><td class="r">-</td><td class="r">2,150,000.00</td></tr>
+        <tr><td class="l">TRX-20260501-003</td><td class="c">01/05/2026</td><td class="l">Chemical Peeling - Sarah Putri</td><td class="r">350,000.00</td><td class="r">-</td><td class="r">2,500,000.00</td></tr>
+        <tr><td class="l">TRX-20260501-004</td><td class="c">01/05/2026</td><td class="l">Microneedling - Linda Susanti</td><td class="r">500,000.00</td><td class="r">-</td><td class="r">3,000,000.00</td></tr>
+        <tr><td class="l">PAY-20260501-001</td><td class="c">01/05/2026</td><td class="l">Pembelian stok supplier PT Kosmetik</td><td class="r">-</td><td class="r">850,000.00</td><td class="r">2,150,000.00</td></tr>
+        <tr><td class="l">PAY-20260501-002</td><td class="c">02/05/2026</td><td class="l">Pembelian Sunscreen SPF 50 (10 unit)</td><td class="r">-</td><td class="r">850,000.00</td><td class="r">1,300,000.00</td></tr>
+        <tr><td class="l">TRX-20260505-001</td><td class="c">05/05/2026</td><td class="l">Laser Rejuvenation - Rina Marlina</td><td class="r">800,000.00</td><td class="r">-</td><td class="r">2,100,000.00</td></tr>
+        <tr><td class="l">TRX-20260505-002</td><td class="c">05/05/2026</td><td class="l">Treatment Acne - Sarah Putri</td><td class="r">250,000.00</td><td class="r">-</td><td class="r">2,350,000.00</td></tr>
+        <tr><td class="l">PAY-20260510-001</td><td class="c">10/05/2026</td><td class="l">Gaji terapis Mei 2026 (4 orang)</td><td class="r">-</td><td class="r">14,000,000.00</td><td class="r">-11,650,000.00</td></tr>
+        <tr><td class="l">TRX-20260515-001</td><td class="c">15/05/2026</td><td class="l">Facial Basic - Linda Susanti</td><td class="r">150,000.00</td><td class="r">-</td><td class="r">-11,500,000.00</td></tr>
+        <tr><td class="l">TRX-20260520-001</td><td class="c">20/05/2026</td><td class="l">Microneedling - Rina Marlina</td><td class="r">500,000.00</td><td class="r">-</td><td class="r">-11,000,000.00</td></tr>
+        <tr><td class="l">TRX-20260526-001</td><td class="c">26/05/2026</td><td class="l">Setoran bank ke rekening klinik</td><td class="r">-</td><td class="r">1,594,100.00</td><td class="r">-12,594,100.00</td></tr>
+        <tr><td class="l">TRX-20260530-001</td><td class="c">30/05/2026</td><td class="l">Pembelian Serum Vitamin C (8 unit)</td><td class="r">-</td><td class="r">960,000.00</td><td class="r">-13,554,100.00</td></tr>
+        <tr class="saldo"><td colspan="3">SALDO AKHIR BULAN</td><td class="r">2,700,000.00</td><td class="r">18,254,100.00</td><td class="r">-13,554,100.00</td></tr>
+      </tbody>
+    </table>
+
+    <div class="ttd-area">
+      <div class="ttd-block">
+        <div class="ttd-grid">
+          <div class="ttd-cell">
+            <div class="ttd-label">Mengetahui,</div>
+            <div class="ttd-role">Manajer</div>
+            <div class="ttd-img">
+              <svg viewBox="0 0 200 50" style="width:160px;height:50px;" fill="none" stroke="#000" stroke-width="1.5">
+                <path d="M20 35 Q40 5 60 28 T100 18 T140 32 T180 22"/>
+                <path d="M30 40 Q50 18 80 30 T130 28"/>
+              </svg>
+            </div>
+            <div class="ttd-name">Hendra Wijaya</div>
+          </div>
+          <div class="ttd-cell">
+            <div class="ttd-label">&nbsp;</div>
+            <div class="ttd-role">Kasir</div>
+            <div class="ttd-img">
+              <svg viewBox="0 0 200 50" style="width:160px;height:50px;" fill="none" stroke="#000" stroke-width="1.5">
+                <path d="M15 30 Q35 5 55 25 T95 18 T135 30 T175 20"/>
+                <circle cx="100" cy="35" r="13" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <div class="ttd-name ttd-name-paren">( Diani Arthantri )</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
