@@ -7,7 +7,7 @@ const fs = require('fs');
 const dir = __dirname.replace(/\\/g, '/');
 const files = [
   'login', 'pos', 'rekam-medis', 'gudang',
-  'laporan', 'laporan-daily', 'laporan-inventory-movements'
+  'laporan', 'laporan-arus-kas', 'laporan-stok-komisi', 'laporan-daily', 'laporan-inventory-movements'
 ];
 
 (async () => {

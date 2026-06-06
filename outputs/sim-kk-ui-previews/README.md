@@ -1,6 +1,8 @@
 # SIM-KK Editorial Luxury — Static HTML Previews
 
-Static HTML preview untuk user review SEBELUM implement Vue. Preview ini cuma visual mockup — tidak ada Vue, Vite, atau API wiring.
+Static HTML preview untuk **kirim ke client** sebelum implement Vue. Preview ini cuma visual mockup — tidak ada Vue, Vite, atau API wiring.
+
+Lihat juga: **[CLIENT-NOTE.md](CLIENT-NOTE.md)** untuk cover letter + checklist approval.
 
 ## Cara buka
 
