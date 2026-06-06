@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BootstrapController;
+use App\Http\Controllers\Api\DailyReportController;
 use App\Http\Controllers\Api\InventarisController;
+use App\Http\Controllers\Api\InventoryMovementController;
 use App\Http\Controllers\Api\LaporanController;
 use App\Http\Controllers\Api\RekamMedisController;
 use App\Http\Controllers\Api\TelegramController;
@@ -29,6 +31,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/reports/{report}/export', [LaporanController::class, 'export'])
         ->middleware('role:Manajer');
+
+    // Daily Report (PRD 3.3.1) — multi-section PDF with dual TTD.
+    Route::get('/daily-reports/{tanggal}/export', [DailyReportController::class, 'export'])
+        ->middleware('role:Manajer');
+    Route::post('/daily-reports/{tanggal}/submit', [DailyReportController::class, 'submit'])
+        ->middleware('role:Kasir,Manajer');
+    Route::post('/daily-reports/closings/{id}/approve', [DailyReportController::class, 'approve'])
+        ->middleware('role:Manajer');
+
+    // Inventory Movements — per barang per hari, 11 columns.
+    Route::get('/inventory-movements', [InventoryMovementController::class, 'index'])
+        ->middleware('role:Gudang,Manajer');
 
     Route::post('/telegram/reminder', [TelegramController::class, 'reminder'])
         ->middleware('role:Manajer,Kasir,Terapis');
