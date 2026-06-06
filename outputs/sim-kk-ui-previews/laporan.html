@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK â€” Laporan Hub Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'Inter', sans-serif; background: #F5F1EA; color: #0F0F0F; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-20 h-[72px] backdrop-blur-md bg-cream/80 border-b border-stone">
+    <div class="h-full max-w-[1440px] mx-auto px-8 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3"><h1 class="font-display text-display-sm leading-none">SIM-KK</h1><span class="font-mono text-caption uppercase text-sage">Samarinda</span></div>
+      <div class="flex items-center gap-4 ml-auto">
+        <div class="w-9 h-9 rounded-full bg-forest text-cream grid place-items-center font-display text-body-sm">HR</div>
+        <div><div class="font-body text-body-sm font-semibold leading-tight">Hendra Wijaya</div><div class="font-mono text-caption uppercase text-sage">Manajer</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="border-b border-stone">
+    <div class="max-w-[1440px] mx-auto px-8 py-4 flex gap-2">
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Point of Sale</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Rekam Medis</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Gudang</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold bg-ink text-cream">Laporan</button>
+    </div>
+  </nav>
+
+  <main class="max-w-[1440px] mx-auto px-8 py-24 space-y-24">
+    <header>
+      <span class="font-mono text-caption uppercase text-forest font-bold">Laporan</span>
+      <h1 class="mt-2 font-display text-display-lg text-ink leading-none">Empat dokumen operasional</h1>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a href="#" class="group text-left bg-cream border border-stone hover:border-forest p-8 transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl" style="transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);">
+        <div class="flex items-start justify-between">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F3D36" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span class="font-mono text-caption uppercase text-sage">PDF</span>
+        </div>
+        <h2 class="mt-6 font-display text-display-md text-ink leading-tight">Arus Kas</h2>
+        <p class="mt-2 font-body text-body text-sage">PDF buku besar dengan debit/kredit/saldo</p>
+        <div class="mt-6 inline-flex items-center gap-1 font-body text-body-sm font-semibold text-forest group-hover:gap-2 transition-all">Buka â†’</div>
+      </a>
+
+      <a href="#" class="group text-left bg-cream border border-stone hover:border-forest p-8 transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl" style="transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);">
+        <div class="flex items-start justify-between">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F3D36" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
+          <span class="font-mono text-caption uppercase text-sage">XLSX</span>
+        </div>
+        <h2 class="mt-6 font-display text-display-md text-ink leading-tight">Stok & Komisi</h2>
+        <p class="mt-2 font-body text-body text-sage">XLSX stok aktif + take-home pay</p>
+        <div class="mt-6 inline-flex items-center gap-1 font-body text-body-sm font-semibold text-forest group-hover:gap-2 transition-all">Buka â†’</div>
+      </a>
+
+      <a href="laporan-daily.html" class="group text-left bg-cream border border-stone hover:border-forest p-8 transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl" style="transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);">
+        <div class="flex items-start justify-between">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F3D36" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="font-mono text-caption uppercase text-sage">PDF</span>
+        </div>
+        <h2 class="mt-6 font-display text-display-md text-ink leading-tight">Daily Report</h2>
+        <p class="mt-2 font-body text-body text-sage">Rangkuman akhir shift kasir, dual TTD</p>
+        <div class="mt-6 inline-flex items-center gap-1 font-body text-body-sm font-semibold text-forest group-hover:gap-2 transition-all">Buka â†’</div>
+      </a>
+
+      <a href="laporan-inventory-movements.html" class="group text-left bg-cream border border-stone hover:border-forest p-8 transition-all duration-700 hover:-translate-y-1 hover:shadow-2xl" style="transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);">
+        <div class="flex items-start justify-between">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F3D36" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span class="font-mono text-caption uppercase text-sage">XLSX</span>
+        </div>
+        <h2 class="mt-6 font-display text-display-md text-ink leading-tight">Inventory Movements</h2>
+        <p class="mt-2 font-body text-body text-sage">Mutasi stok harian, range tanggal</p>
+        <div class="mt-6 inline-flex items-center gap-1 font-body text-body-sm font-semibold text-forest group-hover:gap-2 transition-all">Buka â†’</div>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

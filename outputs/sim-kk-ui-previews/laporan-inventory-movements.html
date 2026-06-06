@@ -1,0 +1,226 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK â€” Inventory Movements Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'Inter', sans-serif; background: #F5F1EA; color: #0F0F0F; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-20 h-[72px] backdrop-blur-md bg-cream/80 border-b border-stone">
+    <div class="h-full max-w-[1440px] mx-auto px-8 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3"><h1 class="font-display text-display-sm leading-none">SIM-KK</h1><span class="font-mono text-caption uppercase text-sage">Samarinda</span></div>
+      <div class="flex items-center gap-4 ml-auto">
+        <div class="w-9 h-9 rounded-full bg-forest text-cream grid place-items-center font-display text-body-sm">BS</div>
+        <div><div class="font-body text-body-sm font-semibold leading-tight">Budi Santoso</div><div class="font-mono text-caption uppercase text-sage">Gudang</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="border-b border-stone">
+    <div class="max-w-[1440px] mx-auto px-8 py-4 flex gap-2">
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Point of Sale</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Rekam Medis</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Gudang</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold bg-ink text-cream">Laporan</button>
+    </div>
+  </nav>
+
+  <main class="max-w-[1440px] mx-auto px-8 py-24 space-y-12">
+    <a href="laporan.html" class="inline-flex items-center gap-2 font-body text-body-sm text-sage hover:text-ink">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Semua laporan
+    </a>
+
+    <header class="flex items-end justify-between border-b border-stone pb-6">
+      <div>
+        <h1 class="font-display text-display-lg text-ink leading-none">Inventory Movements</h1>
+        <p class="mt-2 font-mono text-body-sm text-sage tabular-nums">Klinik SIM-KK â€¢ Branch: NGI-SMD01</p>
+      </div>
+      <button class="inline-flex items-center gap-2 px-5 py-2.5 bg-forest text-cream font-body text-body font-bold hover:bg-forest_deep transition-colors">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        XLSX
+      </button>
+    </header>
+
+    <div class="flex flex-wrap items-end gap-6">
+      <label class="block">
+        <span class="font-mono text-caption uppercase text-sage">From</span>
+        <input value="2026-05-01" type="date" class="mt-1 block bg-transparent border-b border-stone focus:border-forest focus:outline-none py-1 font-mono text-body" />
+      </label>
+      <label class="block">
+        <span class="font-mono text-caption uppercase text-sage">To</span>
+        <input value="2026-05-29" type="date" class="mt-1 block bg-transparent border-b border-stone focus:border-forest focus:outline-none py-1 font-mono text-body" />
+      </label>
+      <label class="block">
+        <span class="font-mono text-caption uppercase text-sage">Branch</span>
+        <select class="mt-1 block bg-transparent border-b border-stone focus:border-forest focus:outline-none py-1 font-mono text-body">
+          <option>NGI-SMD01</option>
+        </select>
+      </label>
+      <p class="ml-auto font-mono text-caption uppercase text-sage">Total 227 results.</p>
+    </div>
+
+    <div class="overflow-x-auto border border-stone">
+      <table class="w-full font-mono text-body-sm">
+        <thead class="bg-parchment">
+          <tr>
+            <th class="text-left p-3 font-mono text-caption uppercase text-sage">Item Code</th>
+            <th class="text-left p-3 font-mono text-caption uppercase text-sage">Item Name</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Beginning</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Purchase (IN)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Return Sales (IN)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Barang Masuk (IN)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Return Purchase (OUT)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Sales (OUT)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Real Sales (OUT)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Barang Keluar (OUT)</th>
+            <th class="text-right p-3 font-mono text-caption uppercase text-sage">Ending</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t border-stone/50 bg-cream">
+            <td class="p-3 text-sage">BCFATIEREINTENS</td>
+            <td class="p-3 text-ink">ATIERE INTENSIVE</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums font-bold">0</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-parchment/30">
+            <td class="p-3 text-sage">BCFBOTANICALPEELEX</td>
+            <td class="p-3 text-ink">NATASHA BY DR. FREDI SETYAWAN BOTANICAL HOME PEELING EXTRA</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">1.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">1.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">0</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-cream">
+            <td class="p-3 text-sage">BCFBOTOXLETYBO100</td>
+            <td class="p-3 text-ink">BOTOX LETYBO 100IU</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums font-bold">0</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-parchment/30">
+            <td class="p-3 text-sage">BCFCERNEVITINJ</td>
+            <td class="p-3 text-ink">CERNEVIT INJEKSI</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">10.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">10.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">0</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-cream">
+            <td class="p-3 text-sage">BCFMETHYCOBALINJ</td>
+            <td class="p-3 text-ink">METHYCOBAL INJEKSI</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">10.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">10.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">0</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-parchment/30">
+            <td class="p-3 text-sage">BENZD</td>
+            <td class="p-3 text-ink">BENZODION CL 5% POT 10G</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">5.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">3.00</td>
+            <td class="p-3 text-right tabular-nums">3.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums font-bold">2.00</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-cream">
+            <td class="p-3 text-sage">BENZD2,5%</td>
+            <td class="p-3 text-ink">BENZODION 2,5% POT 10G</td>
+            <td class="p-3 text-right tabular-nums">30.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">1.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">18.00</td>
+            <td class="p-3 text-right tabular-nums">17.00</td>
+            <td class="p-3 text-right tabular-nums">7.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">6.00</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-parchment/30">
+            <td class="p-3 text-sage">CALMD</td>
+            <td class="p-3 text-ink">CALMDION POT 10G</td>
+            <td class="p-3 text-right tabular-nums">75.00</td>
+            <td class="p-3 text-right tabular-nums">150.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">6.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">101.00</td>
+            <td class="p-3 text-right tabular-nums">95.00</td>
+            <td class="p-3 text-right tabular-nums">12.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">118.00</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-cream">
+            <td class="p-3 text-sage">CLIND</td>
+            <td class="p-3 text-ink">CLINDION POT 10G</td>
+            <td class="p-3 text-right tabular-nums">53.00</td>
+            <td class="p-3 text-right tabular-nums">80.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">5.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">89.00</td>
+            <td class="p-3 text-right tabular-nums">84.00</td>
+            <td class="p-3 text-right tabular-nums">1.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">48.00</td>
+          </tr>
+          <tr class="border-t border-stone/50 bg-parchment/30">
+            <td class="p-3 text-sage">CTK0403</td>
+            <td class="p-3 text-ink">KARDUS PAKET WITH BELT</td>
+            <td class="p-3 text-right tabular-nums">23.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">1.00</td>
+            <td class="p-3 text-right tabular-nums">30.00</td>
+            <td class="p-3 text-right tabular-nums">0</td>
+            <td class="p-3 text-right tabular-nums">17.00</td>
+            <td class="p-3 text-right tabular-nums">16.00</td>
+            <td class="p-3 text-right tabular-nums font-bold">37.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,135 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK â€” Rekam Medis Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'Inter', sans-serif; background: #F5F1EA; color: #0F0F0F; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-20 h-[72px] backdrop-blur-md bg-cream/80 border-b border-stone">
+    <div class="h-full max-w-[1440px] mx-auto px-8 flex items-center justify-between gap-6">
+      <h1 class="font-display text-display-sm leading-none">SIM-KK</h1>
+      <span class="font-mono text-caption uppercase text-sage">Samarinda</span>
+      <div class="flex items-center gap-4 ml-auto">
+        <div class="w-9 h-9 rounded-full bg-forest text-cream grid place-items-center font-display text-body-sm">RW</div>
+        <div><div class="font-body text-body-sm font-semibold leading-tight">Rani Wulandari</div><div class="font-mono text-caption uppercase text-sage">Terapis</div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="border-b border-stone">
+    <div class="max-w-[1440px] mx-auto px-8 py-4 flex gap-2">
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Point of Sale</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold bg-ink text-cream">Rekam Medis</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Gudang</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage">Laporan</button>
+    </div>
+  </nav>
+
+  <main class="max-w-[1440px] mx-auto px-8 py-24 space-y-24">
+    <header class="flex items-start gap-8">
+      <img src="https://i.pravatar.cc/200?img=47" class="w-24 h-24 rounded-full object-cover border-2 border-stone" />
+      <div class="flex-1">
+        <span class="font-mono text-caption uppercase text-forest font-bold">Rekam medis</span>
+        <h1 class="mt-2 font-display text-display-lg text-ink leading-none">Rina Marlina</h1>
+        <p class="mt-3 font-body text-body text-sage">RM-0001 â€¢ Acne vulgaris, kulit berminyak â€¢ +62 812 3456 7890</p>
+      </div>
+    </header>
+
+    <div class="flex gap-2 border-b border-stone">
+      <button data-tab="catatan" class="tab-btn px-5 py-3 font-body text-body-sm font-semibold border-b-2 -mb-px border-ink text-ink">Catatan</button>
+      <button data-tab="foto" class="tab-btn px-5 py-3 font-body text-body-sm font-semibold border-b-2 -mb-px border-transparent text-sage hover:text-ink">Foto</button>
+      <button data-tab="history" class="tab-btn px-5 py-3 font-body text-body-sm font-semibold border-b-2 -mb-px border-transparent text-sage hover:text-ink">Treatment History</button>
+    </div>
+
+    <section id="tab-catatan" class="max-w-3xl">
+      <label class="block">
+        <span class="font-mono text-caption uppercase text-sage">Catatan tindakan</span>
+        <textarea rows="6" class="mt-3 w-full bg-transparent border-b border-stone focus:border-forest focus:outline-none py-3 font-body text-body-lg resize-none">Kulit tampak lebih tenang setelah treatment Facial Basic. Lanjutkan soothing serum malam hari dan sunscreen pagi. Re-eval 2 minggu.</textarea>
+      </label>
+      <div class="mt-3 font-body text-body-sm text-sage italic">Disimpan 8 detik lalu â€” auto-save aktif</div>
+    </section>
+
+    <section id="tab-foto" class="max-w-4xl space-y-6 hidden">
+      <div class="flex items-center gap-3">
+        <span class="font-mono text-caption uppercase text-sage">Label</span>
+        <div class="inline-flex p-1 border border-stone">
+          <button class="px-4 py-1.5 font-body text-body-sm font-semibold bg-ink text-cream">Before</button>
+          <button class="px-4 py-1.5 font-body text-body-sm font-semibold text-sage">After</button>
+        </div>
+      </div>
+      <div class="border-2 border-dashed border-stone p-12 text-center">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#5C6F66" stroke-width="2" class="mx-auto"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <p class="mt-3 font-display text-display-sm text-ink">Drop foto atau klik untuk pilih</p>
+        <p class="mt-2 font-body text-body-sm text-sage">Format: JPG/PNG. Maks 10MB.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <figure class="space-y-2">
+          <div class="aspect-[3/4] bg-parchment border border-stone overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=400&q=70" class="w-full h-full object-cover" />
+          </div>
+          <figcaption class="font-mono text-caption uppercase text-sage">Before â€¢ 12 Mar 2026</figcaption>
+        </figure>
+        <figure class="space-y-2">
+          <div class="aspect-[3/4] bg-parchment border border-stone overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=70" class="w-full h-full object-cover" />
+          </div>
+          <figcaption class="font-mono text-caption uppercase text-sage">After â€¢ 26 Mar 2026</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="tab-history" class="hidden">
+      <ol class="space-y-8 max-w-3xl">
+        <li class="grid grid-cols-12 gap-6 pb-8 border-b border-stone">
+          <time class="col-span-3 font-display italic text-display-sm text-forest leading-none">26 Mar 2026</time>
+          <div class="col-span-9">
+            <h3 class="font-display text-display-sm text-ink leading-tight">Facial Basic + Acne Treatment</h3>
+            <p class="mt-2 font-body text-body-sm text-sage">Rani Wulandari â€¢ 50 min</p>
+            <p class="mt-3 font-body text-body text-graphite leading-relaxed">Ekstraksi komedo blackhead zona T. Aplikasikan salicylic acid 2% pada area peradangan aktif. Kulit responden baik, tidak ada iritasi.</p>
+          </div>
+        </li>
+        <li class="grid grid-cols-12 gap-6 pb-8 border-b border-stone">
+          <time class="col-span-3 font-display italic text-display-sm text-forest leading-none">12 Mar 2026</time>
+          <div class="col-span-9">
+            <h3 class="font-display text-display-sm text-ink leading-tight">Konsultasi Dermatologist + Facial Basic</h3>
+            <p class="mt-2 font-body text-body-sm text-sage">dr. Anissa Putri â€¢ 75 min</p>
+            <p class="mt-3 font-body text-body text-graphite leading-relaxed">Konsultasi awal dengan foto rujukan. Resep: tretinoin 0.025% (malam) + clindamycin (spot). Treatment awal Facial Basic disarankan 2 minggu sekali.</p>
+          </div>
+        </li>
+        <li class="grid grid-cols-12 gap-6 pb-8 border-b border-stone">
+          <time class="col-span-3 font-display italic text-display-sm text-forest leading-none">28 Feb 2026</time>
+          <div class="col-span-9">
+            <h3 class="font-display text-display-sm text-ink leading-tight">Pendaftaran pertama</h3>
+            <p class="mt-2 font-body text-body-sm text-sage">Admin</p>
+            <p class="mt-3 font-body text-body text-graphite leading-relaxed">Keluhan utama: acne vulgaris grade II di area dagu dan pipi. Usia 24. Rujukan dari Instagram.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach((b) => { b.classList.remove('border-ink','text-ink'); b.classList.add('border-transparent','text-sage'); });
+        btn.classList.add('border-ink','text-ink');
+        btn.classList.remove('border-transparent','text-sage');
+        document.getElementById('tab-catatan').classList.toggle('hidden', tab !== 'catatan');
+        document.getElementById('tab-foto').classList.toggle('hidden', tab !== 'foto');
+        document.getElementById('tab-history').classList.toggle('hidden', tab !== 'history');
+      });
+    });
+  </script>
+</body>
+</html>

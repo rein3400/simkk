@@ -1,0 +1,265 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM-KK â€” POS Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tailwind-built.css">
+<style>
+  body { font-family: 'Inter', sans-serif; background: #F5F1EA; color: #0F0F0F; }
+  .font-display { font-family: 'Fraunces', serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <header class="sticky top-0 z-20 h-[72px] backdrop-blur-md bg-cream/80 border-b border-stone">
+    <div class="h-full max-w-[1440px] mx-auto px-8 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <h1 class="font-display text-display-sm leading-none">SIM-KK</h1>
+        <span class="font-mono text-caption uppercase text-sage">Samarinda</span>
+      </div>
+      <div class="flex-1 max-w-md relative">
+        <input type="text" placeholder="Cari pasien, layanan, produk..." class="w-full h-10 pl-3 pr-3 bg-transparent border-0 border-b border-stone focus:border-forest focus:outline-none font-body text-body" />
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-9 h-9 rounded-full bg-forest text-cream grid place-items-center font-display text-body-sm">DK</div>
+        <div>
+          <div class="font-body text-body-sm font-semibold leading-tight">Diani Arthantri</div>
+          <div class="font-mono text-caption uppercase text-sage">Kasir</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="border-b border-stone">
+    <div class="max-w-[1440px] mx-auto px-8 py-4 flex gap-2">
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold bg-ink text-cream">Point of Sale</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage hover:bg-parchment">Rekam Medis</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage hover:bg-parchment">Gudang</button>
+      <button class="px-5 py-2 rounded-full font-body text-body-sm font-semibold text-sage hover:bg-parchment">Laporan</button>
+    </div>
+  </nav>
+
+  <main class="max-w-[1440px] mx-auto px-8 py-24">
+    <div class="grid grid-cols-12 gap-8">
+      <div class="col-span-12 lg:col-span-8 space-y-6">
+        <div class="flex items-end justify-between">
+          <div>
+            <span class="font-mono text-caption uppercase text-forest font-bold">Point of Sale</span>
+            <h1 class="mt-2 font-display text-display-lg text-ink leading-none">Catalog & keranjang</h1>
+          </div>
+          <div class="inline-flex p-1 border border-stone">
+            <button class="cat-chip px-4 py-1.5 rounded-full font-body text-body-sm font-semibold bg-ink text-cream">Semua</button>
+            <button class="cat-chip px-4 py-1.5 rounded-full font-body text-body-sm font-semibold text-sage">Treatment</button>
+            <button class="cat-chip px-4 py-1.5 rounded-full font-body text-body-sm font-semibold text-sage">Produk</button>
+            <button class="cat-chip px-4 py-1.5 rounded-full font-body text-body-sm font-semibold text-sage">Paket</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="catalog">
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Facial Basic" data-price="150000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Facial Basic</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">45 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 150.000</span></div>
+            </div>
+          </button>
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Chemical Peeling" data-price="350000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Chemical Peeling</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">60 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 350.000</span></div>
+            </div>
+          </button>
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Microneedling" data-price="500000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Microneedling</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">90 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 500.000</span></div>
+            </div>
+          </button>
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Laser Rejuvenation" data-price="800000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Laser Rejuvenation</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">75 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 800.000</span></div>
+            </div>
+          </button>
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Treatment Acne" data-price="250000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Treatment Acne</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">50 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 250.000</span></div>
+            </div>
+          </button>
+          <button class="service-tile group text-left bg-cream border border-stone hover:border-forest transition-all duration-480 ease-editorial hover:-translate-y-1 hover:shadow-lg" data-name="Konsultasi Dermatologist" data-price="200000">
+            <div class="aspect-[16/9] overflow-hidden bg-parchment"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=70" alt="" class="w-full h-full object-cover" /></div>
+            <div class="p-4">
+              <span class="font-mono text-caption uppercase text-sage">Treatment</span>
+              <h3 class="mt-1 font-display text-display-sm text-ink leading-tight">Konsultasi Dermatologist</h3>
+              <div class="mt-2 flex items-center justify-between font-body text-body-sm"><span class="text-sage">30 min</span><span class="font-mono text-ink font-semibold tabular-nums">Rp 200.000</span></div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <aside class="col-span-12 lg:col-span-4 lg:sticky lg:top-32 self-start space-y-6">
+        <div class="bg-parchment p-6 border border-stone">
+          <span class="font-mono text-caption uppercase text-forest font-bold">Pasien</span>
+          <select class="mt-3 w-full bg-transparent border-b border-stone focus:border-forest focus:outline-none py-2 font-body text-body">
+            <option>Rina Marlina â€” RM-0001</option>
+            <option>Sarah Putri â€” RM-0002</option>
+            <option>Linda Susanti â€” RM-0003</option>
+          </select>
+          <div class="mt-4 space-y-1 font-body text-body-sm text-graphite">
+            <div><span class="text-sage">RM:</span> RM-0001</div>
+            <div><span class="text-sage">Keluhan:</span> Acne vulgaris, kulit berminyak</div>
+          </div>
+        </div>
+
+        <div class="bg-parchment p-6 border border-stone">
+          <span class="font-mono text-caption uppercase text-forest font-bold">Terapis bertugas</span>
+          <p class="mt-1 font-body text-body-sm text-sage">Klik foto untuk mengunci komisi</p>
+          <div class="mt-4 grid grid-cols-4 gap-3">
+            <button class="therapist-pick relative aspect-square rounded-full overflow-hidden border-2 border-forest scale-105 shadow-lg">
+              <img src="https://i.pravatar.cc/80?img=1" class="w-full h-full object-cover" />
+              <span class="absolute inset-0 grid place-items-center bg-forest/40 text-cream"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span>
+            </button>
+            <button class="therapist-pick relative aspect-square rounded-full overflow-hidden border-2 border-stone hover:border-sage">
+              <img src="https://i.pravatar.cc/80?img=5" class="w-full h-full object-cover" />
+            </button>
+            <button class="therapist-pick relative aspect-square rounded-full overflow-hidden border-2 border-stone hover:border-sage">
+              <img src="https://i.pravatar.cc/80?img=9" class="w-full h-full object-cover" />
+            </button>
+            <button class="therapist-pick relative aspect-square rounded-full overflow-hidden border-2 border-stone hover:border-sage">
+              <img src="https://i.pravatar.cc/80?img=12" class="w-full h-full object-cover" />
+            </button>
+          </div>
+          <div class="mt-3 font-body text-body-sm font-semibold text-forest">Rani Wulandari</div>
+        </div>
+
+        <div class="bg-cream p-6 border-2 border-ink">
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-mono text-caption uppercase text-forest font-bold">Keranjang</span>
+            <span class="font-mono text-body-sm text-sage tabular-nums" id="item-count">0 item</span>
+          </div>
+
+          <div id="cart-empty" class="py-12 text-center font-body text-body-sm text-sage">
+            Keranjang kosong â€” pilih layanan di catalog
+          </div>
+
+          <div id="cart-lines" class="space-y-3 max-h-64 overflow-y-auto hidden"></div>
+
+          <div class="mt-6 space-y-2 font-body text-body-sm">
+            <div class="flex justify-between"><span class="text-sage">Subtotal</span><span class="font-mono tabular-nums" id="subtotal">Rp 0</span></div>
+            <div class="flex justify-between items-center">
+              <span class="text-sage">Diskon</span>
+              <input type="number" id="discount" value="0" class="w-24 text-right bg-transparent border-b border-stone focus:border-forest focus:outline-none py-1 font-mono tabular-nums" />
+            </div>
+            <div class="flex justify-between items-baseline pt-3 border-t border-ink">
+              <span class="font-display text-display-sm text-ink">Total</span>
+              <span class="font-mono text-display-sm text-ink font-semibold tabular-nums" id="total">Rp 0</span>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <span class="font-mono text-caption uppercase text-sage">Metode bayar</span>
+            <div class="mt-2 flex flex-wrap gap-1.5" id="metode-list">
+              <button data-metode="Tunai" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-ink text-cream border-ink">Tunai</button>
+              <button data-metode="Transfer BCA" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-transparent text-graphite border-stone hover:border-forest">Transfer BCA</button>
+              <button data-metode="Transfer Mandiri" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-transparent text-graphite border-stone hover:border-forest">Transfer Mandiri</button>
+              <button data-metode="QRIS BCA" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-transparent text-graphite border-stone hover:border-forest">QRIS BCA</button>
+              <button data-metode="QRIS Mandiri" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-transparent text-graphite border-stone hover:border-forest">QRIS Mandiri</button>
+              <button data-metode="EDC" class="metode-chip px-3 py-1.5 text-body-sm font-semibold border bg-transparent text-graphite border-stone hover:border-forest">EDC</button>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-2">
+            <button id="pay-btn" disabled class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 bg-forest text-cream font-body text-body font-bold hover:bg-forest_deep transition-colors duration-480 ease-editorial disabled:opacity-40">
+              Tandai Lunas
+            </button>
+            <button id="clear-btn" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-stone text-sage hover:border-ink hover:text-ink font-body text-body-sm transition-colors duration-480 ease-editorial">
+              Bersihkan
+            </button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const cart = {};
+    const fmt = (n) => 'Rp ' + n.toLocaleString('id-ID');
+    const update = () => {
+      const lines = Object.entries(cart).map(([name, qty]) => {
+        const btn = document.querySelector(`[data-name="${name}"]`);
+        const price = Number(btn.dataset.price);
+        return { name, qty, price, lineTotal: price * qty };
+      });
+      const subtotal = lines.reduce((s, l) => s + l.lineTotal, 0);
+      const discount = Math.min(subtotal, Math.max(0, Number(document.getElementById('discount').value || 0)));
+      const total = subtotal - discount;
+      const itemCount = lines.reduce((s, l) => s + l.qty, 0);
+      document.getElementById('item-count').textContent = itemCount + ' item';
+      document.getElementById('subtotal').textContent = fmt(subtotal);
+      document.getElementById('total').textContent = fmt(total);
+      document.getElementById('cart-empty').classList.toggle('hidden', lines.length > 0);
+      document.getElementById('cart-lines').classList.toggle('hidden', lines.length === 0);
+      const container = document.getElementById('cart-lines');
+      container.innerHTML = lines.map((l) => `
+        <div class="flex items-start gap-3 pb-3 border-b border-stone">
+          <div class="flex-1 min-w-0">
+            <div class="font-body text-body font-semibold text-ink truncate">${l.name}</div>
+            <div class="font-mono text-body-sm text-sage tabular-nums">${fmt(l.price)} Ã— ${l.qty}</div>
+          </div>
+          <div class="inline-flex items-center gap-1">
+            <button onclick="cart['${l.name}'] = Math.max(0, cart['${l.name}'] - 1); if (cart['${l.name}'] === 0) delete cart['${l.name}']; update()" class="w-7 h-7 grid place-items-center border border-stone hover:border-forest">âˆ’</button>
+            <span class="w-6 text-center font-mono text-body-sm tabular-nums">${l.qty}</span>
+            <button onclick="cart['${l.name}'] = (cart['${l.name}'] || 0) + 1; update()" class="w-7 h-7 grid place-items-center border border-stone hover:border-forest">+</button>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('pay-btn').disabled = lines.length === 0;
+    };
+
+    document.querySelectorAll('.service-tile').forEach((tile) => {
+      tile.addEventListener('click', () => {
+        const name = tile.dataset.name;
+        cart[name] = (cart[name] || 0) + 1;
+        update();
+      });
+    });
+    document.getElementById('discount').addEventListener('input', update);
+    document.getElementById('clear-btn').addEventListener('click', () => { for (const k of Object.keys(cart)) delete cart[k]; update(); });
+
+    document.querySelectorAll('.metode-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.metode-chip').forEach((c) => { c.classList.remove('bg-ink','text-cream','border-ink'); c.classList.add('bg-transparent','text-graphite','border-stone'); });
+        chip.classList.add('bg-ink','text-cream','border-ink');
+        chip.classList.remove('bg-transparent','text-graphite','border-stone');
+      });
+    });
+
+    document.querySelectorAll('.therapist-pick').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.therapist-pick').forEach((c) => { c.classList.remove('border-forest','scale-105','shadow-lg'); c.classList.add('border-stone'); const overlay = c.querySelector('span'); if (overlay) overlay.remove(); });
+        chip.classList.add('border-forest','scale-105','shadow-lg');
+        chip.classList.remove('border-stone');
+        const overlay = document.createElement('span');
+        overlay.className = 'absolute inset-0 grid place-items-center bg-forest/40 text-cream';
+        overlay.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+        chip.appendChild(overlay);
+      });
+    });
+  </script>
+</body>
+</html>
