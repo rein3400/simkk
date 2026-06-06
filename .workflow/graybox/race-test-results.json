@@ -1,0 +1,71 @@
+{
+  "scan_date": "2026-06-06",
+  "scope": "apps/api/app/Http/Controllers/Api/TransaksiController + apps/api/app/Services/TransaksiService",
+  "phpunit_suite": "tests/Feature/GrayBox/IdempotencyRaceTest",
+  "test_count": 7,
+  "all_passed": true,
+  "results": [
+    {
+      "id": "GB-RACE-01",
+      "name": "Idempotency-Key is optional on /pay",
+      "result": "PASS",
+      "detail": "/pay works without Idempotency-Key header. Key is opt-in but recommended for client retry safety."
+    },
+    {
+      "id": "GB-RACE-02",
+      "name": "Same Idempotency-Key replays cached response",
+      "result": "PASS",
+      "detail": "Second call with same key returns the cached 201 response, no duplicate Transaksi row created."
+    },
+    {
+      "id": "GB-RACE-03",
+      "name": "Malformed Idempotency-Key rejected",
+      "result": "PASS",
+      "detail": "Key shorter than 8 chars returns 422. Key with invalid characters returns 422. Regex: /^[A-Za-z0-9._-]{8,128}$/."
+    },
+    {
+      "id": "GB-RACE-04",
+      "name": "Idempotency-Key persisted as sha256 hash",
+      "result": "PASS",
+      "detail": "Row in idempotency_keys has key_hash 64 chars (sha256 hex), endpoint 'transactions.pay', status_code 201, response_body stored as JSON."
+    },
+    {
+      "id": "GB-RACE-05",
+      "name": "Last stock item race serializes",
+      "result": "PASS",
+      "detail": "Two sequential /pay calls with stock=1, qty=1 each: first 201, second 422 (insufficient stock). lockForUpdate() in decrementStock serializes access."
+    },
+    {
+      "id": "GB-RACE-06",
+      "name": "Concurrent qty=2 calls with stock=2",
+      "result": "PASS",
+      "detail": "First 201, second 422. FIFO and lockForUpdate prevent oversell."
+    },
+    {
+      "id": "GB-RACE-07",
+      "name": "FIFO ordering with reusable sentinel",
+      "result": "PASS",
+      "detail": "Batches sorted by CASE WHEN kadaluarsa IS NULL THEN '9999-12-31' ELSE kadaluarsa END ASC. qty=7 consumed B-2026 (5) + B-2027 (2), B-REUS untouched."
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-RACE-01",
+      "severity": "low",
+      "area": "Idempotency-Key",
+      "detail": "Idempotency-Key is optional. F-006 design doc claims replay protection, but a client that retries without sending the key will create duplicates. Consider making it required for /pay, or document that the client MUST send it on retry."
+    },
+    {
+      "id": "F-RACE-02",
+      "severity": "low",
+      "area": "Idempotency-Key cleanup",
+      "detail": "Migration has index('created_at') for cleanup cron, but no scheduled job exists in app/Console/. Rows accumulate forever."
+    },
+    {
+      "id": "F-RACE-03",
+      "severity": "low",
+      "area": "Race window",
+      "detail": "TransaksiService::pay has a 3-attempt retry loop for the unique id_transaksi race (F-004 fix), but the retry doesn't actually re-run the create — it just breaks out of the loop. The intended retry is missing. Single unique-key violation during clock-rollover or high concurrency would cause 500."
+    }
+  ]
+}

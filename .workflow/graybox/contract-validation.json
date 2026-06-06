@@ -1,0 +1,91 @@
+{
+  "scan_date": "2026-06-06",
+  "scope": "apps/api/app/Http/Controllers/Api/* vs apps/web/src/services/api.ts + apps/web/src/types/domain.ts",
+  "phpunit_suite": "tests/Feature/GrayBox/ContractValidationTest",
+  "test_count": 6,
+  "all_passed": true,
+  "endpoints": [
+    {
+      "id": "GB-CONTRACT-01",
+      "endpoint": "POST /api/login",
+      "fe_type": "LoginResult",
+      "status": "PASS",
+      "assertions": ["token:string", "user.id", "user.username", "user.nama_lengkap", "user.level", "user.shift"],
+      "notes": "AuthController::login returns the expected shape. user object contains id/username/nama_lengkap/level/shift."
+    },
+    {
+      "id": "GB-CONTRACT-02",
+      "endpoint": "GET /api/bootstrap",
+      "fe_type": "AppData",
+      "status": "PASS",
+      "assertions": [
+        "users:array", "patients:array", "services:array", "therapists:array",
+        "transactions:array", "inventory:array", "reports:array",
+        "patient: {id,name,age,phone,recordId,concern,treatments,photos}",
+        "service: {id,name,category,duration,price,commissionRate,stockProductId,stockImpact}",
+        "therapist: {id,name,specialty,status}"
+      ],
+      "notes": "All top-level keys present. camelCase mapping correct (nama_pasien -> name, rekam_medis_id -> recordId)."
+    },
+    {
+      "id": "GB-CONTRACT-03",
+      "endpoint": "POST /api/transactions/pay",
+      "fe_type": "{transaction:Transaction, receipt, cashLedger}",
+      "status": "PASS",
+      "assertions": [
+        "transaction: {id,patient,therapist,status,subtotal,discount,paymentMethod,total,commission,time}",
+        "receipt: {id,transactionId,subtotal,discount,paymentMethod,total}",
+        "cashLedger: {type,amount,transactionId}"
+      ],
+      "notes": "All required keys present. Status code 201 on success."
+    },
+    {
+      "id": "GB-CONTRACT-04",
+      "endpoint": "POST /api/patients/{id}/treatments",
+      "fe_type": "TreatmentNote",
+      "status": "PASS",
+      "assertions": ["id:int", "date:string", "therapist:string", "title:string", "notes:string"],
+      "notes": "Returns full note shape. Therapist name is server-derived (F-005 fix)."
+    },
+    {
+      "id": "GB-CONTRACT-05",
+      "endpoint": "POST /api/patients/{id}/photos",
+      "fe_type": "ClinicalPhoto",
+      "status": "PASS",
+      "assertions": ["id:string", "label:'Before'|'After'", "date:string", "objectRef:string"],
+      "notes": "id is stringified per FE type. objectRef starts with 'clinical/'. Content must be data: URL or raw bytes; controller decodes and validates with getimagesizefromstring."
+    },
+    {
+      "id": "GB-CONTRACT-06",
+      "endpoint": "POST /api/inventory/purchases",
+      "fe_type": "InventoryProduct",
+      "status": "PASS",
+      "assertions": [
+        "id, name, category, totalStock, newBatch",
+        "newBatch: {code, qty, hpp, expiry, supplier}"
+      ],
+      "notes": "Returns updated product with new batch. expiry is Y-m-d or 'Reusable' for null."
+    }
+  ],
+  "mismatches": [],
+  "warnings": [
+    {
+      "id": "W-CONTRACT-01",
+      "severity": "low",
+      "area": "patient.riskNote vs api",
+      "detail": "FE type has riskNote; FE never sends it on create. API returns riskNote in bootstrap but no endpoint creates/updates it."
+    },
+    {
+      "id": "W-CONTRACT-02",
+      "severity": "low",
+      "area": "patient.alamat",
+      "detail": "FE type has alamat; API never returns it (only nama_pasien/usia/nomor_telp/rekam_medis_id/keluhan/last_visit/risk_note). UI cannot show it."
+    },
+    {
+      "id": "W-CONTRACT-03",
+      "severity": "low",
+      "area": "transaction.waktu",
+      "detail": "API returns 'time' (HH:MM) on transaction; FE type marks it string. No separate created_at exposed."
+    }
+  ]
+}
