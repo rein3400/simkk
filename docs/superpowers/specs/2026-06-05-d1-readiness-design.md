@@ -11,6 +11,7 @@ Optimasi `apps/api` agar production-ready di **Cloudflare D1** (database) + **Cl
 - Object storage prod = Cloudflare R2 via S3-compatible driver.
 - DB dev = SQLite lokal (existing, tidak diubah).
 - Foto klinis upload → R2 prod, fallback ke disk `local` jika R2 env kosong (existing behavior di `StorageService`).
+- **NEW (2026-06-06)**: Schema migration untuk mendukung Daily Report (image 1) + Inventory Movements (image 2). Lihat sub-bagian "Daily Report + Inventory Movements Schema" di bawah.
 
 ## Architecture
 
@@ -37,6 +38,86 @@ Optimasi `apps/api` agar production-ready di **Cloudflare D1** (database) + **Cl
 - Deploy: wrangler CLI untuk D1 migrations + R2 token manual UI
 
 ## Schema Changes (5 perubahan D1-friendly)
+
+### 0. Schema untuk Daily Report + Inventory Movements (BARU 2026-06-06)
+
+PRD 3.3.1: "Ruang Tanda Tangan **Manajer dan Kasir**". Image 1 menampilkan Daily Report dengan multi-payment methods. Image 2 menampilkan Inventory Movements per barang per hari. Schema existing perlu ekstensi:
+
+**Tabel baru `daily_cash_float`** (modal awal kasir per hari):
+```sql
+CREATE TABLE daily_cash_float (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,         -- kasir
+  tanggal DATE NOT NULL,
+  modal_awal INTEGER NOT NULL,      -- cash at cashier, started of day
+  catatan TEXT,
+  created_at TEXT, updated_at TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE UNIQUE INDEX idx_daily_cash_float_user_date ON daily_cash_float(user_id, tanggal);
+```
+
+**Tabel baru `daily_closing`** (workflow approval kasir → manajer):
+```sql
+CREATE TABLE daily_closing (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  tanggal DATE NOT NULL UNIQUE,
+  user_kasir_id INTEGER NOT NULL,
+  submitted_at TEXT,
+  user_manajer_id INTEGER,
+  approved_at TEXT,
+  status TEXT DEFAULT 'draft',      -- draft|submitted|approved|final
+  total_penjualan INTEGER,
+  total_card INTEGER,
+  total_tunai INTEGER,
+  pnl INTEGER,                       -- profit/loss hari itu
+  setoran_bank INTEGER,              -- cash out ke rekening transit
+  signature_kasir_path TEXT,         -- path ke R2 untuk TTD image
+  signature_manajer_path TEXT,
+  pdf_path TEXT,                     -- path ke R2 untuk generated PDF
+  catatan TEXT,
+  created_at TEXT, updated_at TEXT
+);
+```
+
+**Modifikasi `transaksi.metode_bayar`** — sudah varchar 32, cukup. Tidak perlu enum. Daftar nilai yang dipakai:
+- `Tunai` (cash)
+- `Transfer BCA`, `Transfer Mandiri`
+- `QRIS BCA`, `QRIS Mandiri`
+- `EDC BCA`, `EDC Mandiri`, `EDC BCA Kasir`, `EDC Mandiri Kasir`
+
+Migration: tambah komentar/konstanta di `app/Constants/MetodeBayar.php` untuk single source of truth.
+
+**Modifikasi `produk.kategori`** — tambah kolom `kategori` jika belum ada (cek di migration `2026_06_01_000003_create_produk_table.php`). Image 1 mengelompokkan net sales per kategori: Facial Wash, Sunscreen, Premium, dll.
+
+**Tabel baru `stok_mutasi`** (inventory movements harian):
+```sql
+CREATE TABLE stok_mutasi (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id_produk INTEGER NOT NULL,
+  tanggal DATE NOT NULL,
+  tipe TEXT NOT NULL,               -- 'pembelian'|'return_purchase'|'return_sales'|'sales'|'barang_keluar'
+  arah TEXT NOT NULL,               -- 'IN'|'OUT'
+  qty REAL NOT NULL,
+  id_batch INTEGER,                 -- FK ke batch_stok, NULL untuk retur
+  id_transaksi INTEGER,             -- FK ke transaksi, NULL untuk pembelian
+  catatan TEXT,
+  created_at TEXT, updated_at TEXT
+);
+CREATE INDEX idx_stok_mutasi_produk_tanggal ON stok_mutasi(id_produk, tanggal);
+CREATE INDEX idx_stok_mutasi_tipe_arah ON stok_mutasi(tipe, arah);
+```
+
+Tipe & arah:
+- `pembelian` (IN) — dari `pembelian_supplier`
+- `return_purchase` (OUT) — retur ke supplier
+- `return_sales` (IN) — retur dari customer
+- `sales` (OUT) — dari transaksi Lunas (auto-generated via trigger service)
+- `barang_keluar` (OUT) — pemakaian internal/sample/service (manual entry)
+
+**Modifikasi `users.signature_path`** — tambah kolom `signature_path` (nullable) untuk upload TTD image ke R2. Digunakan untuk render di PDF Daily Report (Kasir + Manajer sesuai PRD 3.3.1).
+
+**Migration file**: `2026_06_06_120000_add_daily_report_and_inventory_movements.php` — single migration yang create 3 tabel baru + alter 3 tabel existing.
 
 ### 1. Foreign keys di D1 (off by default)
 
@@ -166,11 +247,13 @@ npx wrangler d1 migrations apply simkk --remote
 |---|---|
 | `wrangler.toml` + D1 binding | 1-2 jam |
 | Migration audit + 5 perubahan schema | 3-4 jam |
+| **Schema migration untuk Daily Report + Inventory Movements (3 tabel baru + 3 alter) (2026-06-06)** | **4-5 jam** |
 | `ProductionBootstrapSeeder` + dev override | 2 jam |
+| **Seeder untuk metode bayar enum + sample stok_mutasi (2026-06-06)** | **1-2 jam** |
 | CI workflow (GitHub Actions) | 2 jam |
 | D1 deploy verification + smoke test | 1 jam |
 | Doc update (ARCHITECTURE.md, CONTEXT.md, HALLUCINATION.md) | 1 jam |
-| **Total** | **~10-12 jam kerja** |
+| **Total** | **~15-19 jam kerja** |
 
 ## Acceptance Criteria
 
@@ -180,5 +263,11 @@ npx wrangler d1 migrations apply simkk --remote
 - [ ] `php artisan test --testsuite=d1-local` pass di wrangler d1
 - [ ] R2 test: upload foto klinis → dapat URL publik (atau signed URL) → tampil di MedicalRecordView
 - [ ] `ProductionBootstrapSeeder` jalan di D1 fresh, hasilnya 4 user + 5 layanan + 5 produk + 2 batch/produk + 1 supplier bisa di-query via D1 console
+- [ ] **(2026-06-06) Migration `2026_06_06_120000_add_daily_report_and_inventory_movements.php` create 3 tabel + alter 3 tabel tanpa error**
+- [ ] **(2026-06-06) `users.signature_path` bisa di-upload via profile UI, image tersimpan di R2**
+- [ ] **(2026-06-06) `daily_closing` workflow: draft → submitted → approved → final, dengan TTD kasir + manajer (PRD 3.3.1)**
+- [ ] **(2026-06-06) `stok_mutasi` auto-logged saat `transaksi.status` jadi `Lunas` (sales OUT) dan `pembelian_supplier` baru (pembelian IN)**
+- [ ] **(2026-06-06) Service: `DailyReportService::generate($tanggal)` return PDF sesuai image 1 (KOP, net sales per kategori, multi-payment, P&L, TTD dual)**
+- [ ] **(2026-06-06) Service: `InventoryMovementService::query($from, $to)` return rows sesuai image 2 (per barang per hari, range filter)**
 - [ ] ARCHITECTURE.md, CONTEXT.md, HALLUCINATION.md di-update dengan status D1
 - [ ] Spec ini di-commit ke git
