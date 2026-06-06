@@ -1,0 +1,33 @@
+
+> sim-kk-real-services@0.1.0 dev
+> concurrently -k -n API,WEB "node backend/server.mjs" "vite --host 127.0.0.1"
+
+[WEB] 
+[WEB]   [32m[1mVITE[22m v8.0.14[39m  [2mready in [0m[1m757[22m[2m[0m ms[22m
+[WEB] 
+[WEB]   [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+[API] SIM-KK API listening on http://127.0.0.1:5174
+[WEB] [2m07.36.00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/AppShell.vue, /src/components/RoleSwitcher.vue, /src/components/ReportPreview.vue[22m
+[WEB] [2m07.36.07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/views/MedicalRecordView.vue, /src/views/InventoryView.vue, /src/views/PosView.vue, /src/views/ReportsView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.36.21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/App.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.36.36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/RoleSwitcher.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.39.43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/AppShell.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.41.05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/PosView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.41.20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/PosView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.41.33[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/PosView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.41.46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/PosView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.42.50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/PaymentSummary.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.43.40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MedicalRecordView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.43.51[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MedicalRecordView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.44.14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MedicalRecordView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.44.27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/InventoryView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.44.44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/ReportsView.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.44.55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/ReportPreview.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.45.01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/DataTable.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.45.13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/PhotoCompare.vue, /src/styles/tokens.css[22m
+[WEB] [2m07.46.11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/tokens.css[22m
+[WEB] [2m07.46.21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/tokens.css[22m
+[WEB] [2m07.46.46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles/tokens.css[22m
+[API] node backend/server.mjs exited with code 4294967295
+--> Sending SIGTERM to other processes..
+[WEB] vite --host 127.0.0.1 exited with code 4294967295

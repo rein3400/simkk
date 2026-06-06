@@ -5,6 +5,9 @@
 **Dipersembahkan untuk**: Klien Pengusaha Klinik Kecantikan, Samarinda
 **Status**: Visual Preview v0.1 — siap untuk review klien
 
+> **Dokumen utama untuk klien**: Lihat **[`../DELIVERABLE.md`](../DELIVERABLE.md)** untuk paket lengkap (elevator pitch, deskripsi 7 layar, arsitektur, 4 pertanyaan approval, timeline).
+> Dokumen ini (`CLIENT-NOTE.md`) adalah catatan teknis internal — checklist approval, design rationale, dan TODO developer.
+
 ---
 
 ## Apa yang dikirim
