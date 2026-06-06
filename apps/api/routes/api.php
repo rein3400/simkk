@@ -36,4 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('role:Manajer,Terapis');
 });
 
+// Telegram webhook — public (Telegram servers call this, no auth)
+// Webhook secret verification would be added via X-Telegram-Bot-Api-Secret-Token header in production.
+Route::match(['get', 'post'], '/telegram/webhook', [TelegramController::class, 'webhook']);
+
 Route::get('/health', fn () => response()->json(['ok' => true]));
