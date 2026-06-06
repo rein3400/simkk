@@ -1,0 +1,37 @@
+{
+  "name": "sim-kk-web",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test:smoke": "playwright test",
+    "test:smoke:previews": "playwright test --config=playwright.previews.config.ts"
+  },
+  "dependencies": {
+    "@lucide/vue": "latest",
+    "@tailwindcss/vite": "latest",
+    "@vitejs/plugin-vue": "latest",
+    "concurrently": "^9.2.1",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "motion": "latest",
+    "pdfkit": "^0.18.0",
+    "sql.js": "^1.14.1",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vite": "latest",
+    "vue": "latest",
+    "vue-tsc": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest"
+  },
+  "overrides": {
+    "exceljs": {
+      "uuid": "^11.1.1"
+    }
+  }
+}
