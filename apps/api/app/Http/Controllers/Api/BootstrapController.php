@@ -85,11 +85,12 @@ class BootstrapController extends Controller
 
         return response()->json([
             'users'        => User::orderBy('id')->get()->map(fn ($u) => [
-                'id'           => $u->id,
-                'username'     => $u->username,
-                'name'         => $u->nama_lengkap,
-                'role'         => $u->level,
-                'shift'        => $u->shift,
+                'id'            => $u->id,
+                'username'      => $u->username,
+                'name'          => $u->nama_lengkap,
+                'role'          => $u->level,
+                'shift'         => $u->shift,
+                'signaturePath' => $u->signature_path,
             ]),
             'patients'     => $pasien,
             'services'     => $layanan,
