@@ -18,6 +18,7 @@ class Pasien extends Model
         'keluhan',
         'last_visit',
         'risk_note',
+        'assigned_terapis_id',
     ];
 
     public function treatments(): HasMany

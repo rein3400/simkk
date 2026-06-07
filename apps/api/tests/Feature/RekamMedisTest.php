@@ -16,7 +16,7 @@ class RekamMedisTest extends TestCase
     /**
      * 1x1 transparent PNG, base64-encoded. Valid for getimagesizefromstring().
      */
-    private const VALID_PNG_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+    private const VALID_PNG_BASE64 = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 
     private function makeUser(string $level, string $namaLengkap): User
     {
