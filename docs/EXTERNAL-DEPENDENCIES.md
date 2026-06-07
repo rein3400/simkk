@@ -78,24 +78,51 @@ Dokumen ini mencatat semua API eksternal, layanan, dan infrastruktur yang dibutu
 
 ## Platform & Infrastruktur (LOCKED)
 
-### 3. Server Hosting — VPS ✅
+### 3. Server Hosting — Tencent Cloud CVM S5.SMALL2 ✅
 
-**Status:** Decided. VPS dengan PHP 8.3 + nginx + php-fpm. Laravel app stay on VPS (per `deploy/cloudflare/02-vps-provision.md`).
+**Status:** Decided. Tencent CVM S5.SMALL2: **2 vCPU / 2 GB RAM / 40 GB SSD / 512 GB bandwidth @ 20 Mbps**, ~Rp 60.000/bulan (~$4 USD), region Jakarta (id).
+
+**OS**: Ubuntu 24.04 LTS (Noble Numbat) — 5-year support, PHP 8.3 native repo.
+
+**Stack**:
+- nginx 1.24 (reverse proxy + static file serving)
+- PHP 8.3 + PHP-FPM (process manager, OPcache enabled)
+- SQLite 3 (file-based local DB, zero ops)
+- systemd-managed services (PHP-FPM, scheduler, fail2ban)
+- Cloudflare R2 for foto klinis (off-server)
+- Telegram Bot API for notifications (free, no Meta Business)
+- Uptime Kuma (self-hosted, Docker) for monitoring
 
 | Service | Root dir | Build | Start |
 |---|---|---|---|
-| API (Laravel) | `apps/api` | `composer install --no-dev` | `php artisan serve` (or php-fpm) |
-| Web (Vue 3) | `apps/web` | `npm ci && npm run build` | `npx serve dist -s` |
+| API (Laravel) | `apps/api` | `composer install --no-dev` | `php-fpm` (systemd) |
+| Web (Vue 3) | `apps/web` | `npm ci && npm run build` | nginx serves `dist/` |
 
-### 4. Database Hosting — Cloudflare D1 ✅
+**Resource fit for 1 klinik** (Samarinda, 1-5 transaksi/jam):
+- RAM: nginx 50MB + PHP-FPM 4 workers × 50MB + Laravel 200MB + SQLite 50MB = ~500MB-1GB → 2GB cukup (50% headroom)
+- Storage: OS 5GB + Laravel+vendor 100MB + Vue dist 5MB + SQLite 50MB/year + foto lokal fallback 1-5GB → 40GB cukup 1-2 tahun
+- Bandwidth: 512GB/mo @ 20Mbps = 5-20GB/mo actual usage
 
-**Status:** Decided. D1 SQLite at edge, accessed from VPS via Cloudflare API. D1 = `simkk` database.
+**Setup guide**: see `outputs/STATUS-REPORT.md` section 4.
 
-Local dev: SQLite file. Production: D1 via `wrangler d1` migration.
+### 4. Database Hosting — SQLite local (D1 future scale path) ✅
 
-- **Setup**: `wrangler d1 create simkk` → dapat `database_id` → update `wrangler.toml` → `wrangler d1 migrations apply simkk --remote`
-- **Cost**: Free tier 5GB storage + 5M reads/day + 100K writes/day — lebih dari cukup untuk 1 klinik Samarinda (1-5 transaksi/jam)
-- **Prerequisites**: D1 driver shim in `apps/api/config/database.php` (D1 SQLite wire protocol)
+**Status:** Decided for stage 1. Local SQLite file di VPS (`apps/api/database/database.sqlite`).
+
+D1 (Cloudflare) remains optional future scale path — custom Laravel driver shim perlu dibuat untuk akses D1 via HTTP API.
+
+**Local SQLite (stage 1)**:
+- ✅ Zero ops, zero network latency
+- ✅ Laravel migration works as-is
+- ✅ Backup via cron + R2 nightly
+- Cocok untuk: 1 klinik, traffic 1-5 transaksi/jam
+
+**D1 (future scale)**:
+- Multi-klinik chain
+- Cost: free tier 5GB + 5M reads/day + 100K writes/day
+- Migration: implement custom Laravel driver
+
+**Strategy**: deploy stage 1 with local SQLite. Migrate to D1 only if scaling beyond 1 klinik.
 
 ### 5. Object Storage — Cloudflare R2 ✅
 
