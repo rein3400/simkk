@@ -44,6 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/inventory-movements', [InventoryMovementController::class, 'index'])
         ->middleware('role:Gudang,Manajer');
 
+    // Photo proxy — streams R2 object through Laravel (avoids R2 presigned URL signature quirks).
+    // URL: /api/photos/{id}/raw
+    Route::get('/photos/{photo}/raw', [RekamMedisController::class, 'streamPhoto']);
+
     Route::post('/telegram/reminder', [TelegramController::class, 'reminder'])
         ->middleware('role:Manajer,Kasir,Terapis');
     Route::post('/telegram/aftercare', [TelegramController::class, 'aftercare'])

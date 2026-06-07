@@ -10,10 +10,13 @@ use App\Models\Pasien;
 use App\Models\Terapis;
 use App\Models\Transaksi;
 use App\Models\User;
+use App\Services\StorageService;
 use Illuminate\Http\JsonResponse;
 
 class BootstrapController extends Controller
 {
+    public function __construct(private readonly StorageService $storage) {}
+
     public function index(): JsonResponse
     {
         $pasien = Pasien::with(['treatments', 'photos'])
@@ -41,6 +44,7 @@ class BootstrapController extends Controller
                     'label'     => $f->label,
                     'date'      => $f->tanggal,
                     'objectRef' => $f->object_ref,
+                    'url'       => url("/api/photos/{$f->id}/raw"),
                 ]),
             ]);
 

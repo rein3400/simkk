@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Services\StorageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class RekamMedisController extends Controller
 {
@@ -127,6 +129,29 @@ class RekamMedisController extends Controller
             'label'     => $photo->label,
             'date'      => $photo->tanggal,
             'objectRef' => $photo->object_ref,
+            'url'       => url("/api/photos/{$photo->id}/raw"),
         ], 201);
+    }
+
+    /**
+     * Stream a clinical photo from R2 through Laravel.
+     * Used as a proxy to avoid R2 presigned-URL signature quirks.
+     */
+    public function streamPhoto(Request $request, int $photo): StreamedResponse
+    {
+        $foto = FotoKlinis::findOrFail($photo);
+        $disk = config('sim-kk.storage.disk', 'local');
+        $ref  = $foto->object_ref;
+
+        if (!str_starts_with($ref, 'local://') && \Storage::disk($disk)->exists($ref)) {
+            $mime = \Storage::disk($disk)->mimeType($ref) ?: 'image/png';
+            return \Storage::disk($disk)->response($ref, null, [
+                'Content-Type' => $mime,
+            ]);
+        }
+
+        // Fallback: serve a 1x1 transparent PNG so the browser doesn't show broken icon
+        $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
+        return response()->stream(function () use ($png) { echo $png; }, 200, ['Content-Type' => 'image/png']);
     }
 }

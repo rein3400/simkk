@@ -26,6 +26,32 @@ class StorageService
     }
 
     /**
+     * Resolve a stored object_ref to a URL the browser can render.
+     * - R2 / S3 disks -> presigned temporary URL (10 min).
+     * - Local disk -> /storage/ public URL.
+     * - Legacy "local://..." refs (old seeder) -> null so caller can show placeholder.
+     */
+    public function getUrl(?string $objectRef): ?string
+    {
+        if (!$objectRef) return null;
+        if (str_starts_with($objectRef, 'local://')) return null; // legacy seed
+
+        $disk = config('sim-kk.storage.disk', 'local');
+        if ($disk === 'local') {
+            return asset('storage/' . ltrim($objectRef, '/'));
+        }
+        // R2 / S3: use presigned URL
+        try {
+            return Storage::disk($disk)->temporaryUrl(
+                $objectRef,
+                now()->addMinutes(10)
+            );
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    /**
      * Decode a content payload (raw bytes or data: URL) for pre-storage validation.
      * Returns null when decoding fails.
      */
