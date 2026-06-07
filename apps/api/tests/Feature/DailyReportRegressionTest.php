@@ -115,25 +115,11 @@ class DailyReportRegressionTest extends TestCase
 
         $res->assertOk();
 
-        // Dompdf compresses the content stream with FlateDecode, so we can't
-        // grep the PDF binary directly. Instead, round-trip the response
-        // through Dompdf and re-extract text from page 1. This proves the
-        // Blade view rendered the expected section headers end-to-end.
-        $tmp = tempnam(sys_get_temp_dir(), 'rpt01_') . '.pdf';
-        file_put_contents($tmp, $res->getContent());
-        try {
-            $dom = new \Dompdf\Dompdf();
-            $dom->loadHtml(file_get_contents($tmp));
-            // Re-parse by re-loading the pdf via a fresh Dompdf is not
-            // supported; instead use the public Pdf text extraction.
-            $text = (string) $dom->getOptions(); // no-op, just to keep import live
-        } finally {
-            @unlink($tmp);
-        }
-
-        // Fallback assertion: render the Blade view directly with the same
-        // payload and verify the section headers appear in the HTML. This is
-        // the source-of-truth that gets compressed into the PDF.
+        // Dompdf compresses the content stream with FlateDecode, so the
+        // section headers are not greppable in the raw PDF bytes. Render the
+        // same Blade view with the same payload directly: the HTML is the
+        // source of truth that gets compressed into the PDF, and a regression
+        // in the view propagates to both the rendered HTML and the PDF.
         $payload = (new \App\Services\DailyReportService())->buildPayload(self::TANGGAL);
         $html = \Illuminate\Support\Facades\View::make('reports.daily', $payload + [
             'idr' => fn (int $n) => 'Rp' . number_format($n, 0, ',', '.'),
@@ -143,6 +129,9 @@ class DailyReportRegressionTest extends TestCase
         $this->assertStringContainsString('NET SALES', $html);
         $this->assertStringContainsString('CASH OUT', $html);
         $this->assertStringContainsString('P n L', $html);
+
+        // Also assert the PDF magic header for the controller contract.
+        $this->assertStringStartsWith('%PDF', $res->getContent());
     }
 
     public function test_build_payload_uses_layanan_kategori_not_produk(): void
