@@ -14,6 +14,10 @@ return [
         'disk' => env('STORAGE_DISK', 'local'),
     ],
     'telegram' => [
-        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'bot_token'      => env('TELEGRAM_BOT_TOKEN'),
+        // Optional secret for X-Telegram-Bot-Api-Secret-Token verification.
+        // When set, every POST to /api/telegram/webhook must include the matching header.
+        // When null/empty, webhook returns 503 (operator must configure before going live).
+        'webhook_secret' => env('TELEGRAM_WEBHOOK_SECRET'),
     ],
 ];

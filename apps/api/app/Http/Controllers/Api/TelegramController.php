@@ -90,6 +90,31 @@ class TelegramController extends Controller
             return response()->json(['ok' => true, 'webhook' => 'sim-kk-telegram']);
         }
 
+        // Security: verify X-Telegram-Bot-Api-Secret-Token header.
+        // Telegram sends this header on every POST if a secret_token was set via setWebhook.
+        // We use hash_equals for timing-safe comparison.
+        $secret = config('sim-kk.telegram.webhook_secret');
+        if (empty($secret)) {
+            // Operator must configure TELEGRAM_WEBHOOK_SECRET before the webhook is exposed.
+            // 503 (not 401) signals "service not ready" rather than "auth failed".
+            return response()->json([
+                'ok'    => false,
+                'error' => 'telegram webhook secret not configured',
+            ], 503);
+        }
+
+        $provided = $request->header('X-Telegram-Bot-Api-Secret-Token');
+        if (!is_string($provided) || !hash_equals($secret, $provided)) {
+            Log::warning('Telegram webhook rejected: invalid or missing secret token', [
+                'ip'         => $request->ip(),
+                'has_header' => $provided !== null,
+            ]);
+            return response()->json([
+                'ok'    => false,
+                'error' => 'invalid token',
+            ], 401);
+        }
+
         $update = $request->all();
 
         Log::info('Telegram webhook received', ['update_id' => $update['update_id'] ?? null]);

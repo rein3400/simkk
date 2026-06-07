@@ -58,7 +58,7 @@ class DailyReportService
         $transaksis = Transaksi::query()
             ->where('status', 'Lunas')
             ->whereBetween('created_at', [$date, $dateEnd])
-            ->with(['details.produk' => function ($q) {
+            ->with(['details.layanan' => function ($q) {
                 $q->select('id', 'nama', 'kategori');
             }])
             ->orderBy('id')
@@ -96,7 +96,7 @@ class DailyReportService
             }
             foreach ($t->details as $d) {
                 $nilai = (int) round(((int) $d->harga_satuan * (int) $d->qty) * ($total / max(1, $detailSum)));
-                $kat = $d->produk?->kategori ?? 'Layanan';
+                $kat = $d->layanan?->kategori ?? 'Layanan';
                 $netSalesByCategory[$kat] = ($netSalesByCategory[$kat] ?? 0) + $nilai;
             }
         }

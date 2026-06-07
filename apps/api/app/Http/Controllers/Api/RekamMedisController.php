@@ -76,7 +76,24 @@ class RekamMedisController extends Controller
 
     public function addPhoto(Request $request, int $patient, StorageService $storage): JsonResponse
     {
+        $user = $request->user();
         $pasien = Pasien::findOrFail($patient);
+
+        // F-007 fix: Terapis can only write patients assigned to them.
+        // Manajer (also allowed by route middleware) bypasses this check.
+        if ($user->level === 'Terapis') {
+            $terapis = $this->resolveTerapisForUser($user);
+            if ($terapis === null) {
+                return response()->json([
+                    'message' => 'Akun terapis belum terhubung ke data terapis. Hubungi admin.',
+                ], 422);
+            }
+            if ($pasien->assigned_terapis_id !== $terapis->id) {
+                return response()->json([
+                    'message' => 'Pasien ini bukan pasien yang Anda tangani.',
+                ], 403);
+            }
+        }
 
         $validated = $request->validate([
             'label'    => 'required|string|in:Before,After',
