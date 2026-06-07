@@ -62,10 +62,18 @@ export async function payTransaction(token: string, payload: {
   paymentMethod?: string;
   discount?: number;
 }) {
+  // Backend expects Indonesian snake_case fields
+  const body = {
+    pasien_id: payload.patientId,
+    terapis_id: payload.therapistId,
+    items: payload.items,
+    discount: payload.discount ?? 0,
+    metode_bayar: payload.paymentMethod ?? "Tunai",
+  };
   const response = await fetch(apiUrl("/api/transactions/pay"), {
     method: "POST",
     headers: authHeaders(token),
-    body: JSON.stringify(payload),
+    body: JSON.stringify(body),
   });
   return parseJson<{ transaction: Transaction; receipt: { id: string; paymentMethod?: string; discount?: number }; cashLedger: { amount: number } }>(response);
 }
