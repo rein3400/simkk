@@ -130,21 +130,20 @@ Local dev: SQLite file. Production: D1 via `wrangler d1` migration.
 
 ---
 
-## Estimasi Biaya Bulanan (LOCKED: VPS + D1 + R2 + Telegram)
+## Estimasi Biaya Bulanan (LOCKED: Tencent CVM + SQLite + R2 + Telegram)
 
 | Komponen | Harga/bulan |
 |---|---|
-| VPS (Laravel + nginx + php-fpm) | $5-10 (DigitalOcean/Linode) |
-| Cloudflare D1 | $0 (free tier 5GB cukup) |
-| Cloudflare R2 (10 GB free) | $0 (free tier) |
+| Tencent CVM S5.SMALL2 (2vCPU 2GB 40GB) | **Rp 60.000** (~$4) |
 | Cloudflare DNS + SSL | $0 |
-| Telegram Bot API | $0 (gratis unlimited) |
-| Domain (.id/.com) | ~$1/tahun |
-| **Total production** | **~$5-10/bulan** |
+| Cloudflare R2 (10 GB free) | $0 |
+| Telegram Bot API | $0 |
+| Domain (.id/.com) | ~Rp 230.000/tahun |
+| **Total production** | **~Rp 60.000/bulan + Rp 230rb/tahun** |
 
-Lebih murah dari estimasi sebelumnya karena:
+Lebih murah dari estimasi sebelumnya:
 - WA Business API (per conversation billing) → Telegram (gratis)
-- D1 free tier lebih dari cukup untuk klinik kecil
+- Local SQLite (zero ops) → D1 nanti kalau scale
 - R2 egress gratis (vs AWS S3)
 
 ---
@@ -155,24 +154,24 @@ Lebih murah dari estimasi sebelumnya karena:
 ┌─────────────────────────────────────────────────────┐
 │                    CLOUDFLARE                        │
 │         (DNS + CDN + SSL + DDoS Protection)          │
-│         (D1: simkk database)                          │
-│         (R2: simkk-clinical bucket)                   │
+│         (R2: simkk-clinical bucket — foto klinis)   │
 └──────────────────────┬──────────────────────────────┘
-                       │ HTTPS API
+                       │ HTTPS (port 443)
                        ▼
 ┌─────────────────────────────────────────────────────┐
-│  VPS (Laravel + Vue static + nginx + php-fpm)        │
-│  ├─ apps/api (PHP 8.3)                              │
-│  └─ apps/web/dist (Vue 3, served by nginx)         │
+│  Tencent CVM S5.SMALL2 — Jakarta (~Rp 60rb/bulan)   │
+│  Ubuntu 24.04 LTS + nginx 1.24 + PHP 8.3-FPM        │
+│  ├─ /api/* → PHP-FPM → Laravel 13                    │
+│  ├─ /*     → /var/www/sim-kk/apps/web/dist (Vue 3) │
+│  ├─ SQLite (local file, daily backup to R2)         │
+│  └─ systemd: php8.3-fpm + sim-kk-scheduler          │
 └──────────────────────┬──────────────────────────────┘
                        │
-                       ├──────────────┐
-                       ▼              ▼
-              ┌──────────────┐ ┌────────────┐
-              │  Telegram     │ │  D1 (SQLite │
-              │  Bot API      │ │  at edge)   │
-              │  (gratis)     │ │             │
-              └──────────────┘ └────────────┘
+                       ▼
+              ┌─────────────────┐
+              │  Telegram Bot API │
+              │  (free, no Meta)  │
+              └─────────────────┘
 ```
 
 ---
