@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Layanan;
 use App\Models\Produk;
-use App\Models\Terapis;
-use App\Models\Pasien;
 use App\Models\BatchStok;
 use App\Models\PembelianSupplier;
 
@@ -37,11 +35,11 @@ class ProductionBootstrapSeeder extends Seeder
         $this->command->info('  4 users seeded (default password: simkk-2026)');
 
         $layanan = [
-            ['nama' => 'Facial Basic',       'harga' => 150000, 'durasi' => 45, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
-            ['nama' => 'Chemical Peeling',   'harga' => 350000, 'durasi' => 60, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
-            ['nama' => 'Microneedling',      'harga' => 500000, 'durasi' => 90, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
-            ['nama' => 'Laser Rejuvenation', 'harga' => 800000, 'durasi' => 75, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
-            ['nama' => 'Treatment Acne',     'harga' => 250000, 'durasi' => 50, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Facial Basic',       'harga' => 150000, 'durasi' => '45 min', 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Chemical Peeling',   'harga' => 350000, 'durasi' => '60 min', 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Microneedling',      'harga' => 500000, 'durasi' => '90 min', 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Laser Rejuvenation', 'harga' => 800000, 'durasi' => '75 min', 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Treatment Acne',     'harga' => 250000, 'durasi' => '50 min', 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
         ];
         foreach ($layanan as $l) {
             Layanan::firstOrCreate(['nama' => $l['nama']], $l);
@@ -62,35 +60,46 @@ class ProductionBootstrapSeeder extends Seeder
         }
         $this->command->info('  5 produk seeded');
 
-        $supplier = PembelianSupplier::firstOrCreate(
-            ['nama_supplier' => 'PT Kosmetik Nusantara'],
-            ['kontak' => '+62 541 123456', 'alamat' => 'Jl. Industri No. 10, Samarinda']
-        );
-        $this->command->info('  1 supplier seeded');
-
-        foreach ($produkIds as $pid) {
-            BatchStok::firstOrCreate(
-                ['id_produk' => $pid, 'no_batch' => "BATCH-{$pid}-OLD"],
+        $supplier = 'PT Kosmetik Nusantara';
+        foreach ($produkIds as $idx => $pid) {
+            PembelianSupplier::firstOrCreate(
+                ['produk_id' => $pid, 'kode_batch' => "BATCH-{$pid}-OLD"],
                 [
-                    'id_supplier' => $supplier->id,
-                    'tanggal_masuk' => now()->subMonths(3),
-                    'tanggal_kadaluarsa' => now()->addMonths(9),
-                    'harga_beli' => 80000,
-                    'sisa_stok' => 20,
+                    'qty' => 20,
+                    'hpp' => 80000,
+                    'supplier' => $supplier,
+                    'kadaluarsa' => now()->addMonths(9)->format('Y-m-d'),
                 ]
             );
             BatchStok::firstOrCreate(
-                ['id_produk' => $pid, 'no_batch' => "BATCH-{$pid}-NEW"],
+                ['produk_id' => $pid, 'kode_batch' => "BATCH-{$pid}-OLD"],
                 [
-                    'id_supplier' => $supplier->id,
-                    'tanggal_masuk' => now(),
-                    'tanggal_kadaluarsa' => now()->addYear(),
-                    'harga_beli' => 85000,
-                    'sisa_stok' => 30,
+                    'qty' => 20,
+                    'hpp' => 80000,
+                    'kadaluarsa' => now()->addMonths(9)->format('Y-m-d'),
+                    'supplier' => $supplier,
+                ]
+            );
+            BatchStok::firstOrCreate(
+                ['produk_id' => $pid, 'kode_batch' => "BATCH-{$pid}-NEW"],
+                [
+                    'qty' => 30,
+                    'hpp' => 85000,
+                    'kadaluarsa' => now()->addYear()->format('Y-m-d'),
+                    'supplier' => $supplier,
+                ]
+            );
+            PembelianSupplier::firstOrCreate(
+                ['produk_id' => $pid, 'kode_batch' => "BATCH-{$pid}-NEW"],
+                [
+                    'qty' => 30,
+                    'hpp' => 85000,
+                    'supplier' => $supplier,
+                    'kadaluarsa' => now()->addYear()->format('Y-m-d'),
                 ]
             );
         }
-        $this->command->info('  batch_stok seeded (2 batch per produk)');
+        $this->command->info('  2 batch_stok + 2 pembelian_supplier per produk seeded');
 
         $this->command->info('==> Production bootstrap complete.');
     }
