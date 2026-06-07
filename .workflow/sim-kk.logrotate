@@ -1,0 +1,12 @@
+/var/log/sim-kk-scheduler.log {
+    daily
+    rotate 7
+    compress
+    missingok
+    notifempty
+    create 0640 deploy deploy
+    sharedscripts
+    postrotate
+        systemctl reload sim-kk-scheduler.service > /dev/null 2>&1 || true
+    endscript
+}

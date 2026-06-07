@@ -1,0 +1,18 @@
+[Unit]
+Description=SIM-KK Laravel Scheduler
+After=network.target php8.3-fpm.service
+Wants=php8.3-fpm.service
+
+[Service]
+Type=simple
+User=deploy
+Group=deploy
+WorkingDirectory=/var/www/sim-kk/apps/api
+ExecStart=/usr/bin/php /var/www/sim-kk/apps/api/artisan schedule:work
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/sim-kk-scheduler.log
+StandardError=append:/var/log/sim-kk-scheduler.log
+
+[Install]
+WantedBy=multi-user.target
