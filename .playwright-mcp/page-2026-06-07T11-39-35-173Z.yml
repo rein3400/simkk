@@ -1,0 +1,129 @@
+- generic [ref=e703]:
+  - banner [ref=e704]:
+    - generic [ref=e705]:
+      - link "SIM-KK beranda" [ref=e706] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e707]: SK
+        - generic [ref=e708]:
+          - strong [ref=e709]: SIM-KK
+          - generic [ref=e710]: Samarinda
+      - generic [ref=e711]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e712]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e713]:
+        - generic [ref=e714]:
+          - img [ref=e715]
+          - generic [ref=e718]: Manajer
+          - generic [ref=e719]: / Shift Audit
+        - generic [ref=e720]:
+          - generic [ref=e721]: MS
+          - generic [ref=e722]:
+            - generic [ref=e723]: Mira Santoso
+            - generic [ref=e724]: Login terkunci
+        - button "Keluar" [ref=e725] [cursor=pointer]:
+          - img [ref=e726]
+          - generic [ref=e729]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e730]:
+      - generic [ref=e731]:
+        - generic [ref=e732]:
+          - img [ref=e733]
+          - text: Modul aktif
+        - generic [ref=e736]:
+          - button "Kasir POS cepat" [ref=e737] [cursor=pointer]:
+            - img [ref=e738]
+            - generic [ref=e740]: Kasir
+            - generic [ref=e741]: POS cepat
+          - button "Rekam Medis Timeline pasien" [ref=e742] [cursor=pointer]:
+            - img [ref=e743]
+            - generic [ref=e747]: Rekam Medis
+            - generic [ref=e748]: Timeline pasien
+          - button "Gudang FIFO & HPP" [ref=e749] [cursor=pointer]:
+            - img [ref=e750]
+            - generic [ref=e760]: Gudang
+            - generic [ref=e761]: FIFO & HPP
+          - button "Laporan PDF / Excel" [ref=e762] [cursor=pointer]:
+            - img [ref=e763]
+            - generic [ref=e766]: Laporan
+            - generic [ref=e767]: PDF / Excel
+        - generic [ref=e768]:
+          - img [ref=e769]
+          - text: Laporan, audit operasional, dan akses lintas modul.
+  - main [ref=e772]:
+    - generic [ref=e773]:
+      - generic [ref=e774]:
+        - generic [ref=e775]:
+          - generic [ref=e776]:
+            - text: Manajer
+            - heading "Preview laporan" [level=2] [ref=e777]
+          - generic [ref=e778]:
+            - button "Keuangan PDF" [ref=e779] [cursor=pointer]
+            - button "Stok Excel" [ref=e780] [cursor=pointer]
+            - button "Komisi Terapis Excel" [ref=e781] [cursor=pointer]
+        - generic [ref=e782]:
+          - generic [ref=e783]:
+            - img [ref=e784]
+            - generic [ref=e787]:
+              - text: PDF · Jun 2026
+              - heading "Laporan Arus Kas" [level=2] [ref=e788]
+          - generic [ref=e789]:
+            - generic [ref=e790]: KOP KLINIK - Nama, alamat, kontak
+            - table [ref=e792]:
+              - rowgroup [ref=e793]:
+                - row "Id Debit Kredit Saldo" [ref=e794]:
+                  - columnheader "Id" [ref=e795]
+                  - columnheader "Debit" [ref=e796]
+                  - columnheader "Kredit" [ref=e797]
+                  - columnheader "Saldo" [ref=e798]
+              - rowgroup [ref=e799]:
+                - row "TRX-2505-031 Rp575.000 Rp0 Rp575.000" [ref=e800]:
+                  - cell "TRX-2505-031" [ref=e801]
+                  - cell "Rp575.000" [ref=e802]
+                  - cell "Rp0" [ref=e803]
+                  - cell "Rp575.000" [ref=e804]
+                - row "TRX-260606-00004 Rp285.000 Rp0 Rp860.000" [ref=e805]:
+                  - cell "TRX-260606-00004" [ref=e806]
+                  - cell "Rp285.000" [ref=e807]
+                  - cell "Rp0" [ref=e808]
+                  - cell "Rp860.000" [ref=e809]
+                - row "TRX-260606-00005 Rp285.000 Rp0 Rp1.145.000" [ref=e810]:
+                  - cell "TRX-260606-00005" [ref=e811]
+                  - cell "Rp285.000" [ref=e812]
+                  - cell "Rp0" [ref=e813]
+                  - cell "Rp1.145.000" [ref=e814]
+                - row "TRX-260606-00006 Rp285.000 Rp0 Rp1.430.000" [ref=e815]:
+                  - cell "TRX-260606-00006" [ref=e816]
+                  - cell "Rp285.000" [ref=e817]
+                  - cell "Rp0" [ref=e818]
+                  - cell "Rp1.430.000" [ref=e819]
+                - row "TRX-260607-00007 Rp285.000 Rp0 Rp1.715.000" [ref=e820]:
+                  - cell "TRX-260607-00007" [ref=e821]
+                  - cell "Rp285.000" [ref=e822]
+                  - cell "Rp0" [ref=e823]
+                  - cell "Rp1.715.000" [ref=e824]
+                - row "TRX-260607-00008 Rp285.000 Rp0 Rp2.000.000" [ref=e825]:
+                  - cell "TRX-260607-00008" [ref=e826]
+                  - cell "Rp285.000" [ref=e827]
+                  - cell "Rp0" [ref=e828]
+                  - cell "Rp2.000.000" [ref=e829]
+                - row "TRX-260607-00009 Rp285.000 Rp0 Rp2.285.000" [ref=e830]:
+                  - cell "TRX-260607-00009" [ref=e831]
+                  - cell "Rp285.000" [ref=e832]
+                  - cell "Rp0" [ref=e833]
+                  - cell "Rp2.285.000" [ref=e834]
+                - row "TRX-260607-00010 Rp285.000 Rp0 Rp2.570.000" [ref=e835]:
+                  - cell "TRX-260607-00010" [ref=e836]
+                  - cell "Rp285.000" [ref=e837]
+                  - cell "Rp0" [ref=e838]
+                  - cell "Rp2.570.000" [ref=e839]
+            - generic [ref=e840]: Manajer / Kasir
+      - complementary [ref=e841]:
+        - text: Export laporan
+        - heading "PDF" [level=2] [ref=e842]
+        - paragraph [ref=e843]: Nilai berasal dari transaksi, FIFO, dan komisi yang tersimpan di database lokal.
+        - button "Export PDF" [ref=e844] [cursor=pointer]
+      - status [ref=e845]:
+        - img [ref=e846]
+        - text: Export PDF selesai. File asli dibuat dari database lokal.

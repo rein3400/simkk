@@ -1,0 +1,338 @@
+- generic [ref=e678]:
+  - banner [ref=e679]:
+    - generic [ref=e680]:
+      - link "SIM-KK beranda" [ref=e681] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e682]: SK
+        - generic [ref=e683]:
+          - strong [ref=e684]: SIM-KK
+          - generic [ref=e685]: Samarinda
+      - generic [ref=e686]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e687]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e688]:
+        - generic [ref=e689]:
+          - img [ref=e690]
+          - generic [ref=e693]: Kasir
+          - generic [ref=e694]: / Shift Pagi
+        - generic [ref=e695]:
+          - generic [ref=e696]: NP
+          - generic [ref=e697]:
+            - generic [ref=e698]: Nadia Putri
+            - generic [ref=e699]: Login terkunci
+        - button "Keluar" [ref=e700] [cursor=pointer]:
+          - img [ref=e701]
+          - generic [ref=e704]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e705]:
+      - generic [ref=e706]:
+        - generic [ref=e707]:
+          - img [ref=e708]
+          - text: Modul aktif
+        - button "Kasir POS cepat" [ref=e712] [cursor=pointer]:
+          - img [ref=e713]
+          - generic [ref=e715]: Kasir
+          - generic [ref=e716]: POS cepat
+        - generic [ref=e717]:
+          - img [ref=e718]
+          - text: POS, pembayaran, receipt, dan komisi transaksi.
+  - main [ref=e721]:
+    - generic [ref=e722]:
+      - generic [ref=e723]:
+        - generic [ref=e724]:
+          - generic [ref=e725]:
+            - text: Point of Sale
+            - heading "Catalog tindakan & produk" [level=2] [ref=e726]
+          - generic [ref=e727]:
+            - button "Semua" [ref=e728] [cursor=pointer]
+            - button "Treatment" [ref=e729] [cursor=pointer]
+            - button "Produk" [ref=e730] [cursor=pointer]
+            - button "Paket" [ref=e731] [cursor=pointer]
+        - generic [ref=e732]:
+          - button "Treatment Acne Calm Facial 55m Rp 285.000" [ref=e733] [cursor=pointer]:
+            - generic [ref=e734]: Treatment
+            - strong [ref=e735]: Acne Calm Facial
+            - generic [ref=e736]:
+              - img [ref=e737]
+              - text: 55m
+            - generic [ref=e740]: Rp 285.000
+            - img [ref=e741]
+          - button "Treatment Bright Peel Mild 40m Rp 360.000" [ref=e742] [cursor=pointer]:
+            - generic [ref=e743]: Treatment
+            - strong [ref=e744]: Bright Peel Mild
+            - generic [ref=e745]:
+              - img [ref=e746]
+              - text: 40m
+            - generic [ref=e749]: Rp 360.000
+            - img [ref=e750]
+          - button "Treatment Glow Infusion 70m Rp 520.000" [ref=e751] [cursor=pointer]:
+            - generic [ref=e752]: Treatment
+            - strong [ref=e753]: Glow Infusion
+            - generic [ref=e754]:
+              - img [ref=e755]
+              - text: 70m
+            - generic [ref=e758]: Rp 520.000
+            - img [ref=e759]
+          - button "Treatment Hydra Cleanse 45m Rp 310.000" [ref=e760] [cursor=pointer]:
+            - generic [ref=e761]: Treatment
+            - strong [ref=e762]: Hydra Cleanse
+            - generic [ref=e763]:
+              - img [ref=e764]
+              - text: 45m
+            - generic [ref=e767]: Rp 310.000
+            - img [ref=e768]
+          - button "Treatment LED Recovery 25m Rp 180.000" [ref=e769] [cursor=pointer]:
+            - generic [ref=e770]: Treatment
+            - strong [ref=e771]: LED Recovery
+            - generic [ref=e772]:
+              - img [ref=e773]
+              - text: 25m
+            - generic [ref=e776]: Rp 180.000
+            - img [ref=e777]
+          - button "Produk Barrier Serum Retail Rp 215.000" [ref=e778] [cursor=pointer]:
+            - generic [ref=e779]: Produk
+            - strong [ref=e780]: Barrier Serum
+            - generic [ref=e781]:
+              - img [ref=e782]
+              - text: Retail
+            - generic [ref=e785]: Rp 215.000
+            - img [ref=e786]
+          - button "Produk Daily Sunscreen SPF50 Retail Rp 175.000" [ref=e787] [cursor=pointer]:
+            - generic [ref=e788]: Produk
+            - strong [ref=e789]: Daily Sunscreen SPF50
+            - generic [ref=e790]:
+              - img [ref=e791]
+              - text: Retail
+            - generic [ref=e794]: Rp 175.000
+            - img [ref=e795]
+          - button "Produk Calming Toner Retail Rp 145.000" [ref=e796] [cursor=pointer]:
+            - generic [ref=e797]: Produk
+            - strong [ref=e798]: Calming Toner
+            - generic [ref=e799]:
+              - img [ref=e800]
+              - text: Retail
+            - generic [ref=e803]: Rp 145.000
+            - img [ref=e804]
+          - button "Paket Paket Acne 3x 3 sesi Rp 760.000" [ref=e805] [cursor=pointer]:
+            - generic [ref=e806]: Paket
+            - strong [ref=e807]: Paket Acne 3x
+            - generic [ref=e808]:
+              - img [ref=e809]
+              - text: 3 sesi
+            - generic [ref=e812]: Rp 760.000
+            - img [ref=e813]
+          - button "Paket Paket Bridal Glow 4 sesi Rp 1.450.000" [ref=e814] [cursor=pointer]:
+            - generic [ref=e815]: Paket
+            - strong [ref=e816]: Paket Bridal Glow
+            - generic [ref=e817]:
+              - img [ref=e818]
+              - text: 4 sesi
+            - generic [ref=e821]: Rp 1.450.000
+            - img [ref=e822]
+          - button "Treatment Acne Calm Facial 55m Rp 285.000" [ref=e823] [cursor=pointer]:
+            - generic [ref=e824]: Treatment
+            - strong [ref=e825]: Acne Calm Facial
+            - generic [ref=e826]:
+              - img [ref=e827]
+              - text: 55m
+            - generic [ref=e830]: Rp 285.000
+            - img [ref=e831]
+          - button "Treatment Bright Peel Mild 40m Rp 360.000" [ref=e832] [cursor=pointer]:
+            - generic [ref=e833]: Treatment
+            - strong [ref=e834]: Bright Peel Mild
+            - generic [ref=e835]:
+              - img [ref=e836]
+              - text: 40m
+            - generic [ref=e839]: Rp 360.000
+            - img [ref=e840]
+          - button "Treatment Glow Infusion 70m Rp 520.000" [ref=e841] [cursor=pointer]:
+            - generic [ref=e842]: Treatment
+            - strong [ref=e843]: Glow Infusion
+            - generic [ref=e844]:
+              - img [ref=e845]
+              - text: 70m
+            - generic [ref=e848]: Rp 520.000
+            - img [ref=e849]
+          - button "Treatment Hydra Cleanse 45m Rp 310.000" [ref=e850] [cursor=pointer]:
+            - generic [ref=e851]: Treatment
+            - strong [ref=e852]: Hydra Cleanse
+            - generic [ref=e853]:
+              - img [ref=e854]
+              - text: 45m
+            - generic [ref=e857]: Rp 310.000
+            - img [ref=e858]
+          - button "Treatment LED Recovery 25m Rp 180.000" [ref=e859] [cursor=pointer]:
+            - generic [ref=e860]: Treatment
+            - strong [ref=e861]: LED Recovery
+            - generic [ref=e862]:
+              - img [ref=e863]
+              - text: 25m
+            - generic [ref=e866]: Rp 180.000
+            - img [ref=e867]
+          - button "Produk Barrier Serum Retail Rp 215.000" [ref=e868] [cursor=pointer]:
+            - generic [ref=e869]: Produk
+            - strong [ref=e870]: Barrier Serum
+            - generic [ref=e871]:
+              - img [ref=e872]
+              - text: Retail
+            - generic [ref=e875]: Rp 215.000
+            - img [ref=e876]
+          - button "Produk Daily Sunscreen SPF50 Retail Rp 175.000" [ref=e877] [cursor=pointer]:
+            - generic [ref=e878]: Produk
+            - strong [ref=e879]: Daily Sunscreen SPF50
+            - generic [ref=e880]:
+              - img [ref=e881]
+              - text: Retail
+            - generic [ref=e884]: Rp 175.000
+            - img [ref=e885]
+          - button "Produk Calming Toner Retail Rp 145.000" [ref=e886] [cursor=pointer]:
+            - generic [ref=e887]: Produk
+            - strong [ref=e888]: Calming Toner
+            - generic [ref=e889]:
+              - img [ref=e890]
+              - text: Retail
+            - generic [ref=e893]: Rp 145.000
+            - img [ref=e894]
+          - button "Paket Paket Acne 3x 3 sesi Rp 760.000" [ref=e895] [cursor=pointer]:
+            - generic [ref=e896]: Paket
+            - strong [ref=e897]: Paket Acne 3x
+            - generic [ref=e898]:
+              - img [ref=e899]
+              - text: 3 sesi
+            - generic [ref=e902]: Rp 760.000
+            - img [ref=e903]
+          - button "Paket Paket Bridal Glow 4 sesi Rp 1.450.000" [ref=e904] [cursor=pointer]:
+            - generic [ref=e905]: Paket
+            - strong [ref=e906]: Paket Bridal Glow
+            - generic [ref=e907]:
+              - img [ref=e908]
+              - text: 4 sesi
+            - generic [ref=e911]: Rp 1.450.000
+            - img [ref=e912]
+          - button "Treatment Facial Basic 45 Rp 150.000" [ref=e913] [cursor=pointer]:
+            - generic [ref=e914]: Treatment
+            - strong [ref=e915]: Facial Basic
+            - generic [ref=e916]:
+              - img [ref=e917]
+              - text: "45"
+            - generic [ref=e920]: Rp 150.000
+            - img [ref=e921]
+          - button "Treatment Chemical Peeling 60 Rp 350.000" [ref=e922] [cursor=pointer]:
+            - generic [ref=e923]: Treatment
+            - strong [ref=e924]: Chemical Peeling
+            - generic [ref=e925]:
+              - img [ref=e926]
+              - text: "60"
+            - generic [ref=e929]: Rp 350.000
+            - img [ref=e930]
+          - button "Treatment Microneedling 90 Rp 500.000" [ref=e931] [cursor=pointer]:
+            - generic [ref=e932]: Treatment
+            - strong [ref=e933]: Microneedling
+            - generic [ref=e934]:
+              - img [ref=e935]
+              - text: "90"
+            - generic [ref=e938]: Rp 500.000
+            - img [ref=e939]
+          - button "Treatment Laser Rejuvenation 75 Rp 800.000" [ref=e940] [cursor=pointer]:
+            - generic [ref=e941]: Treatment
+            - strong [ref=e942]: Laser Rejuvenation
+            - generic [ref=e943]:
+              - img [ref=e944]
+              - text: "75"
+            - generic [ref=e947]: Rp 800.000
+            - img [ref=e948]
+          - button "Treatment Treatment Acne 50 Rp 250.000" [ref=e949] [cursor=pointer]:
+            - generic [ref=e950]: Treatment
+            - strong [ref=e951]: Treatment Acne
+            - generic [ref=e952]:
+              - img [ref=e953]
+              - text: "50"
+            - generic [ref=e956]: Rp 250.000
+            - img [ref=e957]
+      - generic [ref=e958]:
+        - generic [ref=e959]:
+          - generic [ref=e960]:
+            - text: Konteks pasien
+            - heading "Alya Maharani" [level=2] [ref=e961]
+          - img [ref=e962]
+        - generic [ref=e965]:
+          - text: Pilih pasien
+          - combobox "Pilih pasien" [ref=e966]:
+            - option "Alya Maharani - RM-2026-0018" [selected]
+            - option "Dewi Lestari - RM-2026-0021"
+            - option "Yuni Kartika - RM-2026-0025"
+            - option "Bella Anggraini - RM-2026-0029"
+            - option "Sarah Amalia - RM-2026-0030"
+            - option "Citra Ananda - RM-2026-0034"
+        - generic [ref=e967]:
+          - generic [ref=e968]:
+            - text: Rekam medis
+            - strong [ref=e969]: RM-2026-0018
+          - generic [ref=e970]:
+            - text: Keluhan
+            - strong [ref=e971]: Bekas jerawat dan tekstur kulit
+          - generic [ref=e972]:
+            - text: Kontak WA
+            - strong [ref=e973]: 0812-4400-1188
+        - generic [ref=e974]:
+          - text: Terapis bertugas
+          - combobox "Terapis bertugas" [ref=e975]:
+            - option "Pilih terapis untuk mengunci komisi" [selected]
+            - option "Sinta Ayu - Tersedia"
+            - option "Rani Wulandari - Tersedia"
+            - option "Maya Cahyani - Treatment"
+            - option "Lina Paramitha - Istirahat"
+            - option "dr. Melati - Tersedia"
+        - generic [ref=e976]:
+          - strong [ref=e977]: Belum terkunci
+          - paragraph [ref=e978]: Pilih terapis sebelum menutup transaksi.
+      - complementary [ref=e979]:
+        - generic [ref=e980]:
+          - generic [ref=e981]:
+            - text: Billing pasien
+            - heading "Keranjang tagihan" [level=2] [ref=e982]
+          - img [ref=e983]
+        - generic [ref=e1017]:
+          - generic [ref=e1018]:
+            - strong [ref=e1019]: Acne Calm Facial
+            - text: Treatment - 55m
+          - generic [ref=e1020]:
+            - button "Kurangi item" [ref=e1021] [cursor=pointer]:
+              - img [ref=e1022]
+            - status [ref=e1023]: "1"
+            - button "Tambah item" [ref=e1024] [cursor=pointer]:
+              - img [ref=e1025]
+            - button "Hapus item" [ref=e1026] [cursor=pointer]:
+              - img [ref=e1027]
+          - text: Rp 285.000
+        - generic [ref=e987]:
+          - generic [ref=e988]:
+            - text: Metode
+            - combobox "Metode" [ref=e989]:
+              - option "Tunai" [selected]
+              - option "QRIS"
+              - option "Debit"
+              - option "Transfer"
+          - generic [ref=e990]:
+            - text: Diskon
+            - spinbutton "Diskon" [ref=e991]: "0"
+        - generic [ref=e993]: 1 itemRp 285.000
+        - generic [ref=e994]:
+          - text: Total
+          - strong [ref=e995]: Rp 285.000
+        - generic [ref=e996]:
+          - img [ref=e997]
+          - text: "Estimasi komisi: Rp 34.200"
+        - generic [ref=e1001]:
+          - button "Clear" [ref=e1002] [cursor=pointer]:
+            - img [ref=e1003]
+            - text: Clear
+          - button "Baru" [ref=e1007] [cursor=pointer]:
+            - img [ref=e1008]
+            - text: Baru
+        - button "Tandai Lunas" [disabled] [ref=e1011]:
+          - img [ref=e1012]
+          - text: Tandai Lunas
+        - paragraph [ref=e1015]: Receipt dan buku besar kas dicatat setelah status Lunas.

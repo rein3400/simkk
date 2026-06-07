@@ -1,0 +1,40 @@
+- main [ref=e334]:
+  - generic [ref=e335]:
+    - region "Identitas SIM-KK" [ref=e336]:
+      - generic [ref=e339]:
+        - generic [ref=e340]:
+          - img [ref=e341]
+          - text: Operasional klinik
+        - heading "SIM-KK" [level=1] [ref=e344]
+        - paragraph [ref=e345]: Sistem klinik kecantikan untuk kasir, rekam medis, inventaris FIFO, dan laporan manajer.
+        - generic [ref=e346]:
+          - generic [ref=e347]:
+            - img [ref=e348]
+            - text: Komisi terkunci saat Lunas
+          - generic [ref=e350]: Rekam medis ramah tablet
+          - generic [ref=e352]: Export PDF/XLSX asli
+    - region "Form login" [ref=e354]:
+      - generic [ref=e355]:
+        - text: Akses pengguna
+        - heading "Masuk" [level=2] [ref=e356]
+        - generic [ref=e357]:
+          - generic [ref=e358]:
+            - text: Username
+            - textbox "Username" [ref=e359]: kasir
+          - generic [ref=e360]:
+            - text: Password
+            - generic [ref=e361]:
+              - textbox "Password" [ref=e362]: simkk-2026
+              - button "Tampilkan password" [ref=e363] [cursor=pointer]:
+                - img [ref=e364]
+          - generic [ref=e367]:
+            - text: Role demo
+            - generic [ref=e368]:
+              - button "Kasir" [ref=e369] [cursor=pointer]
+              - button "Terapis" [ref=e370] [cursor=pointer]
+              - button "Gudang" [ref=e371] [cursor=pointer]
+              - button "Manajer" [ref=e372] [cursor=pointer]
+            - paragraph [ref=e373]: Masuk langsung ke POS untuk menutup transaksi pasien.
+          - button "Masuk" [ref=e374] [cursor=pointer]:
+            - text: Masuk
+            - img [ref=e375]

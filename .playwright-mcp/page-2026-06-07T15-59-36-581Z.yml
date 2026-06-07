@@ -1,0 +1,532 @@
+- generic [ref=e46]:
+  - banner [ref=e47]:
+    - generic [ref=e48]:
+      - link "SIM-KK beranda" [ref=e49] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e50]: SK
+        - generic [ref=e51]:
+          - strong [ref=e52]: SIM-KK
+          - generic [ref=e53]: Samarinda
+      - generic [ref=e54]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e55]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e56]:
+        - button "Live 30s" [ref=e57] [cursor=pointer]:
+          - img [ref=e58]
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - text: Live 30s
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e74]: Manajer
+          - generic [ref=e75]: / Shift Audit
+        - generic [ref=e76]:
+          - generic [ref=e77]: MS
+          - generic [ref=e78]:
+            - generic [ref=e79]: Mira Santoso
+            - generic [ref=e80]: Live · updated 9s lalu
+        - button "Keluar" [ref=e81] [cursor=pointer]:
+          - img [ref=e82]
+          - generic [ref=e85]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - img [ref=e90]
+            - text: Modul aktif
+          - generic [ref=e93]:
+            - button "Kasir POS cepat" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - generic [ref=e97]: Kasir
+              - generic [ref=e98]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e99] [cursor=pointer]:
+              - img [ref=e100]
+              - generic [ref=e104]: Rekam Medis
+              - generic [ref=e105]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e106] [cursor=pointer]:
+              - img [ref=e107]
+              - generic [ref=e117]: Gudang
+              - generic [ref=e118]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e119] [cursor=pointer]:
+              - img [ref=e120]
+              - generic [ref=e123]: Laporan
+              - generic [ref=e124]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+              - generic [ref=e130]: Closing Harian
+              - generic [ref=e131]: Submit / Approve
+          - generic [ref=e132]:
+            - img [ref=e133]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e136]:
+          - generic [ref=e137]: Admin
+          - generic [ref=e138]:
+            - button "Dashboard Statistik harian" [ref=e139] [cursor=pointer]:
+              - img [ref=e140]
+              - generic [ref=e143]: Dashboard
+              - generic [ref=e144]: Statistik harian
+            - button "Layanan CRUD master" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+              - generic [ref=e150]: Layanan
+              - generic [ref=e151]: CRUD master
+            - button "Produk Master produk" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e163]: Produk
+              - generic [ref=e164]: Master produk
+            - button "User Akun & shift" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e178]: User
+              - generic [ref=e179]: Akun & shift
+          - generic [ref=e180]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e182] [cursor=pointer]:
+            - img [ref=e183]
+            - generic [ref=e187]: Audit Log
+            - generic [ref=e188]: 50 entri terakhir
+  - main [ref=e189]:
+    - generic [ref=e294]:
+      - generic [ref=e295]:
+        - generic [ref=e296]:
+          - text: Admin · Layanan
+          - heading "Master layanan klinik" [level=2] [ref=e297]
+        - button "Tambah layanan" [ref=e298] [cursor=pointer]:
+          - img [ref=e299]
+          - text: Tambah layanan
+      - table [ref=e301]:
+        - rowgroup [ref=e302]:
+          - row "Nama Kategori Durasi Harga Komisi Stok Produk Aksi" [ref=e303]:
+            - columnheader "Nama" [ref=e304]
+            - columnheader "Kategori" [ref=e305]
+            - columnheader "Durasi" [ref=e306]
+            - columnheader "Harga" [ref=e307]
+            - columnheader "Komisi" [ref=e308]
+            - columnheader "Stok Produk" [ref=e309]
+            - columnheader "Aksi" [ref=e310]
+        - rowgroup [ref=e311]:
+          - row "Paket Acne 3x Paket 3 sesi Rp 760.000 11% — Edit Hapus" [ref=e312] [cursor=pointer]:
+            - cell "Paket Acne 3x" [ref=e313]:
+              - strong [ref=e314]: Paket Acne 3x
+            - cell "Paket" [ref=e315]:
+              - generic [ref=e316]: Paket
+            - cell "3 sesi" [ref=e317]
+            - cell "Rp 760.000" [ref=e318]
+            - cell "11%" [ref=e319]
+            - cell "—" [ref=e320]
+            - cell "Edit Hapus" [ref=e321]:
+              - generic [ref=e322]:
+                - button "Edit" [ref=e323]:
+                  - img [ref=e324]
+                  - text: Edit
+                - button "Hapus" [ref=e327]:
+                  - img [ref=e328]
+                  - text: Hapus
+          - row "Paket Acne 3x Paket 3 sesi Rp 760.000 11% — Edit Hapus" [ref=e331] [cursor=pointer]:
+            - cell "Paket Acne 3x" [ref=e332]:
+              - strong [ref=e333]: Paket Acne 3x
+            - cell "Paket" [ref=e334]:
+              - generic [ref=e335]: Paket
+            - cell "3 sesi" [ref=e336]
+            - cell "Rp 760.000" [ref=e337]
+            - cell "11%" [ref=e338]
+            - cell "—" [ref=e339]
+            - cell "Edit Hapus" [ref=e340]:
+              - generic [ref=e341]:
+                - button "Edit" [ref=e342]:
+                  - img [ref=e343]
+                  - text: Edit
+                - button "Hapus" [ref=e346]:
+                  - img [ref=e347]
+                  - text: Hapus
+          - row "Paket Bridal Glow Paket 4 sesi Rp 1.450.000 13% — Edit Hapus" [ref=e350] [cursor=pointer]:
+            - cell "Paket Bridal Glow" [ref=e351]:
+              - strong [ref=e352]: Paket Bridal Glow
+            - cell "Paket" [ref=e353]:
+              - generic [ref=e354]: Paket
+            - cell "4 sesi" [ref=e355]
+            - cell "Rp 1.450.000" [ref=e356]
+            - cell "13%" [ref=e357]
+            - cell "—" [ref=e358]
+            - cell "Edit Hapus" [ref=e359]:
+              - generic [ref=e360]:
+                - button "Edit" [ref=e361]:
+                  - img [ref=e362]
+                  - text: Edit
+                - button "Hapus" [ref=e365]:
+                  - img [ref=e366]
+                  - text: Hapus
+          - row "Paket Bridal Glow Paket 4 sesi Rp 1.450.000 13% — Edit Hapus" [ref=e369] [cursor=pointer]:
+            - cell "Paket Bridal Glow" [ref=e370]:
+              - strong [ref=e371]: Paket Bridal Glow
+            - cell "Paket" [ref=e372]:
+              - generic [ref=e373]: Paket
+            - cell "4 sesi" [ref=e374]
+            - cell "Rp 1.450.000" [ref=e375]
+            - cell "13%" [ref=e376]
+            - cell "—" [ref=e377]
+            - cell "Edit Hapus" [ref=e378]:
+              - generic [ref=e379]:
+                - button "Edit" [ref=e380]:
+                  - img [ref=e381]
+                  - text: Edit
+                - button "Hapus" [ref=e384]:
+                  - img [ref=e385]
+                  - text: Hapus
+          - row "Barrier Serum Produk Retail Rp 215.000 5% 1 Edit Hapus" [ref=e388] [cursor=pointer]:
+            - cell "Barrier Serum" [ref=e389]:
+              - strong [ref=e390]: Barrier Serum
+            - cell "Produk" [ref=e391]:
+              - generic [ref=e392]: Produk
+            - cell "Retail" [ref=e393]
+            - cell "Rp 215.000" [ref=e394]
+            - cell "5%" [ref=e395]
+            - cell "1" [ref=e396]
+            - cell "Edit Hapus" [ref=e397]:
+              - generic [ref=e398]:
+                - button "Edit" [ref=e399]:
+                  - img [ref=e400]
+                  - text: Edit
+                - button "Hapus" [ref=e403]:
+                  - img [ref=e404]
+                  - text: Hapus
+          - row "Barrier Serum Produk Retail Rp 215.000 5% 1 Edit Hapus" [ref=e407] [cursor=pointer]:
+            - cell "Barrier Serum" [ref=e408]:
+              - strong [ref=e409]: Barrier Serum
+            - cell "Produk" [ref=e410]:
+              - generic [ref=e411]: Produk
+            - cell "Retail" [ref=e412]
+            - cell "Rp 215.000" [ref=e413]
+            - cell "5%" [ref=e414]
+            - cell "1" [ref=e415]
+            - cell "Edit Hapus" [ref=e416]:
+              - generic [ref=e417]:
+                - button "Edit" [ref=e418]:
+                  - img [ref=e419]
+                  - text: Edit
+                - button "Hapus" [ref=e422]:
+                  - img [ref=e423]
+                  - text: Hapus
+          - row "Calming Toner Produk Retail Rp 145.000 4% 3 Edit Hapus" [ref=e426] [cursor=pointer]:
+            - cell "Calming Toner" [ref=e427]:
+              - strong [ref=e428]: Calming Toner
+            - cell "Produk" [ref=e429]:
+              - generic [ref=e430]: Produk
+            - cell "Retail" [ref=e431]
+            - cell "Rp 145.000" [ref=e432]
+            - cell "4%" [ref=e433]
+            - cell "3" [ref=e434]
+            - cell "Edit Hapus" [ref=e435]:
+              - generic [ref=e436]:
+                - button "Edit" [ref=e437]:
+                  - img [ref=e438]
+                  - text: Edit
+                - button "Hapus" [ref=e441]:
+                  - img [ref=e442]
+                  - text: Hapus
+          - row "Calming Toner Produk Retail Rp 145.000 4% 3 Edit Hapus" [ref=e445] [cursor=pointer]:
+            - cell "Calming Toner" [ref=e446]:
+              - strong [ref=e447]: Calming Toner
+            - cell "Produk" [ref=e448]:
+              - generic [ref=e449]: Produk
+            - cell "Retail" [ref=e450]
+            - cell "Rp 145.000" [ref=e451]
+            - cell "4%" [ref=e452]
+            - cell "3" [ref=e453]
+            - cell "Edit Hapus" [ref=e454]:
+              - generic [ref=e455]:
+                - button "Edit" [ref=e456]:
+                  - img [ref=e457]
+                  - text: Edit
+                - button "Hapus" [ref=e460]:
+                  - img [ref=e461]
+                  - text: Hapus
+          - row "Daily Sunscreen SPF50 Produk Retail Rp 175.000 4% 2 Edit Hapus" [ref=e464] [cursor=pointer]:
+            - cell "Daily Sunscreen SPF50" [ref=e465]:
+              - strong [ref=e466]: Daily Sunscreen SPF50
+            - cell "Produk" [ref=e467]:
+              - generic [ref=e468]: Produk
+            - cell "Retail" [ref=e469]
+            - cell "Rp 175.000" [ref=e470]
+            - cell "4%" [ref=e471]
+            - cell "2" [ref=e472]
+            - cell "Edit Hapus" [ref=e473]:
+              - generic [ref=e474]:
+                - button "Edit" [ref=e475]:
+                  - img [ref=e476]
+                  - text: Edit
+                - button "Hapus" [ref=e479]:
+                  - img [ref=e480]
+                  - text: Hapus
+          - row "Daily Sunscreen SPF50 Produk Retail Rp 175.000 4% 2 Edit Hapus" [ref=e483] [cursor=pointer]:
+            - cell "Daily Sunscreen SPF50" [ref=e484]:
+              - strong [ref=e485]: Daily Sunscreen SPF50
+            - cell "Produk" [ref=e486]:
+              - generic [ref=e487]: Produk
+            - cell "Retail" [ref=e488]
+            - cell "Rp 175.000" [ref=e489]
+            - cell "4%" [ref=e490]
+            - cell "2" [ref=e491]
+            - cell "Edit Hapus" [ref=e492]:
+              - generic [ref=e493]:
+                - button "Edit" [ref=e494]:
+                  - img [ref=e495]
+                  - text: Edit
+                - button "Hapus" [ref=e498]:
+                  - img [ref=e499]
+                  - text: Hapus
+          - row "Acne Calm Facial Treatment 55m Rp 285.000 12% — Edit Hapus" [ref=e502] [cursor=pointer]:
+            - cell "Acne Calm Facial" [ref=e503]:
+              - strong [ref=e504]: Acne Calm Facial
+            - cell "Treatment" [ref=e505]:
+              - generic [ref=e506]: Treatment
+            - cell "55m" [ref=e507]
+            - cell "Rp 285.000" [ref=e508]
+            - cell "12%" [ref=e509]
+            - cell "—" [ref=e510]
+            - cell "Edit Hapus" [ref=e511]:
+              - generic [ref=e512]:
+                - button "Edit" [ref=e513]:
+                  - img [ref=e514]
+                  - text: Edit
+                - button "Hapus" [ref=e517]:
+                  - img [ref=e518]
+                  - text: Hapus
+          - row "Acne Calm Facial Treatment 55m Rp 285.000 12% — Edit Hapus" [ref=e521] [cursor=pointer]:
+            - cell "Acne Calm Facial" [ref=e522]:
+              - strong [ref=e523]: Acne Calm Facial
+            - cell "Treatment" [ref=e524]:
+              - generic [ref=e525]: Treatment
+            - cell "55m" [ref=e526]
+            - cell "Rp 285.000" [ref=e527]
+            - cell "12%" [ref=e528]
+            - cell "—" [ref=e529]
+            - cell "Edit Hapus" [ref=e530]:
+              - generic [ref=e531]:
+                - button "Edit" [ref=e532]:
+                  - img [ref=e533]
+                  - text: Edit
+                - button "Hapus" [ref=e536]:
+                  - img [ref=e537]
+                  - text: Hapus
+          - row "Bright Peel Mild Treatment 40m Rp 360.000 14% — Edit Hapus" [ref=e540] [cursor=pointer]:
+            - cell "Bright Peel Mild" [ref=e541]:
+              - strong [ref=e542]: Bright Peel Mild
+            - cell "Treatment" [ref=e543]:
+              - generic [ref=e544]: Treatment
+            - cell "40m" [ref=e545]
+            - cell "Rp 360.000" [ref=e546]
+            - cell "14%" [ref=e547]
+            - cell "—" [ref=e548]
+            - cell "Edit Hapus" [ref=e549]:
+              - generic [ref=e550]:
+                - button "Edit" [ref=e551]:
+                  - img [ref=e552]
+                  - text: Edit
+                - button "Hapus" [ref=e555]:
+                  - img [ref=e556]
+                  - text: Hapus
+          - row "Bright Peel Mild Treatment 40m Rp 360.000 14% — Edit Hapus" [ref=e559] [cursor=pointer]:
+            - cell "Bright Peel Mild" [ref=e560]:
+              - strong [ref=e561]: Bright Peel Mild
+            - cell "Treatment" [ref=e562]:
+              - generic [ref=e563]: Treatment
+            - cell "40m" [ref=e564]
+            - cell "Rp 360.000" [ref=e565]
+            - cell "14%" [ref=e566]
+            - cell "—" [ref=e567]
+            - cell "Edit Hapus" [ref=e568]:
+              - generic [ref=e569]:
+                - button "Edit" [ref=e570]:
+                  - img [ref=e571]
+                  - text: Edit
+                - button "Hapus" [ref=e574]:
+                  - img [ref=e575]
+                  - text: Hapus
+          - row "Chemical Peeling Treatment 60 Rp 350.000 10% — Edit Hapus" [ref=e578] [cursor=pointer]:
+            - cell "Chemical Peeling" [ref=e579]:
+              - strong [ref=e580]: Chemical Peeling
+            - cell "Treatment" [ref=e581]:
+              - generic [ref=e582]: Treatment
+            - cell "60" [ref=e583]
+            - cell "Rp 350.000" [ref=e584]
+            - cell "10%" [ref=e585]
+            - cell "—" [ref=e586]
+            - cell "Edit Hapus" [ref=e587]:
+              - generic [ref=e588]:
+                - button "Edit" [ref=e589]:
+                  - img [ref=e590]
+                  - text: Edit
+                - button "Hapus" [ref=e593]:
+                  - img [ref=e594]
+                  - text: Hapus
+          - row "Facial Basic Treatment 45 Rp 150.000 10% — Edit Hapus" [ref=e597] [cursor=pointer]:
+            - cell "Facial Basic" [ref=e598]:
+              - strong [ref=e599]: Facial Basic
+            - cell "Treatment" [ref=e600]:
+              - generic [ref=e601]: Treatment
+            - cell "45" [ref=e602]
+            - cell "Rp 150.000" [ref=e603]
+            - cell "10%" [ref=e604]
+            - cell "—" [ref=e605]
+            - cell "Edit Hapus" [ref=e606]:
+              - generic [ref=e607]:
+                - button "Edit" [ref=e608]:
+                  - img [ref=e609]
+                  - text: Edit
+                - button "Hapus" [ref=e612]:
+                  - img [ref=e613]
+                  - text: Hapus
+          - row "Glow Infusion Treatment 70m Rp 520.000 16% — Edit Hapus" [ref=e616] [cursor=pointer]:
+            - cell "Glow Infusion" [ref=e617]:
+              - strong [ref=e618]: Glow Infusion
+            - cell "Treatment" [ref=e619]:
+              - generic [ref=e620]: Treatment
+            - cell "70m" [ref=e621]
+            - cell "Rp 520.000" [ref=e622]
+            - cell "16%" [ref=e623]
+            - cell "—" [ref=e624]
+            - cell "Edit Hapus" [ref=e625]:
+              - generic [ref=e626]:
+                - button "Edit" [ref=e627]:
+                  - img [ref=e628]
+                  - text: Edit
+                - button "Hapus" [ref=e631]:
+                  - img [ref=e632]
+                  - text: Hapus
+          - row "Glow Infusion Treatment 70m Rp 520.000 16% — Edit Hapus" [ref=e635] [cursor=pointer]:
+            - cell "Glow Infusion" [ref=e636]:
+              - strong [ref=e637]: Glow Infusion
+            - cell "Treatment" [ref=e638]:
+              - generic [ref=e639]: Treatment
+            - cell "70m" [ref=e640]
+            - cell "Rp 520.000" [ref=e641]
+            - cell "16%" [ref=e642]
+            - cell "—" [ref=e643]
+            - cell "Edit Hapus" [ref=e644]:
+              - generic [ref=e645]:
+                - button "Edit" [ref=e646]:
+                  - img [ref=e647]
+                  - text: Edit
+                - button "Hapus" [ref=e650]:
+                  - img [ref=e651]
+                  - text: Hapus
+          - row "Hydra Cleanse Treatment 45m Rp 310.000 12% — Edit Hapus" [ref=e654] [cursor=pointer]:
+            - cell "Hydra Cleanse" [ref=e655]:
+              - strong [ref=e656]: Hydra Cleanse
+            - cell "Treatment" [ref=e657]:
+              - generic [ref=e658]: Treatment
+            - cell "45m" [ref=e659]
+            - cell "Rp 310.000" [ref=e660]
+            - cell "12%" [ref=e661]
+            - cell "—" [ref=e662]
+            - cell "Edit Hapus" [ref=e663]:
+              - generic [ref=e664]:
+                - button "Edit" [ref=e665]:
+                  - img [ref=e666]
+                  - text: Edit
+                - button "Hapus" [ref=e669]:
+                  - img [ref=e670]
+                  - text: Hapus
+          - row "Hydra Cleanse Treatment 45m Rp 310.000 12% — Edit Hapus" [ref=e673] [cursor=pointer]:
+            - cell "Hydra Cleanse" [ref=e674]:
+              - strong [ref=e675]: Hydra Cleanse
+            - cell "Treatment" [ref=e676]:
+              - generic [ref=e677]: Treatment
+            - cell "45m" [ref=e678]
+            - cell "Rp 310.000" [ref=e679]
+            - cell "12%" [ref=e680]
+            - cell "—" [ref=e681]
+            - cell "Edit Hapus" [ref=e682]:
+              - generic [ref=e683]:
+                - button "Edit" [ref=e684]:
+                  - img [ref=e685]
+                  - text: Edit
+                - button "Hapus" [ref=e688]:
+                  - img [ref=e689]
+                  - text: Hapus
+          - row "LED Recovery Treatment 25m Rp 180.000 10% — Edit Hapus" [ref=e692] [cursor=pointer]:
+            - cell "LED Recovery" [ref=e693]:
+              - strong [ref=e694]: LED Recovery
+            - cell "Treatment" [ref=e695]:
+              - generic [ref=e696]: Treatment
+            - cell "25m" [ref=e697]
+            - cell "Rp 180.000" [ref=e698]
+            - cell "10%" [ref=e699]
+            - cell "—" [ref=e700]
+            - cell "Edit Hapus" [ref=e701]:
+              - generic [ref=e702]:
+                - button "Edit" [ref=e703]:
+                  - img [ref=e704]
+                  - text: Edit
+                - button "Hapus" [ref=e707]:
+                  - img [ref=e708]
+                  - text: Hapus
+          - row "LED Recovery Treatment 25m Rp 180.000 10% — Edit Hapus" [ref=e711] [cursor=pointer]:
+            - cell "LED Recovery" [ref=e712]:
+              - strong [ref=e713]: LED Recovery
+            - cell "Treatment" [ref=e714]:
+              - generic [ref=e715]: Treatment
+            - cell "25m" [ref=e716]
+            - cell "Rp 180.000" [ref=e717]
+            - cell "10%" [ref=e718]
+            - cell "—" [ref=e719]
+            - cell "Edit Hapus" [ref=e720]:
+              - generic [ref=e721]:
+                - button "Edit" [ref=e722]:
+                  - img [ref=e723]
+                  - text: Edit
+                - button "Hapus" [ref=e726]:
+                  - img [ref=e727]
+                  - text: Hapus
+          - row "Laser Rejuvenation Treatment 75 Rp 800.000 10% — Edit Hapus" [ref=e730] [cursor=pointer]:
+            - cell "Laser Rejuvenation" [ref=e731]:
+              - strong [ref=e732]: Laser Rejuvenation
+            - cell "Treatment" [ref=e733]:
+              - generic [ref=e734]: Treatment
+            - cell "75" [ref=e735]
+            - cell "Rp 800.000" [ref=e736]
+            - cell "10%" [ref=e737]
+            - cell "—" [ref=e738]
+            - cell "Edit Hapus" [ref=e739]:
+              - generic [ref=e740]:
+                - button "Edit" [ref=e741]:
+                  - img [ref=e742]
+                  - text: Edit
+                - button "Hapus" [ref=e745]:
+                  - img [ref=e746]
+                  - text: Hapus
+          - row "Microneedling Treatment 90 Rp 500.000 10% — Edit Hapus" [ref=e749] [cursor=pointer]:
+            - cell "Microneedling" [ref=e750]:
+              - strong [ref=e751]: Microneedling
+            - cell "Treatment" [ref=e752]:
+              - generic [ref=e753]: Treatment
+            - cell "90" [ref=e754]
+            - cell "Rp 500.000" [ref=e755]
+            - cell "10%" [ref=e756]
+            - cell "—" [ref=e757]
+            - cell "Edit Hapus" [ref=e758]:
+              - generic [ref=e759]:
+                - button "Edit" [ref=e760]:
+                  - img [ref=e761]
+                  - text: Edit
+                - button "Hapus" [ref=e764]:
+                  - img [ref=e765]
+                  - text: Hapus
+          - row "Treatment Acne Treatment 50 Rp 250.000 10% — Edit Hapus" [ref=e768] [cursor=pointer]:
+            - cell "Treatment Acne" [ref=e769]:
+              - strong [ref=e770]: Treatment Acne
+            - cell "Treatment" [ref=e771]:
+              - generic [ref=e772]: Treatment
+            - cell "50" [ref=e773]
+            - cell "Rp 250.000" [ref=e774]
+            - cell "10%" [ref=e775]
+            - cell "—" [ref=e776]
+            - cell "Edit Hapus" [ref=e777]:
+              - generic [ref=e778]:
+                - button "Edit" [ref=e779]:
+                  - img [ref=e780]
+                  - text: Edit
+                - button "Hapus" [ref=e783]:
+                  - img [ref=e784]
+                  - text: Hapus

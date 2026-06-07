@@ -20,4 +20,7 @@ return [
         // When null/empty, webhook returns 503 (operator must configure before going live).
         'webhook_secret' => env('TELEGRAM_WEBHOOK_SECRET'),
     ],
+    'backup' => [
+        'project_root' => env('BACKUP_PROJECT_ROOT', '/var/www/sim-kk'),
+    ],
 ];

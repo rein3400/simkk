@@ -1,0 +1,284 @@
+- generic [ref=e238]:
+  - banner [ref=e239]:
+    - generic [ref=e240]:
+      - link "SIM-KK beranda" [ref=e241] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e242]: SK
+        - generic [ref=e243]:
+          - strong [ref=e244]: SIM-KK
+          - generic [ref=e245]: Samarinda
+      - generic [ref=e246]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e247]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e248]:
+        - generic [ref=e249]:
+          - img [ref=e250]
+          - generic [ref=e253]: Gudang
+          - generic [ref=e254]: / Shift Gudang
+        - generic [ref=e255]:
+          - generic [ref=e256]: RP
+          - generic [ref=e257]:
+            - generic [ref=e258]: Raka Pramana
+            - generic [ref=e259]: Login terkunci
+        - button "Keluar" [ref=e260] [cursor=pointer]:
+          - img [ref=e261]
+          - generic [ref=e264]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e265]:
+      - generic [ref=e266]:
+        - generic [ref=e267]:
+          - img [ref=e268]
+          - text: Modul aktif
+        - button "Gudang FIFO & HPP" [ref=e272] [cursor=pointer]:
+          - img [ref=e273]
+          - generic [ref=e283]: Gudang
+          - generic [ref=e284]: FIFO & HPP
+        - generic [ref=e285]:
+          - img [ref=e286]
+          - text: Stok, batch FIFO, HPP, dan barang masuk.
+  - main [ref=e289]:
+    - generic [ref=e290]:
+      - generic [ref=e291]:
+        - generic [ref=e292]:
+          - generic [ref=e293]:
+            - text: Gudang
+            - heading "Stok, batch, dan HPP" [level=2] [ref=e294]
+          - button "Barang masuk" [ref=e295] [cursor=pointer]:
+            - img [ref=e296]
+            - text: Barang masuk
+        - table [ref=e301]:
+          - rowgroup [ref=e302]:
+            - row "Produk Kategori Total Batch awal Expired HPP Status" [ref=e303]:
+              - columnheader "Produk" [ref=e304]
+              - columnheader "Kategori" [ref=e305]
+              - columnheader "Total" [ref=e306]
+              - columnheader "Batch awal" [ref=e307]
+              - columnheader "Expired" [ref=e308]
+              - columnheader "HPP" [ref=e309]
+              - columnheader "Status" [ref=e310]
+          - rowgroup [ref=e311]:
+            - row "Barrier Serum Skincare 154 BS-0426-A 2026-09-12 Rp 98.000 Aman" [ref=e312] [cursor=pointer]:
+              - cell "Barrier Serum" [ref=e313]
+              - cell "Skincare" [ref=e314]
+              - cell "154" [ref=e315]
+              - cell "BS-0426-A" [ref=e316]
+              - cell "2026-09-12" [ref=e317]
+              - cell "Rp 98.000" [ref=e318]
+              - cell "Aman" [ref=e319]:
+                - generic [ref=e320]: Aman
+            - row "Daily Sunscreen SPF50 Skincare 18 DS-1225-X 2026-06-30 Rp 72.000 Prioritas" [ref=e321] [cursor=pointer]:
+              - cell "Daily Sunscreen SPF50" [ref=e322]
+              - cell "Skincare" [ref=e323]
+              - cell "18" [ref=e324]
+              - cell "DS-1225-X" [ref=e325]
+              - cell "2026-06-30" [ref=e326]
+              - cell "Rp 72.000" [ref=e327]
+              - cell "Prioritas" [ref=e328]:
+                - generic [ref=e329]: Prioritas
+            - row "Calming Toner Skincare 9 CT-0326-C 2026-11-01 Rp 61.000 Menipis" [ref=e330] [cursor=pointer]:
+              - cell "Calming Toner" [ref=e331]
+              - cell "Skincare" [ref=e332]
+              - cell "9" [ref=e333]
+              - cell "CT-0326-C" [ref=e334]
+              - cell "2026-11-01" [ref=e335]
+              - cell "Rp 61.000" [ref=e336]
+              - cell "Menipis" [ref=e337]:
+                - generic [ref=e338]: Menipis
+            - row "Peeling Solution Mild Treatment 14 PM-0226-A 2026-08-01 Rp 135.000 Aman" [ref=e339] [cursor=pointer]:
+              - cell "Peeling Solution Mild" [ref=e340]
+              - cell "Treatment" [ref=e341]
+              - cell "14" [ref=e342]
+              - cell "PM-0226-A" [ref=e343]
+              - cell "2026-08-01" [ref=e344]
+              - cell "Rp 135.000" [ref=e345]
+              - cell "Aman" [ref=e346]:
+                - generic [ref=e347]: Aman
+            - row "LED Eye Shield Alat 42 LED-0126 Reusable Rp 21.000 Aman" [ref=e348] [cursor=pointer]:
+              - cell "LED Eye Shield" [ref=e349]
+              - cell "Alat" [ref=e350]
+              - cell "42" [ref=e351]
+              - cell "LED-0126" [ref=e352]
+              - cell "Reusable" [ref=e353]
+              - cell "Rp 21.000" [ref=e354]
+              - cell "Aman" [ref=e355]:
+                - generic [ref=e356]: Aman
+            - row "Hydra Ampoule Treatment 11 HA-0426 2026-10-22 Rp 88.000 Menipis" [ref=e357] [cursor=pointer]:
+              - cell "Hydra Ampoule" [ref=e358]
+              - cell "Treatment" [ref=e359]
+              - cell "11" [ref=e360]
+              - cell "HA-0426" [ref=e361]
+              - cell "2026-10-22" [ref=e362]
+              - cell "Rp 88.000" [ref=e363]
+              - cell "Menipis" [ref=e364]:
+                - generic [ref=e365]: Menipis
+            - row "Acne Mask Sachet Treatment 57 AM-0526 2027-02-18 Rp 18.500 Aman" [ref=e366] [cursor=pointer]:
+              - cell "Acne Mask Sachet" [ref=e367]
+              - cell "Treatment" [ref=e368]
+              - cell "57" [ref=e369]
+              - cell "AM-0526" [ref=e370]
+              - cell "2027-02-18" [ref=e371]
+              - cell "Rp 18.500" [ref=e372]
+              - cell "Aman" [ref=e373]:
+                - generic [ref=e374]: Aman
+            - row "Sterile Gauze Consumable 120 SG-0526 2028-05-01 Rp 2.500 Aman" [ref=e375] [cursor=pointer]:
+              - cell "Sterile Gauze" [ref=e376]
+              - cell "Consumable" [ref=e377]
+              - cell "120" [ref=e378]
+              - cell "SG-0526" [ref=e379]
+              - cell "2028-05-01" [ref=e380]
+              - cell "Rp 2.500" [ref=e381]
+              - cell "Aman" [ref=e382]:
+                - generic [ref=e383]: Aman
+            - row "Barrier Serum Skincare 0 Rp 0 Menipis" [ref=e384] [cursor=pointer]:
+              - cell "Barrier Serum" [ref=e385]
+              - cell "Skincare" [ref=e386]
+              - cell "0" [ref=e387]
+              - cell [ref=e388]
+              - cell [ref=e389]
+              - cell "Rp 0" [ref=e390]
+              - cell "Menipis" [ref=e391]:
+                - generic [ref=e392]: Menipis
+            - row "Daily Sunscreen SPF50 Skincare 0 Rp 0 Menipis" [ref=e393] [cursor=pointer]:
+              - cell "Daily Sunscreen SPF50" [ref=e394]
+              - cell "Skincare" [ref=e395]
+              - cell "0" [ref=e396]
+              - cell [ref=e397]
+              - cell [ref=e398]
+              - cell "Rp 0" [ref=e399]
+              - cell "Menipis" [ref=e400]:
+                - generic [ref=e401]: Menipis
+            - row "Calming Toner Skincare 0 Rp 0 Menipis" [ref=e402] [cursor=pointer]:
+              - cell "Calming Toner" [ref=e403]
+              - cell "Skincare" [ref=e404]
+              - cell "0" [ref=e405]
+              - cell [ref=e406]
+              - cell [ref=e407]
+              - cell "Rp 0" [ref=e408]
+              - cell "Menipis" [ref=e409]:
+                - generic [ref=e410]: Menipis
+            - row "Peeling Solution Mild Treatment 0 Rp 0 Menipis" [ref=e411] [cursor=pointer]:
+              - cell "Peeling Solution Mild" [ref=e412]
+              - cell "Treatment" [ref=e413]
+              - cell "0" [ref=e414]
+              - cell [ref=e415]
+              - cell [ref=e416]
+              - cell "Rp 0" [ref=e417]
+              - cell "Menipis" [ref=e418]:
+                - generic [ref=e419]: Menipis
+            - row "LED Eye Shield Alat 0 Rp 0 Menipis" [ref=e420] [cursor=pointer]:
+              - cell "LED Eye Shield" [ref=e421]
+              - cell "Alat" [ref=e422]
+              - cell "0" [ref=e423]
+              - cell [ref=e424]
+              - cell [ref=e425]
+              - cell "Rp 0" [ref=e426]
+              - cell "Menipis" [ref=e427]:
+                - generic [ref=e428]: Menipis
+            - row "Hydra Ampoule Treatment 0 Rp 0 Menipis" [ref=e429] [cursor=pointer]:
+              - cell "Hydra Ampoule" [ref=e430]
+              - cell "Treatment" [ref=e431]
+              - cell "0" [ref=e432]
+              - cell [ref=e433]
+              - cell [ref=e434]
+              - cell "Rp 0" [ref=e435]
+              - cell "Menipis" [ref=e436]:
+                - generic [ref=e437]: Menipis
+            - row "Acne Mask Sachet Treatment 0 Rp 0 Menipis" [ref=e438] [cursor=pointer]:
+              - cell "Acne Mask Sachet" [ref=e439]
+              - cell "Treatment" [ref=e440]
+              - cell "0" [ref=e441]
+              - cell [ref=e442]
+              - cell [ref=e443]
+              - cell "Rp 0" [ref=e444]
+              - cell "Menipis" [ref=e445]:
+                - generic [ref=e446]: Menipis
+            - row "Sterile Gauze Consumable 0 Rp 0 Menipis" [ref=e447] [cursor=pointer]:
+              - cell "Sterile Gauze" [ref=e448]
+              - cell "Consumable" [ref=e449]
+              - cell "0" [ref=e450]
+              - cell [ref=e451]
+              - cell [ref=e452]
+              - cell "Rp 0" [ref=e453]
+              - cell "Menipis" [ref=e454]:
+                - generic [ref=e455]: Menipis
+            - row "Sunscreen SPF 50 SUNSCREEN 50 BATCH-17-OLD 2027-03-07 Rp 80.000 Aman" [ref=e456] [cursor=pointer]:
+              - cell "Sunscreen SPF 50" [ref=e457]
+              - cell "SUNSCREEN" [ref=e458]
+              - cell "50" [ref=e459]
+              - cell "BATCH-17-OLD" [ref=e460]
+              - cell "2027-03-07" [ref=e461]
+              - cell "Rp 80.000" [ref=e462]
+              - cell "Aman" [ref=e463]:
+                - generic [ref=e464]: Aman
+            - row "Serum Vitamin C SERUM 50 BATCH-18-OLD 2027-03-07 Rp 80.000 Aman" [ref=e465] [cursor=pointer]:
+              - cell "Serum Vitamin C" [ref=e466]
+              - cell "SERUM" [ref=e467]
+              - cell "50" [ref=e468]
+              - cell "BATCH-18-OLD" [ref=e469]
+              - cell "2027-03-07" [ref=e470]
+              - cell "Rp 80.000" [ref=e471]
+              - cell "Aman" [ref=e472]:
+                - generic [ref=e473]: Aman
+            - row "Moisturizer Hydrating MOISTURIZER 50 BATCH-19-OLD 2027-03-07 Rp 80.000 Aman" [ref=e474] [cursor=pointer]:
+              - cell "Moisturizer Hydrating" [ref=e475]
+              - cell "MOISTURIZER" [ref=e476]
+              - cell "50" [ref=e477]
+              - cell "BATCH-19-OLD" [ref=e478]
+              - cell "2027-03-07" [ref=e479]
+              - cell "Rp 80.000" [ref=e480]
+              - cell "Aman" [ref=e481]:
+                - generic [ref=e482]: Aman
+            - row "Toner Gentle TONER 50 BATCH-20-OLD 2027-03-07 Rp 80.000 Aman" [ref=e483] [cursor=pointer]:
+              - cell "Toner Gentle" [ref=e484]
+              - cell "TONER" [ref=e485]
+              - cell "50" [ref=e486]
+              - cell "BATCH-20-OLD" [ref=e487]
+              - cell "2027-03-07" [ref=e488]
+              - cell "Rp 80.000" [ref=e489]
+              - cell "Aman" [ref=e490]:
+                - generic [ref=e491]: Aman
+            - row "Retinol Night Cream CREAM 50 BATCH-21-OLD 2027-03-07 Rp 80.000 Aman" [ref=e492] [cursor=pointer]:
+              - cell "Retinol Night Cream" [ref=e493]
+              - cell "CREAM" [ref=e494]
+              - cell "50" [ref=e495]
+              - cell "BATCH-21-OLD" [ref=e496]
+              - cell "2027-03-07" [ref=e497]
+              - cell "Rp 80.000" [ref=e498]
+              - cell "Aman" [ref=e499]:
+                - generic [ref=e500]: Aman
+      - complementary [ref=e501]:
+        - generic [ref=e503]:
+          - text: FIFO queue
+          - heading "Barrier Serum" [level=2] [ref=e504]
+        - generic [ref=e505]:
+          - generic [ref=e506]:
+            - strong [ref=e507]: BS-0426-A
+            - generic [ref=e508]: 12 unit - Rp 98.000
+            - generic [ref=e509]: 2026-09-12 - PT Dermalab
+            - generic [ref=e510]: FIRST OUT
+          - generic [ref=e511]:
+            - strong [ref=e512]: BS-0526-B
+            - generic [ref=e513]: 22 unit - Rp 102.000
+            - generic [ref=e514]: 2027-01-20 - PT Dermalab
+          - generic [ref=e515]:
+            - strong [ref=e516]: BATCH-A-20260606170004
+            - generic [ref=e517]: 5 unit - Rp 40.000
+            - generic [ref=e518]: 2027-06-30 - Supplier A
+          - generic [ref=e519]:
+            - strong [ref=e520]: TEST-20260606170003
+            - generic [ref=e521]: 10 unit - Rp 50.000
+            - generic [ref=e522]: 2027-12-31 - PT Test Supplier
+          - generic [ref=e523]:
+            - strong [ref=e524]: BATCH-B-20260606170004
+            - generic [ref=e525]: 5 unit - Rp 60.000
+            - generic [ref=e526]: 2027-12-31 - Supplier B
+          - generic [ref=e527]:
+            - strong [ref=e528]: BATCH-FINAL-001
+            - generic [ref=e529]: 50 unit - Rp 75.000
+            - generic [ref=e530]: 2027-12-31 - PT Final
+          - generic [ref=e531]:
+            - strong [ref=e532]: BATCH-FINAL-001
+            - generic [ref=e533]: 50 unit - Rp 75.000
+            - generic [ref=e534]: 2027-12-31 - PT Final

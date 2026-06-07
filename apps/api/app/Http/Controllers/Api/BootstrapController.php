@@ -131,6 +131,7 @@ class BootstrapController extends Controller
                 'totalStock'  => (int) $total,
                 'status'      => $status,
                 'batches'     => $batches->values()->map(fn ($b, $i) => [
+                    'id'      => (int) $b->id,
                     'code'    => $b->kode_batch,
                     'qty'     => (int) $b->qty,
                     'hpp'     => (int) $b->hpp,

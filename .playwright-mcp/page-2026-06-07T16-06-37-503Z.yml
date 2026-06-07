@@ -1,0 +1,165 @@
+- generic [ref=e46]:
+  - banner [ref=e47]:
+    - generic [ref=e48]:
+      - link "SIM-KK beranda" [ref=e49] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e50]: SK
+        - generic [ref=e51]:
+          - strong [ref=e52]: SIM-KK
+          - generic [ref=e53]: Samarinda
+      - generic [ref=e54]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e55]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e56]:
+        - button "Live 30s" [ref=e57] [cursor=pointer]:
+          - img [ref=e58]
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - text: Live 30s
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e74]: Manajer
+          - generic [ref=e75]: / Shift Audit
+        - generic [ref=e76]:
+          - generic [ref=e77]: MS
+          - generic [ref=e78]:
+            - generic [ref=e79]: Mira Santoso
+            - generic [ref=e80]: Live · updated 8s lalu
+        - button "Keluar" [ref=e81] [cursor=pointer]:
+          - img [ref=e82]
+          - generic [ref=e85]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - img [ref=e90]
+            - text: Modul aktif
+          - generic [ref=e93]:
+            - button "Kasir POS cepat" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - generic [ref=e97]: Kasir
+              - generic [ref=e98]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e99] [cursor=pointer]:
+              - img [ref=e100]
+              - generic [ref=e104]: Rekam Medis
+              - generic [ref=e105]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e106] [cursor=pointer]:
+              - img [ref=e107]
+              - generic [ref=e117]: Gudang
+              - generic [ref=e118]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e119] [cursor=pointer]:
+              - img [ref=e120]
+              - generic [ref=e123]: Laporan
+              - generic [ref=e124]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+              - generic [ref=e130]: Closing Harian
+              - generic [ref=e131]: Submit / Approve
+          - generic [ref=e132]:
+            - img [ref=e133]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e136]:
+          - generic [ref=e137]: Admin
+          - generic [ref=e138]:
+            - button "Dashboard Statistik harian" [ref=e139] [cursor=pointer]:
+              - img [ref=e140]
+              - generic [ref=e143]: Dashboard
+              - generic [ref=e144]: Statistik harian
+            - button "Layanan CRUD master" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+              - generic [ref=e150]: Layanan
+              - generic [ref=e151]: CRUD master
+            - button "Produk Master produk" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e163]: Produk
+              - generic [ref=e164]: Master produk
+            - button "User Akun & shift" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e178]: User
+              - generic [ref=e179]: Akun & shift
+          - generic [ref=e180]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e182] [cursor=pointer]:
+            - img [ref=e183]
+            - generic [ref=e187]: Audit Log
+            - generic [ref=e188]: 50 entri terakhir
+  - main [ref=e189]:
+    - generic [ref=e1162]:
+      - generic [ref=e1163]:
+        - generic [ref=e1164]:
+          - text: Admin · User
+          - heading "Akun & shift pengguna" [level=2] [ref=e1165]
+        - button "Tambah user" [ref=e1166] [cursor=pointer]:
+          - img [ref=e1167]
+          - text: Tambah user
+      - table [ref=e1169]:
+        - rowgroup [ref=e1170]:
+          - row "Username Nama Lengkap Level Shift Aksi" [ref=e1171]:
+            - columnheader "Username" [ref=e1172]
+            - columnheader "Nama Lengkap" [ref=e1173]
+            - columnheader "Level" [ref=e1174]
+            - columnheader "Shift" [ref=e1175]
+            - columnheader "Aksi" [ref=e1176]
+        - rowgroup [ref=e1177]:
+          - row "manajer Mira Santoso Manajer Audit Edit Hapus" [ref=e1178] [cursor=pointer]:
+            - cell "manajer" [ref=e1179]
+            - cell "Mira Santoso" [ref=e1180]:
+              - strong [ref=e1181]: Mira Santoso
+            - cell "Manajer" [ref=e1182]:
+              - generic [ref=e1183]: Manajer
+            - cell "Audit" [ref=e1184]
+            - cell "Edit Hapus" [ref=e1185]:
+              - generic [ref=e1186]:
+                - button "Edit" [ref=e1187]:
+                  - img [ref=e1188]
+                  - text: Edit
+                - button "Hapus" [ref=e1191]:
+                  - img [ref=e1192]
+                  - text: Hapus
+          - row "kasir Nadia Putri Kasir Pagi Edit Hapus" [ref=e1195] [cursor=pointer]:
+            - cell "kasir" [ref=e1196]
+            - cell "Nadia Putri" [ref=e1197]:
+              - strong [ref=e1198]: Nadia Putri
+            - cell "Kasir" [ref=e1199]:
+              - generic [ref=e1200]: Kasir
+            - cell "Pagi" [ref=e1201]
+            - cell "Edit Hapus" [ref=e1202]:
+              - generic [ref=e1203]:
+                - button "Edit" [ref=e1204]:
+                  - img [ref=e1205]
+                  - text: Edit
+                - button "Hapus" [ref=e1208]:
+                  - img [ref=e1209]
+                  - text: Hapus
+          - row "gudang Raka Pramana Gudang Gudang Edit Hapus" [ref=e1212] [cursor=pointer]:
+            - cell "gudang" [ref=e1213]
+            - cell "Raka Pramana" [ref=e1214]:
+              - strong [ref=e1215]: Raka Pramana
+            - cell "Gudang" [ref=e1216]:
+              - generic [ref=e1217]: Gudang
+            - cell "Gudang" [ref=e1218]
+            - cell "Edit Hapus" [ref=e1219]:
+              - generic [ref=e1220]:
+                - button "Edit" [ref=e1221]:
+                  - img [ref=e1222]
+                  - text: Edit
+                - button "Hapus" [ref=e1225]:
+                  - img [ref=e1226]
+                  - text: Hapus
+          - row "terapis dr. Melati Terapis Treatment A Edit Hapus" [ref=e1229] [cursor=pointer]:
+            - cell "terapis" [ref=e1230]
+            - cell "dr. Melati" [ref=e1231]:
+              - strong [ref=e1232]: dr. Melati
+            - cell "Terapis" [ref=e1233]:
+              - generic [ref=e1234]: Terapis
+            - cell "Treatment A" [ref=e1235]
+            - cell "Edit Hapus" [ref=e1236]:
+              - generic [ref=e1237]:
+                - button "Edit" [ref=e1238]:
+                  - img [ref=e1239]
+                  - text: Edit
+                - button "Hapus" [ref=e1242]:
+                  - img [ref=e1243]
+                  - text: Hapus

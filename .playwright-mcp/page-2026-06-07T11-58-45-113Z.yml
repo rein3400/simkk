@@ -1,0 +1,183 @@
+- generic [ref=e427]:
+  - banner [ref=e428]:
+    - generic [ref=e429]:
+      - link "SIM-KK beranda" [ref=e430] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e431]: SK
+        - generic [ref=e432]:
+          - strong [ref=e433]: SIM-KK
+          - generic [ref=e434]: Samarinda
+      - generic [ref=e435]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e436]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e437]:
+        - generic [ref=e438]:
+          - img [ref=e439]
+          - generic [ref=e442]: Terapis
+          - generic [ref=e443]: / Shift Treatment A
+        - generic [ref=e444]:
+          - generic [ref=e445]: DM
+          - generic [ref=e446]:
+            - generic [ref=e447]: dr. Melati
+            - generic [ref=e448]: Login terkunci
+        - button "Keluar" [ref=e449] [cursor=pointer]:
+          - img [ref=e450]
+          - generic [ref=e453]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e454]:
+      - generic [ref=e455]:
+        - generic [ref=e456]:
+          - img [ref=e457]
+          - text: Modul aktif
+        - button "Rekam Medis Timeline pasien" [ref=e461] [cursor=pointer]:
+          - img [ref=e462]
+          - generic [ref=e466]: Rekam Medis
+          - generic [ref=e467]: Timeline pasien
+        - generic [ref=e468]:
+          - img [ref=e469]
+          - text: Rekam medis, catatan tindakan, dan foto klinis.
+  - main [ref=e472]:
+    - generic [ref=e473]:
+      - complementary [ref=e474]:
+        - generic [ref=e475]: Rekam medis
+        - combobox [ref=e476]:
+          - option "Alya Maharani" [selected]
+          - option "Dewi Lestari"
+          - option "Yuni Kartika"
+          - option "Bella Anggraini"
+          - option "Sarah Amalia"
+          - option "Citra Ananda"
+        - heading "Alya Maharani" [level=2] [ref=e477]
+        - paragraph [ref=e478]: RM-2026-0018 - 29 tahun
+        - generic [ref=e479]:
+          - generic [ref=e480]:
+            - term [ref=e481]: Keluhan
+            - definition [ref=e482]: Bekas jerawat dan tekstur kulit
+          - generic [ref=e483]:
+            - term [ref=e484]: Kontak
+            - definition [ref=e485]: 0812-4400-1188
+          - generic [ref=e486]:
+            - term [ref=e487]: Catatan risiko
+            - definition [ref=e488]: Sensitif terhadap retinol tinggi
+      - generic [ref=e489]:
+        - generic [ref=e491]:
+          - text: Timeline treatment
+          - heading "Riwayat kronologis" [level=2] [ref=e492]
+        - list [ref=e493]:
+          - listitem [ref=e494]:
+            - time [ref=e495]: 18 Mei
+            - generic [ref=e496]:
+              - strong [ref=e497]: Acne Calm Facial
+              - text: Sinta
+              - paragraph [ref=e498]: Kemerahan turun, lanjut barrier repair.
+          - listitem [ref=e499]:
+            - time [ref=e500]: 25 Mei
+            - generic [ref=e501]:
+              - strong [ref=e502]: Bright Peel Mild
+              - text: Rani
+              - paragraph [ref=e503]: Patch test aman, foto after tersimpan.
+          - listitem [ref=e504]:
+            - time [ref=e505]: 06 Jun
+            - generic [ref=e506]:
+              - strong [ref=e507]: Test judul
+              - text: dr. Melati
+              - paragraph [ref=e508]: Test catatan body
+          - listitem [ref=e509]:
+            - time [ref=e510]: 06 Jun
+            - generic [ref=e511]:
+              - strong [ref=e512]: Test judul
+              - text: dr. Melati
+              - paragraph [ref=e513]: Test catatan body
+          - listitem [ref=e514]:
+            - time [ref=e515]: 06 Jun
+            - generic [ref=e516]:
+              - strong [ref=e517]: Test judul
+              - text: dr. Melati
+              - paragraph [ref=e518]: Test catatan body
+          - listitem [ref=e519]:
+            - time [ref=e520]: 07 Jun
+            - generic [ref=e521]:
+              - strong [ref=e522]: Test treatment
+              - text: dr. Melati
+              - paragraph [ref=e523]: Catatan test
+          - listitem [ref=e524]:
+            - time [ref=e525]: 07 Jun
+            - generic [ref=e526]:
+              - strong [ref=e527]: Test treatment
+              - text: dr. Melati
+              - paragraph [ref=e528]: Catatan test
+      - generic [ref=e529]:
+        - generic [ref=e530]:
+          - generic [ref=e531]:
+            - text: Before / After
+            - heading "Referensi object storage" [level=2] [ref=e532]
+          - img [ref=e533]
+        - generic [ref=e536]:
+          - generic [ref=e537]:
+            - img [ref=e539]
+            - generic [ref=e543]:
+              - strong [ref=e544]: Before
+              - text: 18 Mei
+              - code [ref=e545]:
+                - img [ref=e546]
+                - text: local://clinical/RM-2026-0018/before-1805.jpg
+          - generic [ref=e548]:
+            - img [ref=e550]
+            - generic [ref=e554]:
+              - strong [ref=e555]: After
+              - text: 25 Mei
+              - code [ref=e556]:
+                - img [ref=e557]
+                - text: local://clinical/RM-2026-0018/after-2505.jpg
+          - generic [ref=e559]:
+            - img [ref=e561]
+            - generic [ref=e565]:
+              - strong [ref=e566]: Before
+              - text: 06 Jun
+              - code [ref=e567]:
+                - img [ref=e568]
+                - text: clinical/RM-2026-0018/fd5acbc3-0153-4dcf-a44b-f4cc065dcc99-test.png
+          - generic [ref=e570]:
+            - img [ref=e572]
+            - generic [ref=e576]:
+              - strong [ref=e577]: Before
+              - text: 06 Jun
+              - code [ref=e578]:
+                - img [ref=e579]
+                - text: clinical/RM-2026-0018/e510aa84-ff6f-45e0-9ddf-c0663eda8f9b-test-20260606165924.png
+          - generic [ref=e581]:
+            - img [ref=e583]
+            - generic [ref=e587]:
+              - strong [ref=e588]: After
+              - text: 07 Jun
+              - code [ref=e589]:
+                - img [ref=e590]
+                - text: clinical/RM-2026-0018/b6941036-b7e0-4d56-834f-dfc924277604-test-r2.png
+        - generic [ref=e592] [cursor=pointer]:
+          - button "Choose File" [ref=e593]
+          - generic [ref=e594]:
+            - img [ref=e595]
+            - strong [ref=e598]: Pilih atau drop foto klinis
+            - text: JPG/PNG, tersimpan sebagai object reference lokal.
+        - generic [ref=e599]:
+          - generic [ref=e600]:
+            - text: Label foto
+            - combobox "Label foto" [ref=e601]:
+              - option "Before"
+              - option "After" [selected]
+          - generic [ref=e602]:
+            - checkbox "Consent pasien sudah diverifikasi" [ref=e603]
+            - generic [ref=e604]:
+              - img [ref=e605]
+              - text: Consent pasien sudah diverifikasi
+        - generic [ref=e608]:
+          - text: Catatan tindakan
+          - textbox "Catatan tindakan" [ref=e609]: Kulit tampak lebih tenang. Lanjutkan soothing serum malam hari.
+        - button "Simpan catatan" [ref=e610] [cursor=pointer]:
+          - img [ref=e611]
+          - text: Simpan catatan
+        - button "Upload foto klinis" [disabled] [ref=e615]:
+          - img [ref=e616]
+          - text: Upload foto klinis

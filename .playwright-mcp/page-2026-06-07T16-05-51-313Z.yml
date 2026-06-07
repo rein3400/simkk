@@ -1,0 +1,420 @@
+- generic [ref=e46]:
+  - banner [ref=e47]:
+    - generic [ref=e48]:
+      - link "SIM-KK beranda" [ref=e49] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e50]: SK
+        - generic [ref=e51]:
+          - strong [ref=e52]: SIM-KK
+          - generic [ref=e53]: Samarinda
+      - generic [ref=e54]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e55]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e56]:
+        - button "Live 30s" [ref=e57] [cursor=pointer]:
+          - img [ref=e58]
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - text: Live 30s
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e74]: Manajer
+          - generic [ref=e75]: / Shift Audit
+        - generic [ref=e76]:
+          - generic [ref=e77]: MS
+          - generic [ref=e78]:
+            - generic [ref=e79]: Mira Santoso
+            - generic [ref=e80]: Live · updated 22s lalu
+        - button "Keluar" [ref=e81] [cursor=pointer]:
+          - img [ref=e82]
+          - generic [ref=e85]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - img [ref=e90]
+            - text: Modul aktif
+          - generic [ref=e93]:
+            - button "Kasir POS cepat" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - generic [ref=e97]: Kasir
+              - generic [ref=e98]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e99] [cursor=pointer]:
+              - img [ref=e100]
+              - generic [ref=e104]: Rekam Medis
+              - generic [ref=e105]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e106] [cursor=pointer]:
+              - img [ref=e107]
+              - generic [ref=e117]: Gudang
+              - generic [ref=e118]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e119] [cursor=pointer]:
+              - img [ref=e120]
+              - generic [ref=e123]: Laporan
+              - generic [ref=e124]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+              - generic [ref=e130]: Closing Harian
+              - generic [ref=e131]: Submit / Approve
+          - generic [ref=e132]:
+            - img [ref=e133]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e136]:
+          - generic [ref=e137]: Admin
+          - generic [ref=e138]:
+            - button "Dashboard Statistik harian" [ref=e139] [cursor=pointer]:
+              - img [ref=e140]
+              - generic [ref=e143]: Dashboard
+              - generic [ref=e144]: Statistik harian
+            - button "Layanan CRUD master" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+              - generic [ref=e150]: Layanan
+              - generic [ref=e151]: CRUD master
+            - button "Produk Master produk" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e163]: Produk
+              - generic [ref=e164]: Master produk
+            - button "User Akun & shift" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e178]: User
+              - generic [ref=e179]: Akun & shift
+          - generic [ref=e180]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e182] [cursor=pointer]:
+            - img [ref=e183]
+            - generic [ref=e187]: Audit Log
+            - generic [ref=e188]: 50 entri terakhir
+  - main [ref=e189]:
+    - generic [ref=e788]:
+      - generic [ref=e789]:
+        - generic [ref=e790]:
+          - text: Admin · Produk
+          - heading "Master produk & stok" [level=2] [ref=e791]
+        - button "Tambah produk" [ref=e792] [cursor=pointer]:
+          - img [ref=e793]
+          - text: Tambah produk
+      - table [ref=e795]:
+        - rowgroup [ref=e796]:
+          - row "Nama Kategori Total Stock Status Aksi" [ref=e797]:
+            - columnheader "Nama" [ref=e798]
+            - columnheader "Kategori" [ref=e799]
+            - columnheader "Total Stock" [ref=e800]
+            - columnheader "Status" [ref=e801]
+            - columnheader "Aksi" [ref=e802]
+        - rowgroup [ref=e803]:
+          - row "LED Eye Shield Alat 42 Aman Edit Hapus" [ref=e804] [cursor=pointer]:
+            - cell "LED Eye Shield" [ref=e805]:
+              - strong [ref=e806]: LED Eye Shield
+            - cell "Alat" [ref=e807]
+            - cell "42" [ref=e808]
+            - cell "Aman" [ref=e809]:
+              - generic [ref=e810]: Aman
+            - cell "Edit Hapus" [ref=e811]:
+              - generic [ref=e812]:
+                - button "Edit" [ref=e813]:
+                  - img [ref=e814]
+                  - text: Edit
+                - button "Hapus" [ref=e817]:
+                  - img [ref=e818]
+                  - text: Hapus
+          - row "LED Eye Shield Alat 0 Menipis Edit Hapus" [ref=e821] [cursor=pointer]:
+            - cell "LED Eye Shield" [ref=e822]:
+              - strong [ref=e823]: LED Eye Shield
+            - cell "Alat" [ref=e824]
+            - cell "0" [ref=e825]
+            - cell "Menipis" [ref=e826]:
+              - generic [ref=e827]: Menipis
+            - cell "Edit Hapus" [ref=e828]:
+              - generic [ref=e829]:
+                - button "Edit" [ref=e830]:
+                  - img [ref=e831]
+                  - text: Edit
+                - button "Hapus" [ref=e834]:
+                  - img [ref=e835]
+                  - text: Hapus
+          - row "Retinol Night Cream CREAM 50 Aman Edit Hapus" [ref=e838] [cursor=pointer]:
+            - cell "Retinol Night Cream" [ref=e839]:
+              - strong [ref=e840]: Retinol Night Cream
+            - cell "CREAM" [ref=e841]
+            - cell "50" [ref=e842]
+            - cell "Aman" [ref=e843]:
+              - generic [ref=e844]: Aman
+            - cell "Edit Hapus" [ref=e845]:
+              - generic [ref=e846]:
+                - button "Edit" [ref=e847]:
+                  - img [ref=e848]
+                  - text: Edit
+                - button "Hapus" [ref=e851]:
+                  - img [ref=e852]
+                  - text: Hapus
+          - row "Sterile Gauze Consumable 120 Aman Edit Hapus" [ref=e855] [cursor=pointer]:
+            - cell "Sterile Gauze" [ref=e856]:
+              - strong [ref=e857]: Sterile Gauze
+            - cell "Consumable" [ref=e858]
+            - cell "120" [ref=e859]
+            - cell "Aman" [ref=e860]:
+              - generic [ref=e861]: Aman
+            - cell "Edit Hapus" [ref=e862]:
+              - generic [ref=e863]:
+                - button "Edit" [ref=e864]:
+                  - img [ref=e865]
+                  - text: Edit
+                - button "Hapus" [ref=e868]:
+                  - img [ref=e869]
+                  - text: Hapus
+          - row "Sterile Gauze Consumable 0 Menipis Edit Hapus" [ref=e872] [cursor=pointer]:
+            - cell "Sterile Gauze" [ref=e873]:
+              - strong [ref=e874]: Sterile Gauze
+            - cell "Consumable" [ref=e875]
+            - cell "0" [ref=e876]
+            - cell "Menipis" [ref=e877]:
+              - generic [ref=e878]: Menipis
+            - cell "Edit Hapus" [ref=e879]:
+              - generic [ref=e880]:
+                - button "Edit" [ref=e881]:
+                  - img [ref=e882]
+                  - text: Edit
+                - button "Hapus" [ref=e885]:
+                  - img [ref=e886]
+                  - text: Hapus
+          - row "Moisturizer Hydrating MOISTURIZER 50 Aman Edit Hapus" [ref=e889] [cursor=pointer]:
+            - cell "Moisturizer Hydrating" [ref=e890]:
+              - strong [ref=e891]: Moisturizer Hydrating
+            - cell "MOISTURIZER" [ref=e892]
+            - cell "50" [ref=e893]
+            - cell "Aman" [ref=e894]:
+              - generic [ref=e895]: Aman
+            - cell "Edit Hapus" [ref=e896]:
+              - generic [ref=e897]:
+                - button "Edit" [ref=e898]:
+                  - img [ref=e899]
+                  - text: Edit
+                - button "Hapus" [ref=e902]:
+                  - img [ref=e903]
+                  - text: Hapus
+          - row "Serum Vitamin C SERUM 50 Aman Edit Hapus" [ref=e906] [cursor=pointer]:
+            - cell "Serum Vitamin C" [ref=e907]:
+              - strong [ref=e908]: Serum Vitamin C
+            - cell "SERUM" [ref=e909]
+            - cell "50" [ref=e910]
+            - cell "Aman" [ref=e911]:
+              - generic [ref=e912]: Aman
+            - cell "Edit Hapus" [ref=e913]:
+              - generic [ref=e914]:
+                - button "Edit" [ref=e915]:
+                  - img [ref=e916]
+                  - text: Edit
+                - button "Hapus" [ref=e919]:
+                  - img [ref=e920]
+                  - text: Hapus
+          - row "Sunscreen SPF 50 SUNSCREEN 50 Aman Edit Hapus" [ref=e923] [cursor=pointer]:
+            - cell "Sunscreen SPF 50" [ref=e924]:
+              - strong [ref=e925]: Sunscreen SPF 50
+            - cell "SUNSCREEN" [ref=e926]
+            - cell "50" [ref=e927]
+            - cell "Aman" [ref=e928]:
+              - generic [ref=e929]: Aman
+            - cell "Edit Hapus" [ref=e930]:
+              - generic [ref=e931]:
+                - button "Edit" [ref=e932]:
+                  - img [ref=e933]
+                  - text: Edit
+                - button "Hapus" [ref=e936]:
+                  - img [ref=e937]
+                  - text: Hapus
+          - row "Barrier Serum Skincare 154 Aman Edit Hapus" [ref=e940] [cursor=pointer]:
+            - cell "Barrier Serum" [ref=e941]:
+              - strong [ref=e942]: Barrier Serum
+            - cell "Skincare" [ref=e943]
+            - cell "154" [ref=e944]
+            - cell "Aman" [ref=e945]:
+              - generic [ref=e946]: Aman
+            - cell "Edit Hapus" [ref=e947]:
+              - generic [ref=e948]:
+                - button "Edit" [ref=e949]:
+                  - img [ref=e950]
+                  - text: Edit
+                - button "Hapus" [ref=e953]:
+                  - img [ref=e954]
+                  - text: Hapus
+          - row "Barrier Serum Skincare 0 Menipis Edit Hapus" [ref=e957] [cursor=pointer]:
+            - cell "Barrier Serum" [ref=e958]:
+              - strong [ref=e959]: Barrier Serum
+            - cell "Skincare" [ref=e960]
+            - cell "0" [ref=e961]
+            - cell "Menipis" [ref=e962]:
+              - generic [ref=e963]: Menipis
+            - cell "Edit Hapus" [ref=e964]:
+              - generic [ref=e965]:
+                - button "Edit" [ref=e966]:
+                  - img [ref=e967]
+                  - text: Edit
+                - button "Hapus" [ref=e970]:
+                  - img [ref=e971]
+                  - text: Hapus
+          - row "Calming Toner Skincare 9 Menipis Edit Hapus" [ref=e974] [cursor=pointer]:
+            - cell "Calming Toner" [ref=e975]:
+              - strong [ref=e976]: Calming Toner
+            - cell "Skincare" [ref=e977]
+            - cell "9" [ref=e978]
+            - cell "Menipis" [ref=e979]:
+              - generic [ref=e980]: Menipis
+            - cell "Edit Hapus" [ref=e981]:
+              - generic [ref=e982]:
+                - button "Edit" [ref=e983]:
+                  - img [ref=e984]
+                  - text: Edit
+                - button "Hapus" [ref=e987]:
+                  - img [ref=e988]
+                  - text: Hapus
+          - row "Calming Toner Skincare 0 Menipis Edit Hapus" [ref=e991] [cursor=pointer]:
+            - cell "Calming Toner" [ref=e992]:
+              - strong [ref=e993]: Calming Toner
+            - cell "Skincare" [ref=e994]
+            - cell "0" [ref=e995]
+            - cell "Menipis" [ref=e996]:
+              - generic [ref=e997]: Menipis
+            - cell "Edit Hapus" [ref=e998]:
+              - generic [ref=e999]:
+                - button "Edit" [ref=e1000]:
+                  - img [ref=e1001]
+                  - text: Edit
+                - button "Hapus" [ref=e1004]:
+                  - img [ref=e1005]
+                  - text: Hapus
+          - row "Daily Sunscreen SPF50 Skincare 18 Prioritas Edit Hapus" [ref=e1008] [cursor=pointer]:
+            - cell "Daily Sunscreen SPF50" [ref=e1009]:
+              - strong [ref=e1010]: Daily Sunscreen SPF50
+            - cell "Skincare" [ref=e1011]
+            - cell "18" [ref=e1012]
+            - cell "Prioritas" [ref=e1013]:
+              - generic [ref=e1014]: Prioritas
+            - cell "Edit Hapus" [ref=e1015]:
+              - generic [ref=e1016]:
+                - button "Edit" [ref=e1017]:
+                  - img [ref=e1018]
+                  - text: Edit
+                - button "Hapus" [ref=e1021]:
+                  - img [ref=e1022]
+                  - text: Hapus
+          - row "Daily Sunscreen SPF50 Skincare 0 Menipis Edit Hapus" [ref=e1025] [cursor=pointer]:
+            - cell "Daily Sunscreen SPF50" [ref=e1026]:
+              - strong [ref=e1027]: Daily Sunscreen SPF50
+            - cell "Skincare" [ref=e1028]
+            - cell "0" [ref=e1029]
+            - cell "Menipis" [ref=e1030]:
+              - generic [ref=e1031]: Menipis
+            - cell "Edit Hapus" [ref=e1032]:
+              - generic [ref=e1033]:
+                - button "Edit" [ref=e1034]:
+                  - img [ref=e1035]
+                  - text: Edit
+                - button "Hapus" [ref=e1038]:
+                  - img [ref=e1039]
+                  - text: Hapus
+          - row "Toner Gentle TONER 50 Aman Edit Hapus" [ref=e1042] [cursor=pointer]:
+            - cell "Toner Gentle" [ref=e1043]:
+              - strong [ref=e1044]: Toner Gentle
+            - cell "TONER" [ref=e1045]
+            - cell "50" [ref=e1046]
+            - cell "Aman" [ref=e1047]:
+              - generic [ref=e1048]: Aman
+            - cell "Edit Hapus" [ref=e1049]:
+              - generic [ref=e1050]:
+                - button "Edit" [ref=e1051]:
+                  - img [ref=e1052]
+                  - text: Edit
+                - button "Hapus" [ref=e1055]:
+                  - img [ref=e1056]
+                  - text: Hapus
+          - row "Acne Mask Sachet Treatment 57 Aman Edit Hapus" [ref=e1059] [cursor=pointer]:
+            - cell "Acne Mask Sachet" [ref=e1060]:
+              - strong [ref=e1061]: Acne Mask Sachet
+            - cell "Treatment" [ref=e1062]
+            - cell "57" [ref=e1063]
+            - cell "Aman" [ref=e1064]:
+              - generic [ref=e1065]: Aman
+            - cell "Edit Hapus" [ref=e1066]:
+              - generic [ref=e1067]:
+                - button "Edit" [ref=e1068]:
+                  - img [ref=e1069]
+                  - text: Edit
+                - button "Hapus" [ref=e1072]:
+                  - img [ref=e1073]
+                  - text: Hapus
+          - row "Acne Mask Sachet Treatment 0 Menipis Edit Hapus" [ref=e1076] [cursor=pointer]:
+            - cell "Acne Mask Sachet" [ref=e1077]:
+              - strong [ref=e1078]: Acne Mask Sachet
+            - cell "Treatment" [ref=e1079]
+            - cell "0" [ref=e1080]
+            - cell "Menipis" [ref=e1081]:
+              - generic [ref=e1082]: Menipis
+            - cell "Edit Hapus" [ref=e1083]:
+              - generic [ref=e1084]:
+                - button "Edit" [ref=e1085]:
+                  - img [ref=e1086]
+                  - text: Edit
+                - button "Hapus" [ref=e1089]:
+                  - img [ref=e1090]
+                  - text: Hapus
+          - row "Hydra Ampoule Treatment 11 Menipis Edit Hapus" [ref=e1093] [cursor=pointer]:
+            - cell "Hydra Ampoule" [ref=e1094]:
+              - strong [ref=e1095]: Hydra Ampoule
+            - cell "Treatment" [ref=e1096]
+            - cell "11" [ref=e1097]
+            - cell "Menipis" [ref=e1098]:
+              - generic [ref=e1099]: Menipis
+            - cell "Edit Hapus" [ref=e1100]:
+              - generic [ref=e1101]:
+                - button "Edit" [ref=e1102]:
+                  - img [ref=e1103]
+                  - text: Edit
+                - button "Hapus" [ref=e1106]:
+                  - img [ref=e1107]
+                  - text: Hapus
+          - row "Hydra Ampoule Treatment 0 Menipis Edit Hapus" [ref=e1110] [cursor=pointer]:
+            - cell "Hydra Ampoule" [ref=e1111]:
+              - strong [ref=e1112]: Hydra Ampoule
+            - cell "Treatment" [ref=e1113]
+            - cell "0" [ref=e1114]
+            - cell "Menipis" [ref=e1115]:
+              - generic [ref=e1116]: Menipis
+            - cell "Edit Hapus" [ref=e1117]:
+              - generic [ref=e1118]:
+                - button "Edit" [ref=e1119]:
+                  - img [ref=e1120]
+                  - text: Edit
+                - button "Hapus" [ref=e1123]:
+                  - img [ref=e1124]
+                  - text: Hapus
+          - row "Peeling Solution Mild Treatment 14 Aman Edit Hapus" [ref=e1127] [cursor=pointer]:
+            - cell "Peeling Solution Mild" [ref=e1128]:
+              - strong [ref=e1129]: Peeling Solution Mild
+            - cell "Treatment" [ref=e1130]
+            - cell "14" [ref=e1131]
+            - cell "Aman" [ref=e1132]:
+              - generic [ref=e1133]: Aman
+            - cell "Edit Hapus" [ref=e1134]:
+              - generic [ref=e1135]:
+                - button "Edit" [ref=e1136]:
+                  - img [ref=e1137]
+                  - text: Edit
+                - button "Hapus" [ref=e1140]:
+                  - img [ref=e1141]
+                  - text: Hapus
+          - row "Peeling Solution Mild Treatment 0 Menipis Edit Hapus" [ref=e1144] [cursor=pointer]:
+            - cell "Peeling Solution Mild" [ref=e1145]:
+              - strong [ref=e1146]: Peeling Solution Mild
+            - cell "Treatment" [ref=e1147]
+            - cell "0" [ref=e1148]
+            - cell "Menipis" [ref=e1149]:
+              - generic [ref=e1150]: Menipis
+            - cell "Edit Hapus" [ref=e1151]:
+              - generic [ref=e1152]:
+                - button "Edit" [ref=e1153]:
+                  - img [ref=e1154]
+                  - text: Edit
+                - button "Hapus" [ref=e1157]:
+                  - img [ref=e1158]
+                  - text: Hapus

@@ -1,6 +1,16 @@
 export type Role = "Kasir" | "Terapis" | "Gudang" | "Manajer" | "Admin";
 
-export type ViewKey = "pos" | "medical" | "inventory" | "reports";
+export type ViewKey =
+  | "pos"
+  | "medical"
+  | "inventory"
+  | "reports"
+  | "admin-layanan"
+  | "admin-produk"
+  | "admin-users"
+  | "audit-log"
+  | "dashboard"
+  | "daily-report";
 
 export interface User {
   id: number;
@@ -77,6 +87,7 @@ export interface Transaction {
 }
 
 export interface InventoryBatch {
+  id?: number;
   code: string;
   qty: number;
   hpp: number;

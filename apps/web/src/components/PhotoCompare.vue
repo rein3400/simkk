@@ -23,7 +23,10 @@ defineProps<{ photos: ClinicalPhoto[] }>();
         <Image v-else :size="22" />
       </div>
       <div>
-        <strong>{{ photo.label }}</strong>
+        <div class="photo-head">
+          <strong>{{ photo.label }}</strong>
+          <slot name="actions" :photo="photo" />
+        </div>
         <span>{{ photo.date }}</span>
         <code v-if="!photo.url"><Cloud :size="12" /> {{ photo.objectRef }}</code>
         <a v-else :href="photo.url" target="_blank" rel="noopener" class="file-link">
@@ -58,6 +61,12 @@ defineProps<{ photos: ClinicalPhoto[] }>();
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.photo-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
 .file-link {
   display: inline-flex;
@@ -98,5 +107,25 @@ defineProps<{ photos: ClinicalPhoto[] }>();
   font-size: 10px;
   color: var(--color-sage, #6b7a72);
   word-break: break-all;
+}
+:slotted(.ghost-action) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  background: transparent;
+  border: 1px solid rgba(176, 58, 46, 0.4);
+  color: #b03a2e;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+:slotted(.ghost-action:hover:not(:disabled)) {
+  background: #b03a2e;
+  color: var(--color-cream, #f5f1ea);
+  border-color: #b03a2e;
 }
 </style>
