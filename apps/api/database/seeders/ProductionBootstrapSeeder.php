@@ -37,11 +37,11 @@ class ProductionBootstrapSeeder extends Seeder
         $this->command->info('  4 users seeded (default password: simkk-2026)');
 
         $layanan = [
-            ['nama' => 'Facial Basic',       'harga' => 150000, 'durasi' => 45, 'kategori' => 'Treatment'],
-            ['nama' => 'Chemical Peeling',   'harga' => 350000, 'durasi' => 60, 'kategori' => 'Treatment'],
-            ['nama' => 'Microneedling',      'harga' => 500000, 'durasi' => 90, 'kategori' => 'Treatment'],
-            ['nama' => 'Laser Rejuvenation', 'harga' => 800000, 'durasi' => 75, 'kategori' => 'Treatment'],
-            ['nama' => 'Treatment Acne',     'harga' => 250000, 'durasi' => 50, 'kategori' => 'Treatment'],
+            ['nama' => 'Facial Basic',       'harga' => 150000, 'durasi' => 45, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Chemical Peeling',   'harga' => 350000, 'durasi' => 60, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Microneedling',      'harga' => 500000, 'durasi' => 90, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Laser Rejuvenation', 'harga' => 800000, 'durasi' => 75, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
+            ['nama' => 'Treatment Acne',     'harga' => 250000, 'durasi' => 50, 'kategori' => 'Treatment', 'komisi_rate' => 0.10],
         ];
         foreach ($layanan as $l) {
             Layanan::firstOrCreate(['nama' => $l['nama']], $l);
