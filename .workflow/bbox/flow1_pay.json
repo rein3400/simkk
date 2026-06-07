@@ -1,0 +1,1 @@
+﻿{"message":"The pasien id field is required. (and 2 more errors)","errors":{"pasien_id":["The pasien id field is required."],"terapis_id":["The terapis id field is required."],"items":["The items field is required."]}}

@@ -1,0 +1,19 @@
+param(
+  [string]$OutFile=''
+)
+$tk = (Get-Content 'D:/users/stefa/project/sim-kk/.workflow/bbox/tokens.json' | ConvertFrom-Json)
+$token = $tk.kasir.token
+$body = @{
+  patient_id = 1
+  therapist_id = 1
+  payment_method = 'Tunai'
+  discount = 0
+  catatan = 'flow1 test'
+  items = @(
+    @{ service_id = 1; qty = 1 },
+    @{ service_id = 6; qty = 1 },
+    @{ service_id = 8; qty = 1 }
+  )
+} | ConvertTo-Json -Depth 5
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:/users/stefa/project/sim-kk/.workflow/bbox/req.ps1" -Method POST -Path '/api/transactions/pay' -Token "$token" -BodyJson "$body" -OutFile $OutFile

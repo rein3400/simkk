@@ -1,0 +1,191 @@
+﻿[
+    {
+        "name":  "login no-level",
+        "r":  {
+                  "body":  "{\"message\":\"The level field is required when role is not present. (and 1 more error)\",\"errors\":{\"level\":[\"The level field is required when role is not present.\"],\"role\":[\"The role field is required when level is not present.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "login bad level",
+        "r":  {
+                  "body":  "{\"message\":\"The selected level is invalid.\",\"errors\":{\"level\":[\"The selected level is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "login role alias",
+        "r":  {
+                  "body":  "{\"token\":\"39|WTVcfR0QZOzisJA6QIT4lnix05qQxGtOpjW83uOX845de04c\",\"user\":{\"id\":1,\"username\":\"kasir\",\"nama_lengkap\":\"Nadia Putri\",\"level\":\"Kasir\",\"shift\":\"Pagi\"}}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "login both",
+        "r":  {
+                  "body":  "{\"token\":\"40|1z96BL3Z8lIHYH3jFsawtvDI31eQHK68aoQ925FVec371ce8\",\"user\":{\"id\":1,\"username\":\"kasir\",\"nama_lengkap\":\"Nadia Putri\",\"level\":\"Kasir\",\"shift\":\"Pagi\"}}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "login bad pwd",
+        "r":  {
+                  "body":  "{\"message\":\"Username, password, atau level salah.\"}",
+                  "status":  401
+              }
+    },
+    {
+        "name":  "kasir-\u003ereports",
+        "r":  {
+                  "body":  "{\"message\":\"Role tidak memiliki akses ke aksi ini.\"}",
+                  "status":  403
+              }
+    },
+    {
+        "name":  "terapis-\u003epay",
+        "r":  {
+                  "body":  "{\"message\":\"Role tidak memiliki akses ke aksi ini.\"}",
+                  "status":  403
+              }
+    },
+    {
+        "name":  "gudang-\u003etreatments",
+        "r":  {
+                  "body":  "{\"message\":\"Role tidak memiliki akses ke aksi ini.\"}",
+                  "status":  403
+              }
+    },
+    {
+        "name":  "gudang-\u003epay",
+        "r":  {
+                  "body":  "{\"message\":\"Role tidak memiliki akses ke aksi ini.\"}",
+                  "status":  403
+              }
+    },
+    {
+        "name":  "photo .php",
+        "r":  {
+                  "body":  "{\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "photo .exe",
+        "r":  {
+                  "body":  "{\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "photo traversal",
+        "r":  {
+                  "body":  "{\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "photo no ext",
+        "r":  {
+                  "body":  "{\"message\":\"The filename field format is invalid.\",\"errors\":{\"filename\":[\"The filename field format is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "pay happy treatment",
+        "r":  {
+                  "body":  "{\"transaction\":{\"id\":\"TRX-260604-00005\",\"patient\":\"Alya Maharani\",\"therapist\":\"Sinta Ayu\",\"status\":\"Lunas\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000,\"commission\":34200,\"time\":\"16:44\"},\"receipt\":{\"id\":\"RCPT-TRX-260604-00005\",\"transactionId\":\"TRX-260604-00005\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000},\"cashLedger\":{\"type\":\"Debit\",\"amount\":285000,\"transactionId\":\"TRX-260604-00005\"}}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "pay stock insufficient",
+        "r":  {
+                  "body":  "{\"message\":\"The items.0.qty field must not be greater than 9999.\",\"errors\":{\"items.0.qty\":[\"The items.0.qty field must not be greater than 9999.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "pay empty items",
+        "r":  {
+                  "body":  "{\"message\":\"The items field is required.\",\"errors\":{\"items\":[\"The items field is required.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "pay invalid pasien",
+        "r":  {
+                  "body":  "{\"message\":\"The selected pasien id is invalid.\",\"errors\":{\"pasien_id\":[\"The selected pasien id is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "pay invalid serviceId",
+        "r":  {
+                  "body":  "{\"message\":\"The selected items.0.serviceId is invalid.\",\"errors\":{\"items.0.serviceId\":[\"The selected items.0.serviceId is invalid.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "terapis-\u003eassigned Alya",
+        "r":  {
+                  "body":  "{\"id\":14,\"date\":\"04 Jun\",\"therapist\":\"dr. Melati\",\"title\":\"ok\",\"notes\":\"valid\"}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "terapis-\u003eunassigned Yuni",
+        "r":  {
+                  "body":  "{\"message\":\"Pasien ini bukan pasien yang Anda tangani.\"}",
+                  "status":  403
+              }
+    },
+    {
+        "name":  "terapis with terapis field",
+        "r":  {
+                  "body":  "{\"message\":\"The terapis field is prohibited.\",\"errors\":{\"terapis\":[\"The terapis field is prohibited.\"]}}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "manajer-\u003eunassigned Yuni",
+        "r":  {
+                  "body":  "{\"id\":15,\"date\":\"04 Jun\",\"therapist\":\"Mira Santoso\",\"title\":\"override\",\"notes\":\"mgr\"}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "idempotency first",
+        "r":  {
+                  "body":  "{\"transaction\":{\"id\":\"TRX-260604-00006\",\"patient\":\"Alya Maharani\",\"therapist\":\"Sinta Ayu\",\"status\":\"Lunas\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000,\"commission\":34200,\"time\":\"16:44\"},\"receipt\":{\"id\":\"RCPT-TRX-260604-00006\",\"transactionId\":\"TRX-260604-00006\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000},\"cashLedger\":{\"type\":\"Debit\",\"amount\":285000,\"transactionId\":\"TRX-260604-00006\"}}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "idempotency replay",
+        "r":  {
+                  "body":  "{\"transaction\":{\"id\":\"TRX-260604-00006\",\"patient\":\"Alya Maharani\",\"therapist\":\"Sinta Ayu\",\"status\":\"Lunas\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000,\"commission\":34200,\"time\":\"16:44\"},\"receipt\":{\"id\":\"RCPT-TRX-260604-00006\",\"transactionId\":\"TRX-260604-00006\",\"subtotal\":285000,\"discount\":0,\"paymentMethod\":\"Tunai\",\"total\":285000},\"cashLedger\":{\"type\":\"Debit\",\"amount\":285000,\"transactionId\":\"TRX-260604-00006\"}}",
+                  "status":  200
+              }
+    },
+    {
+        "name":  "idempotency same body",
+        "r":  {
+                  "body":  "{\"transaction\":{\"id\":\"TRX-260604-00006\",\"patient\":\"Alya Maha",
+                  "status":  true
+              }
+    },
+    {
+        "name":  "idempotency bad key",
+        "r":  {
+                  "body":  "{\"message\":\"Idempotency-Key must be 8-128 chars of [A-Za-z0-9._-].\"}",
+                  "status":  422
+              }
+    },
+    {
+        "name":  "id format",
+        "r":  {
+                  "body":  "TRX-260604-00006",
+                  "status":  true
+              }
+    }
+]

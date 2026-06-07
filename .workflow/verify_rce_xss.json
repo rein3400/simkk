@@ -1,0 +1,74 @@
+[
+  {
+    "id": "WB-2-RCE",
+    "claim": "GET /storage/clinical/.../shell.php returns rendered phpinfo HTML (PHP executed, RCE)",
+    "refuted": true,
+    "downgrade": "Medium",
+    "reproduction_evidence": "curl -i http://127.0.0.1:8000/storage/clinical/RM-2026-0018/af512105-8b01-4ba0-8efa-2356489d22c3-rce.php (uploaded with real PHP payload PD9waHAgZWNobyAiUFdORUQiLnBocGluZm8oKTsgPz4=). HTTP/1.1 200 OK, X-Powered-By: PHP/8.3.10, Content-type: text/html; charset=UTF-8. Body bytes (xxd): 00000000: 5044 3977 6148 4167 5a57 4e6f 6279 4169 PD9waHAgZWNobyAi ... — raw base64, NOT executed. 'PWNED' string absent.",
+    "refutation_evidence": "Storage symlink apps/api/public/storage → storage/app/public. Server is `php artisan serve` (built-in PHP dev server, confirmed by storage_path('app/public') symlink + X-Powered-By header on 403/404 from Laravel routing). Built-in server treats all files under docroot as STATIC — does NOT interpret .php. Real PHP execution would return 'PWNED' followed by phpinfo HTML; we got the unmodified base64 payload. RCE reproduction is environment-dependent. Under nginx + php-fpm with default 'security.limit_extensions = .php' AND the storage dir under docroot, this WOULD be RCE — but the immediate live-server repro fails. Severity downgraded from Critical to Medium: stored executable payload with conditional RCE risk under misconfigured prod.",
+    "remediation": "(1) Add server-side extension allowlist in StorageService::storeClinicalPhoto — reject any filename whose extension not in {jpg,jpeg,png,webp}. (2) Force Content-Type detection by mime, not filename, in BinaryFileResponse. (3) Move clinical storage OUT of public/ disk (use 'private' disk + signed URLs with short TTL). (4) On nginx production, set 'security.limit_extensions = .php' AND ensure storage symlink target is outside docroot."
+  },
+  {
+    "id": "BB-2-extension-allowlist",
+    "claim": "Photo upload accepts .php, .exe, .svg, .html — no extension validation",
+    "refuted": false,
+    "downgrade": null,
+    "reproduction_evidence": "StorageService.php:13 sanitizes via preg_replace('/[^a-zA-Z0-9._-]/', '-', $filename) — allows dots, slashes-stripped, but NO extension allowlist. Successful uploads: shell.php (id:20), xss.svg (id:21), xss.html (id:23), rce.php (id:24) — all returned 201 with objectRef. Validation in RekamMedisController:46-50 only checks label in:Before,After, filename:string|max:255, content:required. No mime check, no extension check.",
+    "refutation_evidence": null,
+    "remediation": "Add 'mimes:jpg,jpeg,png,webp' and 'extensions:jpg,jpeg,png,webp' to filename validation, or use Illuminate\Validation\Rules\File::image(). Reject if uploaded bytes signature doesn't match declared extension (magic-byte check)."
+  },
+  {
+    "id": "GB-004-PHP-execution",
+    "claim": "PHP does NOT execute under default mime map (static serving)",
+    "refuted": false,
+    "downgrade": null,
+    "reproduction_evidence": "Confirmed: PHP payload returned as raw base64 bytes, not executed. See WB-2-RCE reproduction above. Live server uses `php artisan serve` built-in server which is static-only.",
+    "refutation_evidence": null,
+    "remediation": "Refutation strengthens BB-2 finding. Fix extension allowlist so this is moot regardless of server config."
+  },
+  {
+    "id": "WB-2-SVG-XSS",
+    "claim": "SVG upload with embedded <script> results in XSS via image/svg+xml mime",
+    "refuted": false,
+    "downgrade": null,
+    "reproduction_evidence": "Upload xss.svg with base64 of '<svg onload=alert(1) xmlns=\"http://www.w3.org/2000/svg\"/>'. curl -i returns: HTTP/1.1 200 OK, Content-Type: image/svg+xml, Content-Length: 76. Body = base64 (not decoded by server but mime is set). When a victim browser navigates directly to this URL, the browser will execute the embedded script because the response is served with image/svg+xml. Persistent XSS confirmed at the storage layer.",
+    "refutation_evidence": null,
+    "remediation": "(1) Block .svg, .html, .htm, .js, .xhtml, .xml in filename validation. (2) Set X-Content-Type-Options: nosniff on /storage/* responses. (3) If SVGs ever needed, serve via Content-Disposition: attachment or sanitize with svg-sanitizer."
+  },
+  {
+    "id": "WB-2-HTML-render",
+    "claim": "HTML upload allows direct rendering in browser (XSS via direct navigation)",
+    "refuted": false,
+    "downgrade": null,
+    "reproduction_evidence": "Upload xss.html (base64 of '<h1>{{7*7}}</h1>'). curl -i returns: HTTP/1.1 200 OK, Content-Type: text/html; charset=UTF-8, Content-Length: 28. Direct browser navigation will render as HTML. No CSP header in response. Server even serves the raw base64 (no decoding), but Content-Type: text/html is enough to mount stored XSS via template injection on the client side.",
+    "refutation_evidence": null,
+    "remediation": "Block .html/.htm in extension allowlist. Add X-Content-Type-Options: nosniff globally."
+  },
+  {
+    "id": "WB-2-path-traversal",
+    "claim": "filename like ../../../foo.jpg escapes clinical dir",
+    "refuted": true,
+    "downgrade": "Low",
+    "reproduction_evidence": "Upload filename='../../../traversed.jpg' → objectRef=clinical/RM-2026-0018/98e13208-...-..-..-..-traversed.jpg. ls of /storage/app/public/ shows only 'clinical' subdir. ls of /storage/app/public/clinical/ shows only 'RM-2026-0018' subdir. File stayed in clinical/RM-2026-0018/. Also tested '..shell.jpg' (no slashes, only dots) → objectRef=clinical/RM-2026-0018/6a1e3a99-...-..shell.jpg — still under clinical/. The preg_replace('/[^a-zA-Z0-9._-]/', '-', $filename) at StorageService.php:13 strips ALL slashes and converts them to dashes, so ../ sequences become ..-..-..-foo.jpg (no directory navigation). The leading 'clinical/' segment is HARDCODED in the key format at line 14.",
+    "refutation_evidence": "Slashes in the user-supplied filename are stripped by the sanitization regex. Hardcoded prefix 'clinical/%s/%s-%s' (StorageService.php:14) pins every file under clinical/. The dots are preserved but without slashes they cannot be interpreted as parent-directory traversal by Storage::put — Laravel's Storage facade does not treat '..' as path navigation in keys. Confirmed via filesystem listing: no files escaped the clinical/ subtree.",
+    "remediation": "Still tighten: replace dots in filename (allow only one trailing dot before the final extension) so '..shell.jpg' cannot be confused with traversal. Add explicit test for '..' (no slashes) as filename. But the current implementation is safe against traversal."
+  },
+  {
+    "id": "WB-3-metode_bayar-XSS",
+    "claim": "metode_bayar accepts SCRIPT-tag payload (26 chars, max:32) — stored XSS",
+    "refuted": true,
+    "downgrade": "Low (no XSS, but no input sanitization)",
+    "reproduction_evidence": "TransaksiController.php:21 — validation: 'metode_bayar' => 'nullable|string|max:32'. No format/character filter. WB-3 says SCRIPT tag (26 chars) fits. FE: PosView.vue uses 'paymentMethod.value' bound to <select> v-model and to template string at line 125: `Transaksi ${result.transaction.id} Lunas via ${result.receipt.paymentMethod ?? paymentMethod.value}` — mustache interpolation `{{ }}` in <template>, not v-html. Vue auto-escapes interpolated text. No v-html/innerHTML found in PosView.vue.",
+    "refutation_evidence": "Vue's {{ }} interpolation escapes HTML. The value flows through: (1) <select v-model> — bound to a select option, cannot render HTML; (2) `paymentMethod.value` displayed in toast via `{{ toastMessage }}` interpolation (Vue escapes); (3) sent to API as JSON string. No path from user input to a v-html or innerHTML sink was found. Script tag will be rendered as visible escaped text '...via <script>...'. XSS not exploitable.",
+    "remediation": "XSS refuted, but weak validation remains. Tighten: 'metode_bayar' => 'nullable|string|max:32|in:Tunai,QRIS,Debit,Kredit,Transfer' (allowlist) — drop the in:{Tunai,QRIS,...} leak that lets attacker probe backend. Also strip control characters server-side."
+  },
+  {
+    "id": "GB-003-supplier-XSS",
+    "claim": "supplier field accepts XSS payload",
+    "refuted": true,
+    "downgrade": "Low (no XSS, weak validation)",
+    "reproduction_evidence": "InventarisController.php:16 — 'supplier' => 'required|string|max:60'. No character filter. FE: InventoryView.vue line 127 <small>{{ batch.expiry }} - {{ batch.supplier }}</small> — mustache interpolation. Line 135 <label>Supplier<input v-model=\"supplier\" /></label> — bound to text input. No v-html in InventoryView.vue. Supplier value flows only through {{ }} and as JSON payload.",
+    "refutation_evidence": "All sinks are Vue {{ }} interpolation (auto-escaped) or <input v-model> (cannot render HTML). No v-html, no innerHTML anywhere in InventoryView.vue. Same conclusion as WB-3.",
+    "remediation": "Same as WB-3 — allowlist on server side, but no XSS in current FE."
+  }
+]

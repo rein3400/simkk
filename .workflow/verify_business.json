@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-06-04",
+  "agent": "adversarial-refuter",
+  "method": "static source review of controllers/services/seeders",
+  "findings": {
+    "BB-19": {
+      "claim": "Finance saldo drift Rp520.000 (saldo 12.305.000 vs sum(transaksi.total) 12.825.000).",
+      "evidence_read": [
+        "apps/api/app/Http/Controllers/Api/BootstrapController.php:140-154 (buildReports finance branch)",
+        "apps/api/app/Http/Controllers/Api/LaporanController.php:14-37 (export endpoint)",
+        "apps/api/app/Services/PdfService.php:13-56 (generateFinanceReport)",
+        "apps/api/database/seeders/TransaksiSeeder.php:14-46 (3 transaksi: TRX-2505-031 Lunas 575000, TRX-2505-032 Menunggu 520000, TRX-2505-033 Draft 0)"
+      ],
+      "analysis": "BootstrapController::buildReports sums BukuKas (Debit only, Kredit hardcoded 0). PdfService does the same. Seed: only TRX-2505-031 is Lunas -> only it has a BukuKas row (Debit 575000). The other two (TRX-2505-032 Menunggu 520000, TRX-2505-033 Draft 0) are NOT in BukuKas. Therefore sum(transaksi.total) = 575000+520000+0 = 1.095.000, while saldo from BukuKas = 575.000. The 'drift' in the claim (520.000) is exactly the Menunggu transaction total — a status filter mismatch, not an integrity bug. By design, only Lunas transaksi affect BukuKas.",
+      "verdict": "REFUTED",
+      "severity_if_real": "n/a",
+      "actual_issue": "Status filter semantics: Bootstrap saldonya memang hanya Lunas (sesuai BukuKas), tapi ditampilkan sebagai 'saldo klinik' — potentially misleading UX, not a financial integrity bug. Bukan atomicity failure, bukan orphan BukuKas. Tidak ada Transaksi Lunas tanpa BukuKas (service TransaksiService::pay 87-92 creates both in same DB::transaction).",
+      "fix_recommendation": "Optional UX: label finance report 'Kas dari Pembayaran Lunas' instead of generic 'Arus Kas' to clarify filter. Not a security/integrity issue."
+    },
+    "BB-15": {
+      "claim": "PDF finance report has valid header but content is empty FlateDecode stream.",
+      "evidence_read": [
+        "apps/api/app/Services/PdfService.php:39-55 (renders finance-pdf.blade.php then Dompdf->output())",
+        "apps/api/resources/views/reports/finance-pdf.blade.php:31-64 (rows come from BukuKas::orderBy('id')->get() map)",
+        "apps/api/database/seeders/TransaksiSeeder.php:35-44 (only TRX-2505-031 Lunas gets BukuKas row)"
+      ],
+      "analysis": "PdfService loads BukuKas rows, not Transaksi. With default seed: exactly 1 BukuKas row exists (TRX-2505-031 Debit 575000). The PDF will render 1 row of data, plus TOTAL DEBIT Rp575.000, HPP 0, LABA KOTOR Rp575.000. View uses @forelse $rows, so if rows is empty it shows 'Belum ada data transaksi' (not empty PDF). If seed were wiped, it would still produce non-empty PDF with the empty-state message. The reported 'empty FlateDecode' is contradicted by source: dompdf always renders the wrapper HTML and the @forelse placeholder is text content (not a stream-empty scenario).",
+      "verdict": "REFUTED",
+      "severity_if_real": "n/a",
+      "actual_issue": "None confirmed. PDF generation is intact; data path is BukuKas (consistent with BootstrapController). If PDF truly rendered empty in the original observation, root cause is more likely: dompdf font issue, container restart with no BukuKas data, or specific runtime env — not a code bug.",
+      "fix_recommendation": "No code fix needed. If reproducible in fresh env, capture the exact dompdf version + PHP error log."
+    },
+    "GB-006": {
+      "claim": "Terapis can write treatment note attributing it to any therapist name.",
+      "evidence_read": [
+        "apps/api/app/Http/Controllers/Api/RekamMedisController.php:15-40 (addTreatment accepts 'terapis' from $request->validate, not from $request->user())",
+        "apps/api/app/Models/CatatanTreatment.php:8-24 (fillable includes 'terapis' as free string)",
+        "apps/api/routes/api.php (not read in this pass; controller has no $this->middleware or auth-based override)"
+      ],
+      "analysis": "CONFIRMED. The controller validates 'terapis' as a free-form string (max 50) and persists it directly to catatan_treatment.terapis column. It does NOT derive the therapist name from $request->user() or cross-reference terapis_id from the auth user. Any authenticated user (Terapis, Kasir, Manajer) submitting POST /api/pasien/{id}/treatments with body {terapis:'Siapa Saja', judul:'X', catatan:'Y'} will create a treatment record attributed to 'Siapa Saja' regardless of who actually performed it. Audit log (AuditLog) does not capture this either based on RekamMedisController (no $this->audit->log call).",
+      "verdict": "CONFIRMED",
+      "severity_if_real": "High",
+      "actual_issue": "Authorization + integrity gap. Treatment attribution is a free-text input. Allows fabricating clinical records, attribution fraud, and undermines medico-legal integrity of the EMR.",
+      "fix_recommendation": "Either (a) derive terapis from auth: CatatanTreatment::create(['terapis' => $request->user()->nama_lengkap]) and remove 'terapis' from request validation, or (b) accept terapis_id, validate exists:terapis,id, then look up nama; reject if user is Terapis and terapis_id != self. Also add AuditService::log for treatment add."
+    },
+    "WB-4_BB-9": {
+      "claim": "Concurrent /pay in same second produces duplicate id_transaksi -> 500.",
+      "evidence_read": [
+        "apps/api/app/Services/TransaksiService.php:33-130 (DB::transaction wrapper, line 58-59 idTransaksi = sprintf('TRX-%s-%03d', now()->format('ymd'), Transaksi::count()+1))",
+        "apps/api/database/migrations/2026_06_01_000007_create_transaksi_table.php:12 (id_transaksi is primary key string(30))",
+        "apps/api/app/Http/Controllers/Api/TransaksiController.php:12-33 (no idempotency key, no DB::beginTransaction before service call, single service transaction)"
+      ],
+      "analysis": "CONFIRMED in theory. The id generation uses (count+1) computed OUTSIDE any row lock and OUTSIDE the DB::transaction. Two requests entering pay() in the same millisecond both call Transaksi::count() concurrently, get the same N, both compute 'TRX-YYMMDD-(N+1)'. The PK is string(30) so the second insert will violate the unique primary key constraint and throw QueryException -> Laravel 500. The DB::transaction wraps the work, but does not serialize the count-and-insert logic — there is no lockForUpdate on a counter, no SELECT MAX, no auto-increment surrogate. SQLite serializes writes (so the race is masked in dev with SQLite); MySQL/Postgres will hit it under load. No retry, no idempotency key, no Upsert pattern.",
+      "verdict": "CONFIRMED (latent race, masked in SQLite dev env)",
+      "severity_if_real": "Critical (production = MySQL/Postgres)",
+      "actual_issue": "Non-serializable id generation. Even on a single-node setup, two near-simultaneous /pay calls in production can collide. The 5-fires-to-1-success test in task is the right reproduction, but on SQLite default it will appear safe — the tester must use MySQL or set DB engine to expose it.",
+      "fix_recommendation": "Use an auto-increment surrogate `id` (BIGINT) on transaksi and have id_transaksi be a derived display key (id_transaksi = 'TRX-' . date('ymd') . '-' . str_pad($id, 3, '0', STR_PAD_LEFT)) computed in model `creating` event or after retrieve. Or use a per-day counter table with SELECT ... FOR UPDATE inside DB::transaction. Or accept client-supplied UUID and use that as PK. Also add retry-once on QueryException 23000."
+    }
+  },
+  "summary": {
+    "BB-19": "REFUTED — drift is status-filter semantics, not atomicity bug",
+    "BB-15": "REFUTED — PDF renderer uses @forelse placeholder; not stream-empty",
+    "GB-006": "CONFIRMED — treatment therapis name is free-text from request body, no auth binding",
+    "WB-4_BB-9": "CONFIRMED — count+1 id generation has a textbook race; masked in SQLite, exploitable in MySQL/Postgres"
+  },
+  "files_consulted": [
+    "apps/api/app/Http/Controllers/Api/BootstrapController.php",
+    "apps/api/app/Http/Controllers/Api/RekamMedisController.php",
+    "apps/api/app/Http/Controllers/Api/TransaksiController.php",
+    "apps/api/app/Http/Controllers/Api/LaporanController.php",
+    "apps/api/app/Services/TransaksiService.php",
+    "apps/api/app/Services/PdfService.php",
+    "apps/api/app/Models/CatatanTreatment.php",
+    "apps/api/app/Models/User.php",
+    "apps/api/database/migrations/2026_06_01_000007_create_transaksi_table.php",
+    "apps/api/database/migrations/2026_06_01_000009_create_buku_kas_table.php",
+    "apps/api/resources/views/reports/finance-pdf.blade.php",
+    "apps/api/database/seeders/TransaksiSeeder.php",
+    "apps/api/database/seeders/DatabaseSeeder.php"
+  ],
+  "open_questions": [
+    "Has the project committed to MySQL/Postgres for prod? If yes, BB-9 race is immediately actionable. If SQLite-only, the race is theoretical but still a code smell.",
+    "Should treatment records be append-only with audit hash? Out of scope for this finding but recommended for clinical EMR.",
+    "BootstrapController and PdfService duplicate the BukuKas->saldo logic — consider extracting a LedgerService for single source of truth."
+  ]
+}

@@ -3,11 +3,11 @@
         "suite":  "BB-RPT",
         "scenario":  "daily_report_manajer",
         "expected":  "200 PDF",
-        "actual":  "409 pdf={\"message\":\"Call to ",
+        "actual":  "200 pdf=",
         "pass":  false,
-        "note":  "body={\"message\":\"Call to undefined relationship [produk] on model [App\\\\Models\\\\TransaksiDetail].\"}",
+        "note":  "body=",
         "severity":  "High",
-        "timestamp":  "2026-06-06T17:01:43.0004574+07:00"
+        "timestamp":  "2026-06-07T10:34:07.2183563+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -17,7 +17,7 @@
         "pass":  true,
         "note":  "",
         "severity":  "Info",
-        "timestamp":  "2026-06-06T17:01:43.3078567+07:00"
+        "timestamp":  "2026-06-07T10:34:08.4749360+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -27,7 +27,7 @@
         "pass":  true,
         "note":  "",
         "severity":  "Info",
-        "timestamp":  "2026-06-06T17:01:43.6238079+07:00"
+        "timestamp":  "2026-06-07T10:34:09.1449439+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -37,7 +37,7 @@
         "pass":  true,
         "note":  "",
         "severity":  "Info",
-        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7682801+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -47,7 +47,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9017101+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7713725+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -57,7 +57,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9127497+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7754151+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -67,7 +67,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9167090+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7796870+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -77,7 +77,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7816851+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -87,7 +87,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7839622+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -97,7 +97,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9177179+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7871645+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -107,7 +107,7 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7891640+07:00"
     },
     {
         "suite":  "BB-RPT",
@@ -117,6 +117,6 @@
         "pass":  false,
         "note":  "endpoint returns 422",
         "severity":  "Critical",
-        "timestamp":  "2026-06-06T17:01:43.9214660+07:00"
+        "timestamp":  "2026-06-07T10:34:09.7911639+07:00"
     }
 ]

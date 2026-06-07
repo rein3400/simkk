@@ -1,0 +1,30 @@
+﻿{
+    "f004_pay2":  {
+                      "status":  409
+                  },
+    "f001_valid":  {
+                       "body":  null,
+                       "status":  422
+                   },
+    "f001_php":  {
+                     "body":  null,
+                     "status":  422
+                 },
+    "f001_traversal":  {
+                           "body":  null,
+                           "status":  422
+                       },
+    "f006_first":  {
+                       "status":  409
+                   },
+    "f006_replay":  {
+                        "status":  409
+                    },
+    "f006_bad_key":  {
+                         "status":  422
+                     },
+    "f004_pay1":  {
+                      "body":  null,
+                      "status":  null
+                  }
+}

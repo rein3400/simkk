@@ -1,0 +1,106 @@
+{
+  "verified_at": "2026-06-04T15:59:00+08:00",
+  "verifier": "adversarial-refuter",
+  "scope": [
+    "WB-1 / BB-12 / GB-001 — Login 500 on missing level/role",
+    "BB-1 / GB-002 — Stock insufficient returns 500"
+  ],
+  "env": {
+    "api_base": "http://127.0.0.1:8000",
+    "app_debug": true,
+    "app_env": "local",
+    "db": "sqlite (test seed, polluted by prior runs)"
+  },
+  "findings": [
+    {
+      "id": "WB-1/BB-12/GB-001",
+      "title": "POST /api/login returns 500 with full stack trace when level/role omitted",
+      "claim": "Login with only {username,password} yields 500 with full stack trace.",
+      "reproduction": {
+        "command": "curl -s -X POST http://127.0.0.1:8000/api/login -H 'Content-Type: application/json' -d '{\"username\":\"kasir\",\"password\":\"simkk-2026\"}'",
+        "expected_http": 401,
+        "actual_http": 500
+      },
+      "evidence": {
+        "response_status": 500,
+        "body_keys": ["message", "exception", "file", "line", "trace"],
+        "body_message": "Undefined array key \"role\"",
+        "body_exception": "ErrorException",
+        "body_file": "D:\\Users\\stefa\\Project\\SIM-KK\\apps\\api\\app\\Http\\Controllers\\Api\\AuthController.php",
+        "body_line": 23,
+        "body_trace_depth": 36,
+        "body_trace_leak": "Full Laravel framework internal call path, file paths, and class names"
+      },
+      "root_cause": {
+        "file": "D:/users/stefa/project/sim-kk/apps/api/app/Http/Controllers/Api/AuthController.php",
+        "lines": "14-23",
+        "logic": "Validation rules mark 'level' and 'role' as 'sometimes|required'. AuthController line 23: `$level = $validated['level'] ?? $validated['role'];` — when both absent, `??` falls through to the second key which is also undefined, triggering PHP 8 'Undefined array key' ErrorException instead of returning 401. No defensive coalesce to null.",
+        "amplifier": "APP_DEBUG=true (apps/api/.env line 4) causes Laravel to render full stack trace + file paths + line numbers in the JSON 500 response."
+      },
+      "cwe": [
+        "CWE-209 (Generation of Error Message Containing Sensitive Information)",
+        "CWE-754 (Improper Check for Unusual or Exceptional Conditions)"
+      ],
+      "severity": "High",
+      "verdict": "CONFIRMED",
+      "refute_attempts": [
+        "Refute angle A: 'Maybe debug=false in real env'. Counter: APP_DEBUG=true in apps/api/.env line 4. Even if dev-only, dev/staging environments are exposed and the underlying missing-key bug still returns 500 (just without trace). Both are bugs.",
+        "Refute angle B: 'Maybe it's a 401 mis-routed as 500'. Counter: body is ErrorException, not AuthController's 401 message. Confirmed framework-level unhandled exception.",
+        "Refute angle C: 'One-line fix trivializes severity'. Counter: triviality does not negate the bug; production path still leaks paths/framework internals to any unauthenticated caller."
+      ],
+      "evidence_quality": "Strong — direct reproduction matches claim exactly."
+    },
+    {
+      "id": "BB-1/GB-002",
+      "title": "POST /api/transactions/pay returns 500 with full stack trace on insufficient stock",
+      "claim": "Pay with qty > stock returns 500 with stack trace.",
+      "reproduction_a": {
+        "service_id": 6,
+        "qty": 999,
+        "expected_http": 422,
+        "actual_http": 201,
+        "verdict_a": "REFUTED ON LAYANAN 6 — but due to test-state pollution, not code defect"
+      },
+      "reproduction_b": {
+        "command": "curl -s -X POST http://127.0.0.1:8000/api/transactions/pay -H 'Authorization: Bearer <kasir>' -H 'Content-Type: application/json' -d '{\"pasien_id\":1,\"terapis_id\":1,\"items\":[{\"serviceId\":7,\"qty\":99999}]}'",
+        "expected_http": 422,
+        "actual_http": 500
+      },
+      "evidence": {
+        "response_status": 500,
+        "body_keys": ["message", "exception", "file", "line", "trace"],
+        "body_message": "Stok FIFO tidak cukup untuk produk #2 (butuh 99999, tersedia 18).",
+        "body_exception": "RuntimeException",
+        "body_file": "D:\\Users\\stefa\\Project\\SIM-KK\\apps\\api\\app\\Services\\TransaksiService.php",
+        "body_line": 147,
+        "body_trace_depth": 36,
+        "body_trace_leak": "Full Laravel framework internal call path, file paths, and class names"
+      },
+      "root_cause": {
+        "file": "D:/users/stefa/project/sim-kk/apps/api/app/Services/TransaksiService.php",
+        "lines": "29-31, 136-148, 49-53",
+        "logic": "decrementStock() throws RuntimeException on insufficient FIFO stock. TransaksiService.pay() and TransaksiController do not catch it. No mapping to 422 ValidationException or domain-specific exception handler. App\\Exceptions\\Handler not present; bootstrap/app.php only sets shouldRenderJsonWhen, leaving default Laravel 500 render with full stack when APP_DEBUG=true.",
+        "amplifier": "Same APP_DEBUG=true. Without a custom renderer, Laravel 12 default + debug=true emits exception, file, line, trace to JSON."
+      },
+      "cwe": [
+        "CWE-754 (Improper Check for Unusual or Exceptional Conditions)",
+        "CWE-209 (Generation of Error Message Containing Sensitive Information)"
+      ],
+      "severity": "High",
+      "verdict": "CONFIRMED",
+      "refute_attempts": [
+        "Refute angle A: 'RuntimeException is mapped to 422 via global handler'. Counter: bootstrap/app.php (D:/users/stefa/project/sim-kk/apps/api/bootstrap/app.php lines 23-27) only configures shouldRenderJsonWhen. No exception::render() callback maps RuntimeException to 422. apps/api/app/Exceptions/Handler.php does not exist (Glob returned no files). Confirm: bug is unhandled.",
+        "Refute angle B: 'Original repro used layanan 6 qty=999 which returned 201'. Counter: tinker inspection shows produk 1 has a polluted batch with qty=9998899048 (id=20, batch='HUGE-1') from a prior fuzz test. The stock check code is correct; the test DB state is the artifact. Reproduction_b with layanan 7 (produk 2, no pollution) deterministically returns 500 with stack trace.",
+        "Refute angle C: 'Maybe it only fires on qty > INT_MAX'. Counter: qty=99999 on layanan 7 (stock=18) reproduces consistently. qty=100 was not tested but qty=99999 is sufficient to demonstrate the absence of validation and exception mapping.",
+        "Refute angle D: 'Trivial fix silences the bug'. Counter: a 1-line `if ($available < $qty) throw ValidationException::withMessages(...)` would map it to 422. Trivial does not equal non-existent."
+      ],
+      "evidence_quality": "Strong — direct reproduction matches claim, cross-checked with two service ids (one polluted, one clean)."
+    }
+  ],
+  "summary": {
+    "verified_count": 2,
+    "confirmed_count": 2,
+    "refuted_count": 0,
+    "notes": "Both findings survive adversarial refutation. The 500-on-missing-level bug is unconditional (no env dependency for the underlying exception). The 500-on-insufficient-stock bug requires APP_DEBUG=true for full trace leak, but the RuntimeException → 500 (instead of 422) is unconditional. Two prior polluted DB rows (one absurdly high batch, one with path-traversal batch code) indicate earlier verification steps also produced unsafe states worth flagging in synthesis."
+  }
+}

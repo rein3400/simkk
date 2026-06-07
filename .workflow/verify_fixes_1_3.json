@@ -1,0 +1,26 @@
+﻿{
+    "f002_both":  {
+                      "level_in_token":  "Kasir",
+                      "status":  200
+                  },
+    "f002_role_alias":  {
+                            "status":  200,
+                            "token_prefix":  "24|xt2l62V"
+                        },
+    "f003_stock_422":  {
+                           "body":  null,
+                           "status":  422
+                       },
+    "f002_no_level":  {
+                          "body":  null,
+                          "status":  422
+                      },
+    "f003_happy":  {
+                       "body":  null,
+                       "status":  null
+                   },
+    "f002_invalid_level":  {
+                               "body":  null,
+                               "status":  422
+                           }
+}

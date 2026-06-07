@@ -1,0 +1,17 @@
+﻿{
+    "f007_assigned":  {
+                          "body":  null,
+                          "status":  null
+                      },
+    "f007_unassigned":  {
+                            "body":  null,
+                            "status":  403
+                        },
+    "f007_manajer":  {
+                         "status":  null
+                     },
+    "f005_with_terapis_field":  {
+                                    "body":  null,
+                                    "status":  null
+                                }
+}
