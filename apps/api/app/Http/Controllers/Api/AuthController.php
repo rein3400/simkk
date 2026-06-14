@@ -40,7 +40,9 @@ class AuthController extends Controller
                 'id'           => $user->id,
                 'username'     => $user->username,
                 'nama_lengkap' => $user->nama_lengkap,
+                'name'         => $user->nama_lengkap,
                 'level'        => $user->level,
+                'role'         => $user->level,
                 'shift'        => $user->shift,
             ],
         ]);

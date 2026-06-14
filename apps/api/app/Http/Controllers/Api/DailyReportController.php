@@ -68,6 +68,7 @@ class DailyReportController extends Controller
         return response()->json([
             'tanggal'           => $date->toDateString(),
             'status'            => $status,
+            'closing_id'        => $closing?->id,
             'submitted_at'      => optional($closing?->submitted_at)?->toIso8601String(),
             'submitted_by'      => $closing?->kasir?->nama_lengkap,
             'approved_at'       => optional($closing?->approved_at)?->toIso8601String(),

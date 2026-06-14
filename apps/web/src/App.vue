@@ -118,8 +118,11 @@ const enterApp = async (payload: LoginPayload) => {
     const session = await login(payload);
     token.value = session.token;
     try { localStorage.setItem("simkk_token", session.token); } catch { /* storage unavailable */ }
-    // Backend returns `level`; mirror to `role` for UI consistency.
-    const u = { ...session.user, role: (session.user as any).level ?? (session.user as any).role, name: (session.user as any).nama_lengkap ?? (session.user as any).name };
+    // Backend now returns both snake_case and camelCase aliases; prefer explicit fields.
+    const raw = session.user as unknown as Record<string, unknown>;
+    const roleValue = (raw.level ?? raw.role) as Role;
+    const nameValue = (raw.nama_lengkap ?? raw.name) as string;
+    const u: User = { ...session.user, role: roleValue, name: nameValue };
     authUser.value = u;
     currentRole.value = u.role;
     await refreshData();

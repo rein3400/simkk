@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { Cloud, Image } from "@lucide/vue";
+import { ref } from "vue";
 import type { ClinicalPhoto } from "../types/domain";
 
 defineProps<{ photos: ClinicalPhoto[] }>();
+
+const failedPhotos = ref<Set<string>>(new Set());
+
+const markFailed = (photoId: string) => {
+  const next = new Set(failedPhotos.value);
+  next.add(photoId);
+  failedPhotos.value = next;
+};
 </script>
 
 <template>
@@ -13,14 +22,17 @@ defineProps<{ photos: ClinicalPhoto[] }>();
     <div v-for="photo in photos" :key="photo.id" class="photo-tile">
       <div class="photo-gradient">
         <img
-          v-if="photo.url"
+          v-if="photo.url && !failedPhotos.has(photo.id)"
           :src="photo.url"
           :alt="photo.label"
           class="photo-image"
           loading="lazy"
-          @error="(e) => ((e.target as HTMLImageElement).style.display = 'none')"
+          @error="markFailed(photo.id)"
         />
-        <Image v-else :size="22" />
+        <div v-else class="photo-missing">
+          <Image :size="22" />
+          <span>Foto tidak tersedia</span>
+        </div>
       </div>
       <div>
         <div class="photo-head">
@@ -38,6 +50,11 @@ defineProps<{ photos: ClinicalPhoto[] }>();
 </template>
 
 <style scoped>
+.photo-lane {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem;
+}
 .photo-tile {
   display: flex;
   flex-direction: column;
@@ -49,7 +66,7 @@ defineProps<{ photos: ClinicalPhoto[] }>();
 }
 .photo-gradient {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +79,19 @@ defineProps<{ photos: ClinicalPhoto[] }>();
   height: 100%;
   object-fit: cover;
 }
+.photo-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--color-sage, #6b7a72);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 .photo-head {
   display: flex;
   align-items: center;
@@ -72,6 +102,7 @@ defineProps<{ photos: ClinicalPhoto[] }>();
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  max-width: 100%;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
   color: var(--color-sage, #6b7a72);

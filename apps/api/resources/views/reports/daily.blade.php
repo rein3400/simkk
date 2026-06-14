@@ -144,7 +144,13 @@
                 <span style="font-size:9px;">&nbsp;</span>
             @endif
         </div>
-        <div class="ttd-name">{{ $signerManajer ?? '___________________' }}</div>
+        <div class="ttd-name">
+            @if (!empty($signerManajer))
+                {{ $signerManajer }}
+            @else
+                <span class="empty">(Belum disetujui)</span>
+            @endif
+        </div>
     </div>
     <div class="ttd-cell">
         <div class="ttd-label">&nbsp;</div>
@@ -156,7 +162,13 @@
                 <span style="font-size:9px;">&nbsp;</span>
             @endif
         </div>
-        <div class="ttd-name paren">({{ $signerKasir ?? '___________________' }})</div>
+        <div class="ttd-name paren">(
+            @if (!empty($signerKasir))
+                {{ $signerKasir }}
+            @else
+                <span class="empty">___________________</span>
+            @endif
+        )</div>
     </div>
 </div>
 

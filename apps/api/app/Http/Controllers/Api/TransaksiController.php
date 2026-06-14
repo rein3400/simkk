@@ -23,9 +23,9 @@ class TransaksiController extends Controller
             'terapis_id'     => 'required|integer|exists:terapis,id',
             'items'          => 'required|array|min:1',
             'items.*.serviceId' => 'required|integer|exists:layanan,id',
-            'items.*.qty'    => 'nullable|integer|min:1|max:9999',
+            'items.*.qty'    => 'required|integer|min:1|max:100',
             'diskon'         => 'nullable|integer|min:0',
-            'metode_bayar'   => 'nullable|string|max:32',
+            'metode_bayar'   => ['nullable', 'string', 'in:Tunai,QRIS,Debit,Kredit,Transfer,EDC,Transfer BCA,Transfer Mandiri,EDC BCA,EDC BCA KASIR,EDC MANDIRI,EDC MANDIRI KASIR,QRIS BCA,QRIS MANDIRI'],
         ]);
 
         // F-006 fix: Idempotency-Key replay protection.
@@ -66,6 +66,16 @@ class TransaksiController extends Controller
                 'status_code'   => $status,
                 'response_body' => $body,
             ]);
+        }
+
+        // Enrich response with surrogate id for void/delete operations.
+        if (is_array($body) && isset($body['transaction'])) {
+            $transaksiId = $body['transaction']['id'];
+            $row = \App\Models\Transaksi::where('id_transaksi', $transaksiId)->first();
+            if ($row) {
+                $body['transaction']['rowId'] = $row->id;
+                $body['receipt']['rowId'] = $row->id;
+            }
         }
 
         return response()->json($body, $status);

@@ -18,7 +18,8 @@ use App\Http\Controllers\Api\TransaksiController;
 use App\Http\Controllers\Api\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])
+    ->middleware('throttle:20,1');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -31,8 +32,14 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/patients/{patient}/treatments', [RekamMedisController::class, 'addTreatment'])
         ->middleware('role:Terapis,Manajer');
+    Route::match(['put', 'patch'], '/patients/{patient}/treatments/{treatment}', [RekamMedisController::class, 'updateTreatment'])
+        ->middleware('role:Terapis,Manajer');
+    Route::delete('/patients/{patient}/treatments/{treatment}', [RekamMedisController::class, 'deleteTreatment'])
+        ->middleware('role:Terapis,Manajer');
 
     Route::post('/patients/{patient}/photos', [RekamMedisController::class, 'addPhoto'])
+        ->middleware('role:Terapis,Manajer');
+    Route::delete('/patients/{patient}/photos/{photo}', [RekamMedisController::class, 'deletePhoto'])
         ->middleware('role:Terapis,Manajer');
 
     Route::post('/inventory/purchases', [InventarisController::class, 'addPurchase'])
@@ -72,34 +79,50 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/inventory-movements', [InventoryMovementController::class, 'index'])
         ->middleware('role:Gudang,Manajer');
 
-    // Photo proxy — streams R2 object through Laravel (avoids R2 presigned URL signature quirks).
-    // URL: /api/photos/{id}/raw
-    Route::get('/photos/{photo}/raw', [RekamMedisController::class, 'streamPhoto']);
-
     Route::post('/telegram/reminder', [TelegramController::class, 'reminder'])
         ->middleware('role:Manajer,Kasir,Terapis');
     Route::post('/telegram/aftercare', [TelegramController::class, 'aftercare'])
         ->middleware('role:Manajer,Terapis');
 
-    // Admin: Layanan / Produk / User CRUD — Manajer only.
-    Route::get('/admin/layanan', [LayananController::class, 'index']);
-    Route::post('/admin/layanan', [LayananController::class, 'store']);
-    Route::get('/admin/layanan/{layanan}', [LayananController::class, 'show']);
-    Route::match(['put', 'patch'], '/admin/layanan/{layanan}', [LayananController::class, 'update']);
-    Route::delete('/admin/layanan/{layanan}', [LayananController::class, 'destroy']);
+    // Admin: Layanan / Produk / User CRUD — Manajer only (P0 privilege escalation fix).
+    Route::get('/admin/layanan', [LayananController::class, 'index'])
+        ->middleware('role:Manajer');
+    Route::post('/admin/layanan', [LayananController::class, 'store'])
+        ->middleware('role:Manajer');
+    Route::get('/admin/layanan/{layanan}', [LayananController::class, 'show'])
+        ->middleware('role:Manajer');
+    Route::match(['put', 'patch'], '/admin/layanan/{layanan}', [LayananController::class, 'update'])
+        ->middleware('role:Manajer');
+    Route::delete('/admin/layanan/{layanan}', [LayananController::class, 'destroy'])
+        ->middleware('role:Manajer');
 
-    Route::get('/admin/produk', [ProdukController::class, 'index']);
-    Route::post('/admin/produk', [ProdukController::class, 'store']);
-    Route::get('/admin/produk/{produk}', [ProdukController::class, 'show']);
-    Route::match(['put', 'patch'], '/admin/produk/{produk}', [ProdukController::class, 'update']);
-    Route::delete('/admin/produk/{produk}', [ProdukController::class, 'destroy']);
+    Route::get('/admin/produk', [ProdukController::class, 'index'])
+        ->middleware('role:Manajer');
+    Route::post('/admin/produk', [ProdukController::class, 'store'])
+        ->middleware('role:Manajer');
+    Route::get('/admin/produk/{produk}', [ProdukController::class, 'show'])
+        ->middleware('role:Manajer');
+    Route::match(['put', 'patch'], '/admin/produk/{produk}', [ProdukController::class, 'update'])
+        ->middleware('role:Manajer');
+    Route::delete('/admin/produk/{produk}', [ProdukController::class, 'destroy'])
+        ->middleware('role:Manajer');
 
-    Route::get('/admin/users', [UserAdminController::class, 'index']);
-    Route::post('/admin/users', [UserAdminController::class, 'store']);
-    Route::get('/admin/users/{user}', [UserAdminController::class, 'show']);
-    Route::match(['put', 'patch'], '/admin/users/{user}', [UserAdminController::class, 'update']);
-    Route::delete('/admin/users/{user}', [UserAdminController::class, 'destroy']);
+    Route::get('/admin/users', [UserAdminController::class, 'index'])
+        ->middleware('role:Manajer');
+    Route::post('/admin/users', [UserAdminController::class, 'store'])
+        ->middleware('role:Manajer');
+    Route::get('/admin/users/{user}', [UserAdminController::class, 'show'])
+        ->middleware('role:Manajer');
+    Route::match(['put', 'patch'], '/admin/users/{user}', [UserAdminController::class, 'update'])
+        ->middleware('role:Manajer');
+    Route::delete('/admin/users/{user}', [UserAdminController::class, 'destroy'])
+        ->middleware('role:Manajer');
 });
+
+// Photo proxy — browser-safe signed URL for <img>; auth stays on the data APIs.
+Route::get('/photos/{photo}/raw', [RekamMedisController::class, 'streamPhoto'])
+    ->middleware('signed')
+    ->name('photos.raw');
 
 // Telegram webhook — public (Telegram servers call this, no auth)
 // Webhook secret verification would be added via X-Telegram-Bot-Api-Secret-Token header in production.

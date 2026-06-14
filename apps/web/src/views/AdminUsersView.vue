@@ -181,6 +181,11 @@ onMounted(() => {
       <p v-if="searchNeedle" class="search-hint">
         {{ filteredRecords.length }} user cocok dengan "{{ props.searchQuery }}".
       </p>
+      <p class="search-hint">
+        Tips: nama Manajer akan tercetak di laporan harian PDF. Edit user
+        <strong>manajer</strong> dan ubah "Nama Lengkap" sesuai penanggung jawab
+        yang sebenarnya.
+      </p>
 
       <div class="table-wrap">
         <table>

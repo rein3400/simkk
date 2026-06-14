@@ -13,7 +13,8 @@ use App\Services\StorageService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Facades\URL;
+use Symfony\Component\HttpFoundation\Response;
 
 class RekamMedisController extends Controller
 {
@@ -52,13 +53,13 @@ class RekamMedisController extends Controller
 
         $treatment = CatatanTreatment::create([
             'pasien_id' => $pasien->id,
-            'tanggal'   => now()->format('d M'),
+            'tanggal'   => now()->format('Y-m-d'),
             'terapis'   => $terapisName,
             'judul'     => $validated['judul'],
             'catatan'   => $validated['catatan'],
         ]);
 
-        $audit->log('treatment.create', $user, [
+        $audit->log($user, 'treatment.create', 'catatan_treatment', (string) $treatment->id, null, [
             'patient' => $pasien->rekam_medis_id,
             'treatment_id' => $treatment->id,
         ]);
@@ -95,11 +96,14 @@ class RekamMedisController extends Controller
             'catatan' => 'required|string|max:5000',
         ]);
 
+        $before = $treatment->only(['judul', 'catatan']);
         $treatment->update($validated);
 
-        $audit->log('treatment.update', $user, [
+        $audit->log($user, 'treatment.update', 'catatan_treatment', (string) $treatment->id, $before, [
             'patient' => $pasien->rekam_medis_id,
             'treatment_id' => $treatment->id,
+            'judul' => $treatment->judul,
+            'catatan' => $treatment->catatan,
         ]);
 
         return response()->json([
@@ -128,8 +132,9 @@ class RekamMedisController extends Controller
             }
         }
 
+        $before = $treatment->only(['pasien_id', 'tanggal', 'terapis', 'judul', 'catatan']);
         $treatment->delete();
-        $audit->log('treatment.delete', $user, [
+        $audit->log($user, 'treatment.delete', 'catatan_treatment', (string) $treatment->id, $before, [
             'patient' => $pasien->rekam_medis_id,
             'treatment_id' => $treatment->id,
         ]);
@@ -171,7 +176,7 @@ class RekamMedisController extends Controller
         $validated = $request->validate([
             'label'    => 'required|string|in:Before,After',
             'filename' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9._-]+\.(png|jpg|jpeg|webp|heic)$/i'],
-            'content'  => 'required|string',
+            'content'  => 'required|string|max:14336',
         ]);
 
         $bytes = $storage->decodeForValidation($validated['content']);
@@ -195,7 +200,7 @@ class RekamMedisController extends Controller
             'object_ref' => $objectRef,
         ]);
 
-        $audit->log('photo.create', $user, [
+        $audit->log($user, 'photo.create', 'foto_klinis', (string) $photo->id, null, [
             'patient' => $pasien->rekam_medis_id,
             'photo_id' => $photo->id,
         ]);
@@ -205,7 +210,7 @@ class RekamMedisController extends Controller
             'label'     => $photo->label,
             'date'      => $photo->tanggal,
             'objectRef' => $photo->object_ref,
-            'url'       => url("/api/photos/{$photo->id}/raw"),
+            'url'       => $this->photoUrl($photo->id),
         ], 201);
     }
 
@@ -230,14 +235,15 @@ class RekamMedisController extends Controller
         if (!str_starts_with($ref, 'local://')) {
             try {
                 $storage::class; // hint
-                \Storage::disk(config('sim-kk.storage.disk', 'local'))->delete($ref);
+                Storage::disk($this->storageDisk())->delete($ref);
             } catch (\Throwable $e) {
                 // best-effort cleanup; proceed with row deletion
             }
         }
 
+        $before = $foto->only(['pasien_id', 'label', 'tanggal', 'object_ref']);
         $foto->delete();
-        $audit->log('photo.delete', $user, [
+        $audit->log($user, 'photo.delete', 'foto_klinis', (string) $photo, $before, [
             'patient' => $pasien->rekam_medis_id,
             'photo_id' => $photo,
         ]);
@@ -249,21 +255,43 @@ class RekamMedisController extends Controller
      * Stream a clinical photo from R2 through Laravel.
      * Used as a proxy to avoid R2 presigned-URL signature quirks.
      */
-    public function streamPhoto(Request $request, int $photo): StreamedResponse
+    public function streamPhoto(Request $request, int $photo): Response
     {
         $foto = FotoKlinis::findOrFail($photo);
-        $disk = config('sim-kk.storage.disk', 'local');
+        $disk = $this->storageDisk();
         $ref  = $foto->object_ref;
 
-        if (!str_starts_with($ref, 'local://') && \Storage::disk($disk)->exists($ref)) {
-            $mime = \Storage::disk($disk)->mimeType($ref) ?: 'image/png';
-            return \Storage::disk($disk)->response($ref, null, [
+        if (!str_starts_with($ref, 'local://') && Storage::disk($disk)->exists($ref)) {
+            $mime = Storage::disk($disk)->mimeType($ref) ?: 'image/png';
+            return Storage::disk($disk)->response($ref, null, [
                 'Content-Type' => $mime,
             ]);
         }
 
-        // Fallback: serve a 1x1 transparent PNG so the browser doesn't show broken icon
-        $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=');
-        return response()->stream(function () use ($png) { echo $png; }, 200, ['Content-Type' => 'image/png']);
+        $svg = <<<'SVG'
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-label="Foto tidak tersedia">
+  <rect width="640" height="420" fill="#efe9dc"/>
+  <rect x="24" y="24" width="592" height="372" rx="28" fill="#f5f1ea" stroke="#d8d3c5" stroke-width="2" stroke-dasharray="12 12"/>
+  <circle cx="320" cy="176" r="52" fill="#d8d3c5"/>
+  <path d="M232 288c34-58 62-86 86-86 16 0 32 13 49 39 10 15 19 22 29 22 14 0 28-12 43-36l52 61H232z" fill="#c9c1ae"/>
+  <text x="320" y="342" text-anchor="middle" fill="#1f3d36" font-family="Arial, sans-serif" font-size="28" font-weight="700">Foto tidak tersedia</text>
+</svg>
+SVG;
+
+        return response($svg, 200, [
+            'Content-Type' => 'image/svg+xml; charset=UTF-8',
+            'Cache-Control' => 'no-store',
+        ]);
+    }
+
+    private function photoUrl(int $photoId): string
+    {
+        return URL::temporarySignedRoute('photos.raw', now()->addHours(12), ['photo' => $photoId]);
+    }
+
+    private function storageDisk(): string
+    {
+        $disk = config('sim-kk.storage.disk', 'local');
+        return $disk === 'local' ? 'public' : $disk;
     }
 }

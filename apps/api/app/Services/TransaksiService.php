@@ -56,6 +56,10 @@ class TransaksiService
 
             $diskonValue = min($subtotal, max(0, $diskon));
             $total = $subtotal - $diskonValue;
+            // P2 #8: ghost commission guard — if total is 0 (diskon >= subtotal), no commission.
+            if ($total <= 0) {
+                $totalKomisi = 0;
+            }
             $waktu = now()->format('H:i');
 
             // F-004 fix: generate id_transaksi from surrogate id AFTER insert to avoid

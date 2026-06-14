@@ -52,6 +52,7 @@ class PdfService
         $pdf = new Dompdf($options);
         $pdf->setPaper('a4', 'portrait');
         $pdf->loadHTML($html);
+        $pdf->render();
         return $pdf->output();
     }
 }

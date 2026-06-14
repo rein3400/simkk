@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaksi extends Model
 {
+    use SoftDeletes;
     protected $table = 'transaksi';
     // F-004 fix: surrogate auto-increment `id` is the primary key. `id_transaksi`
     // is the business identifier (unique, not PK), generated from `id` after insert.

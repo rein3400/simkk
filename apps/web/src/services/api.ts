@@ -304,7 +304,10 @@ export interface AuditLogEntry {
   id: number;
   user_id: number | null;
   user_name?: string;
+  username?: string;
   action: string;
+  entitas?: string | null;
+  entitas_id?: number | null;
   payload?: Record<string, unknown> | null;
   created_at: string;
 }
@@ -316,7 +319,21 @@ export async function getAuditLogs(token: string, params: { limit?: number; acti
   if (params.user_id) search.set("user_id", String(params.user_id));
   const qs = search.toString();
   const response = await authedFetch(token, `/api/audit-logs${qs ? `?${qs}` : ""}`, { method: "GET" });
-  return parseJson<AuditLogEntry[]>(response);
+  // Backend returns {count, rows: [{id, username, nama_lengkap, action, ...}]}
+  // Normalise to AuditLogEntry[] expected by the view.
+  const body = await parseJson<{ count?: number; rows?: any[] }>(response);
+  const rows = Array.isArray(body?.rows) ? body.rows : [];
+  return rows.map((row: any) => ({
+    id: row.id,
+    user_id: row.user_id ?? null,
+    user_name: row.nama_lengkap ?? row.username ?? undefined,
+    username: row.username,
+    action: row.action,
+    entitas: row.entitas,
+    entitas_id: row.entitas_id,
+    payload: row.payload,
+    created_at: row.created_at,
+  }));
 }
 
 /* ====================================================================
@@ -351,6 +368,7 @@ export interface DailyReportStatus {
   total_penjualan: number;
   total_komisi: number;
   transaction_count: number;
+  closing_id: number | null;
 }
 
 export async function getDailyReportStatus(token: string, tanggal: string): Promise<DailyReportStatus> {

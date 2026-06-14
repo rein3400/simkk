@@ -79,6 +79,10 @@ class UserAdminController extends Controller
         }
         if (!empty($data['password'])) {
             $update['password'] = $data['password']; // 'hashed' cast
+            // P2 #5: password change invalidates any previously issued Sanctum tokens.
+            // Otherwise the user could remain logged in on a stolen device after admin
+            // resets the password.
+            $row->tokens()->delete();
         }
         if (!empty($update)) {
             $row->update($update);
@@ -131,7 +135,7 @@ class UserAdminController extends Controller
             'username'     => $usernameRule,
             'password'     => array_merge(
                 $isCreate ? ['required'] : ['sometimes', 'nullable'],
-                ['string', 'min:6', 'max:255'],
+                ['string', 'min:8', 'max:255'],
             ),
             'nama_lengkap' => [$isCreate ? 'required' : 'sometimes', 'required', 'string', 'max:120'],
             'level'        => [$isCreate ? 'required' : 'sometimes', 'required', Rule::in(self::LEVELS)],

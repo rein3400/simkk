@@ -5,11 +5,13 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CommissionReportExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths
+class CommissionReportExport implements FromCollection, WithHeadings, WithMapping, WithTitle, WithStyles, WithColumnWidths, WithColumnFormatting
 {
     public function __construct(private readonly array $rows) {}
 
@@ -18,9 +20,14 @@ class CommissionReportExport implements FromCollection, WithHeadings, WithMappin
         return collect($this->rows);
     }
 
+    public function title(): string
+    {
+        return 'Komisi Terapis';
+    }
+
     public function headings(): array
     {
-        return ['ID Pegawai', 'Nama Terapis', 'Jumlah Tindakan', 'Total Komisi (Rp)', 'Gaji Pokok (Rp)', 'Grand Total (Rp)'];
+        return ['ID Pegawai', 'Nama Terapis', 'Jumlah Tindakan', 'Total Komisi (Rp)', 'Gaji Pokok (Rp)', 'Take Home Pay (Rp)'];
     }
 
     public function map($row): array
@@ -29,9 +36,9 @@ class CommissionReportExport implements FromCollection, WithHeadings, WithMappin
             $row['ID Pegawai'],
             $row['Nama Terapis'],
             $row['Jumlah Tindakan'],
-            number_format($row['Total Komisi'], 0, ',', '.'),
-            number_format($row['Gaji Pokok'], 0, ',', '.'),
-            number_format($row['Grand Total'], 0, ',', '.'),
+            (int) $row['Total Komisi'],
+            (int) $row['Gaji Pokok'],
+            (int) $row['Grand Total'],
         ];
     }
 
@@ -53,6 +60,15 @@ class CommissionReportExport implements FromCollection, WithHeadings, WithMappin
             'D' => 18,
             'E' => 18,
             'F' => 18,
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => '#,##0',
+            'E' => '#,##0',
+            'F' => '#,##0',
         ];
     }
 }

@@ -183,10 +183,23 @@ class TelegramController extends Controller
     private function linkByPhone(string $phone, string $chatId): ?Pasien
     {
         $digits = preg_replace('/\D+/', '', $phone);
+        // Normalize Indonesian phone numbers to 62xxx format (no leading 0).
         if (str_starts_with($digits, '0')) {
             $digits = '62' . substr($digits, 1);
         }
-        $pasien = Pasien::where('nomor_telp', 'LIKE', '%' . substr($digits, -9))->first();
+
+        // Build multiple normalized forms for exact matching to handle
+        // different storage conventions (62xxx, 0xxx, +62xxx).
+        $forms = array_unique(array_filter([
+            $digits,                              // 62xxx
+            '0' . substr($digits, 2),             // 0xxx (if starts with 62)
+            '+' . $digits,                         // +62xxx
+            substr($digits, 2),                    // local number without country code
+        ]));
+
+        // P1 #4: Exact normalized match instead of LIKE '%9digits'.
+        // Avoids mis-matching when 2 patients share the same 9-digit suffix.
+        $pasien = Pasien::whereIn('nomor_telp', $forms)->first();
         if ($pasien) {
             $pasien->telegram_chat_id = $chatId;
             $pasien->save();

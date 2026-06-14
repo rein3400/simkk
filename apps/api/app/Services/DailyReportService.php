@@ -171,7 +171,7 @@ class DailyReportService
         ])->render();
 
         $options = new Options();
-        $options->set('isRemoteEnabled', true);
+        $options->set('isRemoteEnabled', false);
         $options->set('defaultFont', 'DejaVu Sans Mono');
         $options->set('isHtml5ParserEnabled', true);
 

@@ -1,222 +1,208 @@
-# Architecture
+# Architecture — SIM-KK
 
-Source evidence: `C:\Users\stefa\Downloads\Rancangan Sistem Informasi Klinik Kecantikan.pdf`
+**Status:** Production-deployed monorepo (Laravel API + Vue 3 SPA)
+**Last updated:** 2026-06-14
+**Production URL:** http://43.133.142.74/
 
-Evidence status: this workspace now contains a Vue frontend plus a local Node/Express real-services backend under `prototype/`. Auth, persistence, POS finalization, FIFO mutation, local clinical object storage, and PDF/XLSX export run locally. Laravel, PostgreSQL/MySQL production hosting, external S3, WhatsApp, and payroll governance remain target design.
+---
 
-## System Summary
+## Overview
 
-SIM-KK is designed as a clinic management system with separated presentation, business logic, and data persistence. The current implementation is a Vue 3 frontend connected to a local Node/Express API with SQL.js SQLite persistence. The DPPL still recommends Laravel for the final backend, PostgreSQL or MySQL for relational data, and S3-compatible storage for before/after clinical photos.
-
-Main domains: authentication and role access, patient medical records, POS transactions and receipts, therapist commission snapshots, inventory/FIFO, and reports.
-
-## Tech Stack
-
-Implemented stack: Vue 3, TypeScript, Vite, CSS tokens, Lucide icons, Express, SQL.js SQLite, PDFKit, ExcelJS, Node API tests, and Playwright smoke tests.
-
-Source-backed target stack still pending for production hardening: Laravel/PHP backend, PostgreSQL or MySQL database, external S3-compatible object storage, WhatsApp integration, deployment, backup, and audit policy.
-
-Current workspace state: working local full-stack slice exists under `prototype/`; no Laravel app, production DB migrations, external object-storage runtime config, or production deployment config exists. Project root is not a git repository.
+SIM-KK (Sistem Informasi Manajemen — Klinik Kecantikan) is a full-stack clinic management system. It handles POS transactions, patient medical records (Rekam Medis), FIFO inventory, therapist commissions, daily closing reports, and Telegram notifications.
 
 ## Repository Structure
 
-Observed:
-
-```text
-C:\Users\stefa\Project\SIM-KK\
-  .omx\
-  docs\superpowers\
-  outputs\sim-kk-screenshots\
-  prototype\
-    backend\
-    data\           # runtime SQLite file, ignored
-    storage\        # runtime local clinical objects, ignored
-  CONTEXT.md
-  ARCHITECTURE.md
+```
+sim-kk/
+  apps/
+    api/          Laravel 13 PHP API (port-free behind Nginx)
+    web/          Vue 3 + TypeScript + Vite SPA
+  docs/           Spec docs, design plans
+  .workflow/      Test artifacts, blackbox/graybox results, nginx configs
+  ARCHITECTURE.md This file
+  AGENTS.md       Coding conventions
+  CONTEXT.md      PRD / domain context
 ```
 
-Expected backend structure is unknown. If the recommended stack is used, the repo may later add a Laravel app alongside or behind the current Vue prototype.
+## Tech Stack
 
-## Frontend Architecture
+| Layer        | Technology                                    |
+|--------------|-----------------------------------------------|
+| Frontend     | Vue 3, TypeScript, Vite, Tailwind CSS 4       |
+| Backend      | Laravel 13 (PHP 8.3), Sanctum auth             |
+| Database     | SQLite (with FK constraints enabled)           |
+| Storage      | Cloudflare R2 (clinical photos, backups)       |
+| Web server   | Nginx (SPA + PHP-FPM on same server)          |
+| Bot          | Telegram (webhook, reminders, aftercare)       |
+| Reports      | Dompdf (PDF), PhpSpreadsheet via laravel-excel |
+| CI           | GitHub Actions + Playwright smoke tests        |
+| Hosting      | Tencent Cloud CVM S5.SMALL2 (43.133.142.74)   |
 
-Verified from PDF:
-- Presentation/boundary layer is separated from backend business logic.
-- POS dashboard is optimized for fast cashier operation.
-- POS layout: service/product tiles on the left, billing cart on the right.
-- POS includes direct therapist selection to lock commission ownership.
-- Medical record UI is tablet-friendly for treatment-room use.
-- Before/after upload supports drag-and-drop or direct capture.
+## API Architecture
 
-Implemented:
-- `prototype/src/App.vue` controls demo login, role state, and module switching.
-- `prototype/src/services/api.ts` calls the backend API.
-- `prototype/src/views/PosView.vue` implements POS catalog, patient context, therapist selection, cart, and real `Lunas` finalization.
-- `prototype/src/views/MedicalRecordView.vue` implements patient record, timeline, local object references, and real note/photo save actions.
-- `prototype/src/views/InventoryView.vue` implements stock table, FIFO batch visualization, and real supplier purchase save.
-- `prototype/src/views/ReportsView.vue` implements PDF/Excel preview and real file download.
+### Authentication
 
-Unknown: production router, deeper form validation approach, offline behavior, and tablet device policy.
+- `POST /api/login` — username/password/role → Sanctum bearer token (7-day expiry).
+- `POST /api/logout` — revoke current token.
+- Login rate-limited to 5 attempts per minute (`throttle:5,1`).
 
-## Backend Architecture
+### Authorization
 
-Current local backend:
-- `prototype/backend/server.mjs` starts the API on `127.0.0.1:5174`.
-- `prototype/backend/app.mjs` defines Express routes and auth middleware.
-- `prototype/backend/database.mjs` owns SQL.js schema, seed data, persistence, business rules, report rows, and FIFO mutation.
-- `prototype/backend/reporting.mjs` generates PDF and XLSX buffers.
-- `prototype/backend/storage.mjs` stores clinical photo payloads under local object-storage-style paths.
+All routes behind `auth:sanctum`. Role-based access enforced via `RequireRole` middleware (`role:Kasir,Terapis,Gudang,Manajer`).
 
-Source-backed production target:
-- Laravel is still the recommended final backend framework.
-- Backend owns business logic and data access.
-- Login accepts username/password and distinguishes access by role.
-- Medical record logic handles complaints, actions, treatment history, and clinical photo upload integration.
-- POS logic records products/services, therapist assignment, payment status, receipts, cash ledger, and commission snapshots.
-- Inventory logic records supplier purchases, HPP, and FIFO mutation.
+- **Kasir:** POS pay, daily report submit, view own scope.
+- **Terapis:** Treatment notes (own patients only via `assigned_terapis_id`), photo upload.
+- **Gudang:** Inventory purchases/batches, inventory movements.
+- **Manajer:** Full access — void transactions, admin CRUD, reports, audit logs, dashboard, daily report approve.
 
-Important modules:
-- Auth / role access.
-- Users and Pasien.
-- Rekam Medis and clinical photo references.
-- Transaksi and Transaksi Detail.
-- Produk/Layanan.
-- Therapist commission.
-- Inventaris and supplier purchases.
-- Reports and storage integration.
+### Bootstrap Endpoint (Role-scoped)
 
-Unknown for production: exact Laravel auth package, route style, queues, upload validation, audit logging, authorization middleware, and cloud storage provider.
+`GET /api/bootstrap` returns the SPA's initial dataset, scoped by role:
+
+| Role    | Patients                        | Transactions      | Services/Therapists | Inventory | Reports |
+|---------|----------------------------------|--------------------|---------------------|-----------|---------|
+| Manajer | Full + treatments + photos       | All                | All                 | All       | All     |
+| Kasir   | Name + recordId only             | All                | All                 | No        | No      |
+| Terapis | Own patients + treatments/photos | Own only           | All                 | No        | No      |
+| Gudang  | None                             | None               | None                | All       | No      |
+
+### Key Endpoints
+
+| Method   | Path                                                  | Middleware              |
+|----------|-------------------------------------------------------|--------------------------|
+| POST     | `/api/transactions/pay`                               | role:Kasir,Manajer       |
+| DELETE   | `/api/transactions/{transaksi}`                       | role:Manajer             |
+| POST     | `/api/patients/{patient}/treatments`                  | role:Terapis,Manajer     |
+| PUT/PATCH| `/api/patients/{patient}/treatments/{treatment}`      | role:Terapis,Manajer     |
+| DELETE   | `/api/patients/{patient}/treatments/{treatment}`      | role:Terapis,Manajer     |
+| POST     | `/api/patients/{patient}/photos`                      | role:Terapis,Manajer     |
+| DELETE   | `/api/patients/{patient}/photos/{photo}`              | role:Terapis,Manajer     |
+| POST     | `/api/inventory/purchases`                            | role:Gudang,Manajer      |
+| DELETE   | `/api/inventory/purchases/{batch}`                    | role:Gudang,Manajer      |
+| GET      | `/api/reports/{report}/export`                        | role:Manajer             |
+| GET      | `/api/admin/{layanan,produk,users}[/{id}]`            | role:Manajer             |
+| GET      | `/api/daily-reports/status`                           | auth:sanctum             |
+| POST     | `/api/daily-reports/{tanggal}/submit`                 | role:Kasir,Manajer       |
+| POST     | `/api/daily-reports/closings/{id}/approve`            | role:Manajer             |
+| GET      | `/api/daily-reports/{tanggal}/export`                 | role:Manajer             |
+
+### Idempotency
+
+`POST /api/transactions/pay` accepts an `Idempotency-Key` header (8-128 chars, `[A-Za-z0-9._-]`). Same (user, key_hash, endpoint) returns cached response — prevents double-charge on network retry. Unique constraint enforced at DB level.
+
+### Photo Storage
+
+Clinical photos stored on Cloudflare R2 (`simkk-clinical` bucket). Streamed through Laravel signed URL proxy (`GET /api/photos/{photo}/raw`) — no direct R2 URL exposure.
+
+- Upload validation: extension allowlist (png/jpg/jpeg/webp/heic), base64 size cap (14MB ≈ 10.5MB binary), magic-byte sniff via `getimagesizefromstring()`.
 
 ## Database Design
 
-Source-backed entities and fields:
+### Schema (17 tables)
 
-### Users
-
-```text
-id_pengguna: integer, primary key, auto increment
-username: varchar(20)
-password: varchar(255), hashed/encrypted
-nama_lengkap: varchar(50)
-level: varchar(15), role such as Kasir/Admin/Gudang/Terapis
+```
+users              → auth, role, shift, signature
+pasien             → patient records (soft deletes)
+terapis            → therapist master data
+produk             → product categories (soft deletes)
+layanan            → services/treatments (soft deletes)
+batch_stok         → FIFO inventory batches (soft deletes)
+pembelian_supplier → supplier purchase records (soft deletes)
+transaksi          → transactions (soft deletes, surrogate PK id)
+transaksi_detail   → line items (soft deletes, FK→layanan via id_produk)
+buku_kas           → cash ledger entries (soft deletes)
+catatan_treatment  → treatment notes (date: Y-m-d format)
+foto_klinis        → clinical photo references
+audit_log          → all write operations tracked
+idempotency_keys   → payment replay protection (unique: user+key+endpoint)
+daily_cash_float   → opening cash per day
+daily_closings     → daily report submissions
+stok_mutasi        → stock movement audit trail
 ```
 
-### Pasien
+### Key Constraints
 
-```text
-id_pasien: integer, primary key, auto increment
-nama_pasien: varchar(50)
-usia: integer(3)
-alamat: varchar(100)
-nomor_telp: varchar(15), intended for WhatsApp integration
-rekam_medis_id: varchar(20), unique medical record identifier
+- **FK constraints enabled** (`foreign_key_constraints: true` in SQLite config).
+- **Unique indexes:** `idempotency_keys(user_id, key_hash, endpoint)`.
+- **Soft deletes** on all critical tables — prevents accidental data loss.
+- Transaction ID: `TRX-YYMMDD-NNNNN` derived from surrogate auto-increment (race-safe).
+
+## Frontend Architecture
+
+### Views
+
+| View           | Component              | Role Access               |
+|----------------|------------------------|---------------------------|
+| Login          | `LoginView`            | Public                    |
+| POS/Kasir      | `PosView`              | Kasir, Manajer            |
+| Rekam Medis    | `MedicalRecordView`     | Terapis, Manajer          |
+| Gudang         | `InventoryView`         | Gudang, Manajer           |
+| Laporan        | `ReportsView`           | Manajer                   |
+| Closing Harian | `DailyReportView`       | Kasir (submit), Manajer   |
+| Dashboard      | `DashboardView`         | Manajer                   |
+| Admin (CRUD)   | `AdminLayananView` etc. | Manajer                   |
+| Audit Log      | `AuditLogView`          | Manajer                   |
+
+### Design System
+
+**Editorial Luxury** — cream/forest/champagne palette, Fraunces serif display, Inter body, JetBrains Mono for data. All CSS tokens in `apps/web/src/styles/tokens.css`.
+
+### Real-time
+
+30-second polling for Kasir/Manajer roles. Terapis/Gudang get manual refresh.
+
+## Deployment
+
+### Production (VPS)
+
+- **Server:** Tencent Cloud CVM S5.SMALL2 (Ubuntu 24.04)
+- **IP:** 43.133.142.74
+- **Web server:** Nginx serving Vue SPA at `/` and proxying `/api/*` to PHP-FPM
+- **Database:** SQLite at `apps/api/database/database.sqlite`
+- **Scheduler:** systemd timer for daily backups + Laravel scheduler
+- **R2:** `simkk-clinical` (photos) + `simkk-backups` (daily DB backups)
+
+### Nginx Architecture
+
+```
+Browser → Nginx (port 80)
+           ├── GET /          → Vue SPA (static, /var/www/sim-kk/apps/web/dist/)
+           ├── GET /api/*     → PHP-FPM (/var/www/sim-kk/apps/api/public/)
+           └── GET /storage/* → Static files or 404
 ```
 
-### Transaksi Detail
+### Build & Deploy
 
-```text
-id_detail: integer, primary key, auto increment
-id_transaksi: integer, foreign key to transaction parent
-id_produk: integer, foreign key to service/product
-id_terapis: integer, foreign key
-nilai_komisi: integer, permanent commission snapshot
+1. `cd apps/web && npm run build` → produces `dist/` (static SPA)
+2. Upload `dist/` to VPS `/var/www/sim-kk/apps/web/dist/`
+3. `cd apps/api && php artisan migrate` on VPS
+4. `sudo systemctl reload nginx`
+
+## Security Controls
+
+- Sanctum token expiry: 7 days (configurable via `SANCTUM_TOKEN_EXPIRATION_MINUTES`)
+- Login rate limiting: 5 attempts/minute
+- Admin CRUD routes: Manajer-only middleware
+- Treatment attribution: server-derived from auth user (no impersonation)
+- Photo upload: extension allowlist + magic-byte validation + size cap
+- CORS: domain allowlist (no wildcards)
+- APP_DEBUG: `false` in production (no stack trace leakage)
+- Dompdf: `isRemoteEnabled = false` (SSRF prevention)
+- Patient data: role-scoped in bootstrap (Kasir sees names only, Gudang sees none)
+- Password change: revokes all existing tokens
+
+## Environment Variables
+
+Key variables in `apps/api/.env`:
+
 ```
-
-Additional tables required but not specified in detail: Transaksi, Produk/Layanan, Rekam Medis, Foto Klinis/media references, Inventaris/stock batches, Supplier purchases, and cash ledger.
-
-## API Flow
-
-Current local API routes:
-
-1. `POST /api/login` verifies username/password/role and creates a bearer session token.
-2. `GET /api/bootstrap` returns users, patients, services, therapists, transactions, inventory, and reports.
-3. `POST /api/transactions/pay` creates a `Lunas` transaction, immutable commission snapshot, receipt ID, cash ledger entry, and FIFO stock decrement.
-4. `POST /api/patients/:patientId/treatments` saves chronological treatment notes.
-5. `POST /api/patients/:patientId/photos` stores a local clinical object and saves its object reference.
-6. `POST /api/inventory/purchases` saves supplier batch purchases and refreshes FIFO order.
-7. `GET /api/reports/:reportId/export` returns a real PDF or XLSX file.
-
-## Authentication And Authorization
-
-Verified:
-- Login uses username and password.
-- Password should be hashed/encrypted.
-- Roles include Kasir, Terapis, Gudang/Admin, and Manajer.
-
-Implemented locally:
-- Passwords are hashed with Node `scryptSync` in seed/runtime.
-- Login returns bearer tokens stored in the local SQLite sessions table.
-- API routes require bearer auth.
-
-Unknown for production: password reset, patient login, 2FA, permission granularity beyond role names, session expiry, and audit review policy.
-
-## Key Dependencies
-
-Target dependencies by purpose:
-- Laravel: backend framework, business logic, data access.
-- Vue.js: interactive frontend/POS interface.
-- PostgreSQL or MySQL: relational database.
-- S3-compatible storage: before/after clinical photos.
-- PDF generator: financial reports.
-- Excel generator: stock and commission exports.
-
-Dependencies are listed in `prototype/package.json`. Important backend packages: `express`, `sql.js`, `pdfkit`, and `exceljs`.
-
-## System Diagram
-
-```mermaid
-flowchart LR
-  Kasir["Kasir"]
-  Terapis["Terapis"]
-  Gudang["Admin Gudang"]
-  Manajer["Manajer"]
-  Web["Vue.js frontend"]
-  API["Node/Express local API now; Laravel target"]
-  DB[("SQL.js SQLite now; PostgreSQL/MySQL target")]
-  S3["Local clinical object storage now; S3 target"]
-  PDF["PDF financial reports"]
-  XLSX["Excel stock and commission reports"]
-  Kasir --> Web
-  Terapis --> Web
-  Gudang --> Web
-  Manajer --> Web
-  Web --> API
-  API --> DB
-  API --> S3
-  API --> PDF
-  API --> XLSX
+APP_ENV=production
+APP_DEBUG=false
+DB_CONNECTION=sqlite
+SANCTUM_TOKEN_EXPIRATION_MINUTES=10080
+R2_ACCESS_KEY_ID=...
+R2_SECRET_ACCESS_KEY=...
+R2_ENDPOINT=...
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_WEBHOOK_SECRET=...
 ```
-
-## Runtime And Deployment
-
-Local runtime:
-- `npm run dev` starts API and Vite together.
-- API listens on `127.0.0.1:5174`.
-- Vite listens on `127.0.0.1:5173` and proxies `/api` to the backend.
-- Runtime SQLite is `prototype/data/simkk.sqlite`.
-- Runtime clinical files are under `prototype/storage/clinical`.
-
-Unknown for production: hosting provider, production runtime, web server, database host, external object storage provider, CI/CD, backup and restore policy.
-
-Expected environment variables by purpose:
-- Database connection.
-- App secret/session key.
-- S3 endpoint/bucket/access credentials.
-- Report/storage paths.
-- WhatsApp integration credentials if implemented.
-
-Do not store secret values in documentation or source control.
-
-## Important Technical Constraints
-
-- Keep frontend presentation separate from backend business logic and database access.
-- Store photo references/metadata in the relational database if using S3 object storage. Current local adapter stores object references in SQL.js and files under `prototype/storage/clinical`.
-- Commission snapshots must be immutable or carefully audited after transaction approval.
-- FIFO requires stock batch data to determine cost and sell/use order.
-- PDF and Excel reports must be generated from approved database records.
-- Medical photo handling needs privacy, access control, retention, and audit-trail decisions before implementation.
-
-## Unknowns
-
-- Final Laravel repo shape, production database engine, deployment target, and backup policy.
-- Cloud S3 provider, WhatsApp scope, and clinical data privacy requirements.
-- Production commission approval/audit rules beyond the current immutable snapshot behavior.

@@ -68,8 +68,11 @@ class StorageService
             if ($comma !== false) {
                 $content = substr($content, $comma + 1);
             }
-            $decoded = base64_decode($content, true);
-            if ($decoded !== false) return $decoded;
+        }
+        // Always try base64 decode; if it fails (not b64), treat as raw bytes.
+        $decoded = base64_decode($content, true);
+        if ($decoded !== false && $decoded !== '') {
+            return $decoded;
         }
         return $content;
     }

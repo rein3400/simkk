@@ -70,13 +70,13 @@ const submit = async () => {
 };
 
 const approve = async () => {
-  if (!status.value || typeof (status.value as any).closing_id !== "number") {
+  if (!status.value || typeof status.value.closing_id !== "number") {
     showToast("ID closing tidak tersedia untuk approve.", "error");
     return;
   }
   approving.value = true;
   try {
-    status.value = await approveDailyReport(props.token, (status.value as any).closing_id);
+    status.value = await approveDailyReport(props.token, status.value.closing_id);
     showToast("Laporan harian disetujui.");
   } catch (error) {
     showToast(error instanceof Error ? error.message : "Approve gagal.", "error");
@@ -119,12 +119,12 @@ onMounted(() => {
     <section class="report-main">
       <div class="section-head">
         <div>
-          <span>Closing Harian</span>
+          <span class="eyebrow">Closing Harian</span>
           <h2>Laporan operasional klinik</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <label class="select-label !mb-0">Tanggal
-            <input v-model="selectedDate" type="date" class="ml-2 rounded border border-line bg-cream px-2 py-1 text-xs" />
+        <div class="daily-toolbar">
+          <label class="select-label">Tanggal
+            <input v-model="selectedDate" type="date" class="daily-date" />
           </label>
           <span :class="['status-chip', statusBadge.cls]">{{ statusBadge.label }}</span>
         </div>
@@ -257,23 +257,28 @@ onMounted(() => {
   margin: 0;
   color: var(--color-ink);
 }
-.status-chip.approved { background: #e8f1ec; color: #1d4a3a; }
-.status-chip.submitted { background: #fdf2dc; color: #8a6a1f; }
-.status-chip.pending { background: #e8eaf2; color: #2c3a55; }
-.status-chip.empty { background: var(--color-parchment, #efe9dc); color: var(--color-sage, #6b7a72); }
-.approved-pill {
+.status-chip.approved,
+.status-chip.submitted,
+.status-chip.pending,
+.status-chip.empty { /* variants moved to global tokens.css */ }
+.approved-pill { /* legacy; prefer status-chip.approved */ }
+.export-toast--error { /* moved to global tokens.css */ }
+.daily-toolbar {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.375rem 0.75rem;
-  background: #e8f1ec;
-  color: #1d4a3a;
-  border-radius: 999px;
-  font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  gap: 0.75rem;
 }
-.export-toast--error { background: #fdecec; color: #7d1f1f; border-color: #f1c4c4; }
+.daily-date {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  background: var(--color-cream, #f5f1ea);
+  border: 1px solid var(--color-line, rgba(15, 15, 15, 0.10));
+  border-radius: 8px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--color-ink, #0f0f0f);
+  outline: none;
+  transition: border-color 180ms var(--ease-editorial, ease);
+}
+.daily-date:focus { border-color: var(--color-forest, #1f3d36); }
 </style>

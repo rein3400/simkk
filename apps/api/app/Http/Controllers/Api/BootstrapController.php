@@ -12,41 +12,24 @@ use App\Models\Transaksi;
 use App\Models\User;
 use App\Services\StorageService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 class BootstrapController extends Controller
 {
     public function __construct(private readonly StorageService $storage) {}
 
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $pasien = Pasien::with(['treatments', 'photos'])
-            ->orderBy('id')
-            ->get()
-            ->map(fn ($p) => [
-                'id'              => $p->id,
-                'name'            => $p->nama_pasien,
-                'age'             => $p->usia,
-                'phone'           => $p->nomor_telp,
-                'telegramChatId'  => $p->telegram_chat_id,
-                'recordId'        => $p->rekam_medis_id,
-                'concern'         => $p->keluhan,
-                'lastVisit'       => $p->last_visit,
-                'riskNote'        => $p->risk_note,
-                'treatments'  => $p->treatments->map(fn ($t) => [
-                    'id'        => $t->id,
-                    'date'      => $t->tanggal,
-                    'therapist' => $t->terapis,
-                    'title'     => $t->judul,
-                    'notes'     => $t->catatan,
-                ]),
-                'photos' => $p->photos->map(fn ($f) => [
-                    'id'        => (string) $f->id,
-                    'label'     => $f->label,
-                    'date'      => $f->tanggal,
-                    'objectRef' => $f->object_ref,
-                    'url'       => url("/api/photos/{$f->id}/raw"),
-                ]),
-            ]);
+        $user = $request->user();
+        $role = $user->level;
+        $isManajer = $role === 'Manajer';
+        $isKasir = $role === 'Kasir';
+        $isTerapis = $role === 'Terapis';
+        $isGudang = $role === 'Gudang';
+
+        // Role-scoped patient data (P1 #2 — privacy scoping).
+        $pasien = $this->buildPatients($user, $role, $isManajer, $isKasir, $isTerapis);
 
         $layanan = Layanan::orderBy('id')->get()->map(fn ($l) => [
             'id'             => $l->id,
@@ -68,11 +51,23 @@ class BootstrapController extends Controller
 
         $transaksi = Transaksi::with(['pasien', 'terapis'])
             ->orderByDesc('created_at')
-            ->orderByDesc('id_transaksi')
+            ->orderByDesc('id_transaksi');
+        // Terapis sees only their own transactions; Gudang sees none.
+        if ($isTerapis) {
+            $terapisId = Terapis::whereRaw('LOWER(nama) = ?', [strtolower($user->nama_lengkap)])->value('id');
+            if ($terapisId !== null) {
+                $transaksi = $transaksi->where('terapis_id', $terapisId);
+            } else {
+                $transaksi = $transaksi->whereRaw('1 = 0');
+            }
+        } elseif ($isGudang) {
+            $transaksi = $transaksi->whereRaw('1 = 0');
+        }
+        $transaksi = $transaksi
             ->get()
             ->map(fn ($t) => [
                 'id'            => $t->id_transaksi,
-                'patient'       => $t->pasien->nama_pasien,
+                'patient'       => $t->pasien?->nama_pasien ?? '-',
                 'therapist'     => $t->terapis?->nama ?? '-',
                 'status'        => $t->status,
                 'subtotal'      => (int) $t->subtotal,
@@ -83,12 +78,18 @@ class BootstrapController extends Controller
                 'time'          => $t->waktu,
             ]);
 
-        $inventory = $this->buildInventory();
+        $inventory = $isGudang || $isManajer ? $this->buildInventory() : [];
 
-        $reports = $this->buildReports();
+        $reports = $isManajer ? $this->buildReports() : [];
+
+        // Users list: Manajer sees all; Terapis/Kasir/Gudang see only themselves.
+        $users = User::orderBy('id');
+        if (!$isManajer) {
+            $users = $users->where('id', $user->id);
+        }
 
         return response()->json([
-            'users'        => User::orderBy('id')->get()->map(fn ($u) => [
+            'users'        => $users->get()->map(fn ($u) => [
                 'id'            => $u->id,
                 'username'      => $u->username,
                 'name'          => $u->nama_lengkap,
@@ -97,12 +98,79 @@ class BootstrapController extends Controller
                 'signaturePath' => $u->signature_path,
             ]),
             'patients'     => $pasien,
-            'services'     => $layanan,
-            'therapists'   => $terapis,
+            'services'     => $isGudang ? [] : $layanan,
+            'therapists'   => $isGudang ? [] : $terapis,
             'transactions' => $transaksi,
             'inventory'    => $inventory,
             'reports'      => $reports,
         ]);
+    }
+
+    /**
+     * Role-scoped patient list (P1 #2 — privacy scoping).
+     *
+     * Manajer: full list with all treatments and photos.
+     * Kasir:   name + recordId only, no treatments/photos (still needs the
+     *          list for the POS cart patient picker).
+     * Terapis: only patients assigned to them, with full treatments/photos
+     *          so the medical-record view has data.
+     * Gudang:  no patients (gudang has no patient-related workflow).
+     */
+    private function buildPatients(User $user, string $role, bool $isManajer, bool $isKasir, bool $isTerapis)
+    {
+        if ($role === 'Gudang') {
+            return collect();
+        }
+
+        if ($isTerapis) {
+            $terapis = Terapis::whereRaw('LOWER(nama) = ?', [strtolower($user->nama_lengkap)])->first();
+            if ($terapis === null) {
+                return collect();
+            }
+            $query = Pasien::with(['treatments', 'photos'])
+                ->where('assigned_terapis_id', $terapis->id)
+                ->orderBy('id');
+        } else {
+            $query = Pasien::with(['treatments', 'photos'])->orderBy('id');
+        }
+
+        return $query->get()->map(function ($p) use ($isKasir) {
+            $base = [
+                'id'              => $p->id,
+                'name'            => $p->nama_pasien,
+                'age'             => $p->usia,
+                'phone'           => $p->nomor_telp,
+                'telegramChatId'  => $p->telegram_chat_id,
+                'recordId'        => $p->rekam_medis_id,
+                'concern'         => $p->keluhan,
+                'lastVisit'       => $p->last_visit,
+                'riskNote'        => $p->risk_note,
+            ];
+            if ($isKasir) {
+                return $base;
+            }
+            return $base + [
+                'treatments' => $p->treatments->map(fn ($t) => [
+                    'id'        => $t->id,
+                    'date'      => $t->tanggal,
+                    'therapist' => $t->terapis,
+                    'title'     => $t->judul,
+                    'notes'     => $t->catatan,
+                ]),
+                'photos' => $p->photos->map(fn ($f) => [
+                    'id'        => (string) $f->id,
+                    'label'     => $f->label,
+                    'date'      => $f->tanggal,
+                    'objectRef' => $f->object_ref,
+                    'url'       => $this->photoUrl($f->id),
+                ]),
+            ];
+        });
+    }
+
+    private function photoUrl(int $photoId): string
+    {
+        return URL::temporarySignedRoute('photos.raw', now()->addHours(12), ['photo' => $photoId]);
     }
 
     private function buildInventory(): array

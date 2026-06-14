@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Server: nginx/1.24.0 (Ubuntu)
+Content-Type: application/pdf
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Tue, 09 Jun 2026 08:51:11 GMT
+Content-Disposition: attachment; filename="daily-report-2026-06-09.pdf"
+Vary: Origin
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+

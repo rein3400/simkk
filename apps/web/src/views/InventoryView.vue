@@ -229,29 +229,6 @@ const confirmDeleteBatch = async (id: number) => {
 </template>
 
 <style scoped>
-.batch-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.85rem 1rem;
-  background: var(--color-parchment, #efe9dc);
-  border: 1px solid transparent;
-  border-radius: 12px;
-  transition: border-color 200ms ease, background 200ms ease;
-}
-.batch-row:hover {
-  border-color: var(--color-line, rgba(15, 15, 15, 0.10));
-}
-.batch-row.first {
-  background: linear-gradient(135deg, rgba(31, 61, 54, 0.08), var(--color-parchment, #efe9dc));
-  border-color: rgba(31, 61, 54, 0.20);
-}
-.batch-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
 .batch-meta strong {
   font-family: "Fraunces", serif;
   font-size: 1rem;
@@ -292,49 +269,15 @@ const confirmDeleteBatch = async (id: number) => {
   font-size: 0.8rem;
   color: var(--color-ink, #0f0f0f);
 }
-.danger-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.8rem;
-  background: transparent;
-  border: 1px solid #b03a2e;
-  color: #b03a2e;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 200ms ease, color 200ms ease;
-}
-.danger-action:hover:not(:disabled) {
-  background: #b03a2e;
-  color: var(--color-cream, #f5f1ea);
-}
-.danger-action:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.danger-action { /* moved to global tokens.css */ }
 .compact-action {
   padding: 0.35rem 0.65rem;
   font-size: 0.72rem;
 }
-.toast-pill {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  padding: 0.75rem 1.1rem;
-  background: var(--color-ink, #0f0f0f);
-  color: var(--color-cream, #f5f1ea);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.85rem;
-  border-radius: 999px;
-  box-shadow: 0 16px 32px rgba(15, 15, 15, 0.20);
-  z-index: 50;
-}
+.toast-pill { /* moved to global tokens.css */ }
 .toast-enter-active,
 .toast-leave-active {
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition: opacity 200ms var(--ease-editorial, ease), transform 200ms var(--ease-editorial, ease);
 }
 .toast-enter-from,
 .toast-leave-to {

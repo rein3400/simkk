@@ -5,17 +5,24 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class StockReportExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths
+class StockReportExport implements FromCollection, WithHeadings, WithMapping, WithTitle, WithStyles, WithColumnWidths, WithColumnFormatting
 {
     public function __construct(private readonly array $rows) {}
 
     public function collection()
     {
         return collect($this->rows);
+    }
+
+    public function title(): string
+    {
+        return 'Stok FIFO';
     }
 
     public function headings(): array
@@ -29,7 +36,7 @@ class StockReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             $row['Produk'],
             $row['Stok'],
             $row['Batch'],
-            number_format($row['HPP'], 0, ',', '.'),
+            (int) $row['HPP'],
         ];
     }
 
@@ -49,6 +56,13 @@ class StockReportExport implements FromCollection, WithHeadings, WithMapping, Wi
             'B' => 10,
             'C' => 18,
             'D' => 16,
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'D' => '#,##0',
         ];
     }
 }

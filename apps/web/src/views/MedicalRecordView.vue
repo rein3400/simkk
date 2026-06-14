@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { Camera, Check, FileImage, Pencil, Save, ShieldCheck, Trash2, UploadCloud, X } from "@lucide/vue";
 import PhotoCompare from "../components/PhotoCompare.vue";
 import Timeline from "../components/Timeline.vue";
@@ -20,8 +20,25 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ refresh: [] }>();
 
-const selectedPatientId = ref(props.patients[0]?.id ?? 0);
-const note = ref("Kulit tampak lebih tenang. Lanjutkan soothing serum malam hari.");
+// Initialise from props.patients. If the parent re-fetches and the list changes
+// (e.g. after refresh), make sure the selected id still points to a valid
+// patient — otherwise fall back to the first available row.
+const initialId = props.patients[0]?.id ?? 0;
+const selectedPatientId = ref(initialId);
+watch(
+  () => props.patients,
+  (next) => {
+    if (!next || next.length === 0) {
+      selectedPatientId.value = 0;
+      return;
+    }
+    const stillExists = next.some((p) => p.id === selectedPatientId.value);
+    if (!stillExists) {
+      selectedPatientId.value = next[0].id;
+    }
+  },
+);
+const note = ref("");
 const saving = ref(false);
 const saved = ref(false);
 const photoSaving = ref(false);
@@ -87,9 +104,18 @@ const markUpdated = () => {
 
 const sinceSeconds = computed(() => {
   if (!lastUpdated.value) return null;
-  const diff = Math.max(0, Math.floor((Date.now() - lastUpdated.value.getTime()) / 1000));
+  const diff = Math.max(0, Math.floor((nowTick.value - lastUpdated.value.getTime()) / 1000));
   if (diff < 60) return `${diff}s`;
   return `${Math.floor(diff / 60)}m ${diff % 60}s`;
+});
+
+// P1 #7: reactive tick to keep freshness labels accurate.
+const nowTick = ref(Date.now());
+const tickTimer = window.setInterval(() => {
+  nowTick.value = Date.now();
+}, 1000);
+onBeforeUnmount(() => {
+  window.clearInterval(tickTimer);
 });
 
 const refresh = async () => {
@@ -251,6 +277,7 @@ const uploadPhoto = async () => {
     photoError.value = error instanceof Error ? error.message : "Upload foto gagal.";
   } finally {
     photoSaving.value = false;
+    clearPendingPhoto();
   }
 };
 
@@ -261,14 +288,25 @@ markUpdated();
   <div class="medical-layout">
     <aside class="patient-rail">
       <span class="eyebrow">Rekam medis</span>
-      <select v-model.number="selectedPatientId">
+      <select v-model.number="selectedPatientId" data-testid="patient-select">
+        <option v-if="filteredPatients.length === 0" :value="0" disabled>
+          Belum ada pasien
+        </option>
         <option v-for="patient in filteredPatients" :key="patient.id" :value="patient.id">
-          {{ patient.name }}
+          {{ patient.name }} · {{ patient.recordId }}
         </option>
       </select>
       <p v-if="searchNeedle" class="search-hint">{{ filteredPatients.length }} pasien cocok dengan pencarian.</p>
-      <h2>{{ selectedPatient?.name }}</h2>
-      <p v-if="selectedPatient">{{ selectedPatient.recordId }} - {{ selectedPatient.age }} tahun</p>
+      <p v-else-if="filteredPatients.length === 0" class="search-hint">
+        Belum ada pasien terdaftar. Hubungi kasir untuk mendaftarkan pasien baru.
+      </p>
+      <h2 v-if="selectedPatient">{{ selectedPatient.name }}</h2>
+      <h2 v-else>— pilih pasien —</h2>
+      <p v-if="selectedPatient">
+        {{ selectedPatient.recordId }} · {{ selectedPatient.age }} tahun
+        · {{ selectedPatient.treatments.length }} tindakan
+        · {{ selectedPatient.photos.length }} foto
+      </p>
       <dl v-if="selectedPatient">
         <div><dt>Keluhan</dt><dd>{{ selectedPatient.concern }}</dd></div>
         <div><dt>Kontak</dt><dd>{{ selectedPatient.phone }}</dd></div>
@@ -444,39 +482,7 @@ markUpdated();
   gap: 0.4rem;
   margin-top: 0.5rem;
 }
-.ghost-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.7rem;
-  background: transparent;
-  border: 1px solid var(--color-line, rgba(15, 15, 15, 0.15));
-  color: var(--color-ink, #0f0f0f);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
-}
-.ghost-action:hover:not(:disabled) {
-  background: var(--color-forest, #1f3d36);
-  border-color: var(--color-forest, #1f3d36);
-  color: var(--color-cream, #f5f1ea);
-}
-.ghost-action.danger {
-  color: #b03a2e;
-  border-color: rgba(176, 58, 46, 0.4);
-}
-.ghost-action.danger:hover:not(:disabled) {
-  background: #b03a2e;
-  border-color: #b03a2e;
-  color: var(--color-cream, #f5f1ea);
-}
-.ghost-action:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+.ghost-action { /* moved to global tokens.css */ }
 .edit-panel {
   margin-top: 1.25rem;
   padding: 1.1rem 1.25rem;
@@ -545,22 +551,10 @@ markUpdated();
   box-shadow: 0 0 0 3px rgba(106, 165, 111, 0.18);
   display: inline-block;
 }
-.toast-pill {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  padding: 0.75rem 1.1rem;
-  background: var(--color-ink, #0f0f0f);
-  color: var(--color-cream, #f5f1ea);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.85rem;
-  border-radius: 999px;
-  box-shadow: 0 16px 32px rgba(15, 15, 15, 0.20);
-  z-index: 50;
-}
+.toast-pill { /* moved to global tokens.css */ }
 .toast-enter-active,
 .toast-leave-active {
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition: opacity 200ms var(--ease-editorial, ease), transform 200ms var(--ease-editorial, ease);
 }
 .toast-enter-from,
 .toast-leave-to {

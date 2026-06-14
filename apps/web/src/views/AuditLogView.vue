@@ -71,12 +71,12 @@ onMounted(() => {
           <span>Manajer · Audit</span>
           <h2>Audit log operasional</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <label class="select-label !mb-0">Action
-            <input v-model="actionFilter" placeholder="cth: transaksi.create" class="ml-2 rounded border border-line bg-cream px-2 py-1 text-xs" />
+        <div class="audit-toolbar">
+          <label class="select-label">Action
+            <input v-model="actionFilter" placeholder="cth: transaksi.create" class="audit-input" />
           </label>
-          <label class="select-label !mb-0">Limit
-            <input v-model.number="limit" type="number" min="10" max="500" class="ml-2 w-20 rounded border border-line bg-cream px-2 py-1 text-xs" />
+          <label class="select-label">Limit
+            <input v-model.number="limit" type="number" min="10" max="500" class="audit-input audit-input-narrow" />
           </label>
           <button class="secondary-action" type="button" :disabled="loading" data-testid="refresh-audit" @click="load">
             <RefreshCcw :size="14" />
@@ -131,5 +131,20 @@ onMounted(() => {
 <style scoped>
 .admin-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; align-items: start; }
 .admin-main { display: flex; flex-direction: column; gap: 1rem; }
-.export-toast--error { background: #fdecec; color: #7d1f1f; border-color: #f1c4c4; }
+.audit-toolbar { display: inline-flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+.audit-input {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  background: var(--color-cream, #f5f1ea);
+  border: 1px solid var(--color-line, rgba(15, 15, 15, 0.10));
+  border-radius: 8px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--color-ink, #0f0f0f);
+  outline: none;
+  transition: border-color 180ms var(--ease-editorial, ease);
+}
+.audit-input:focus { border-color: var(--color-forest, #1f3d36); }
+.audit-input-narrow { width: 5rem; }
+.export-toast--error { /* moved to global tokens.css */ }
 </style>

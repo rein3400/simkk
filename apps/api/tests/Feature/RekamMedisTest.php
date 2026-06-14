@@ -3,10 +3,12 @@
 namespace Tests\Feature;
 
 use App\Models\Pasien;
+use App\Models\FotoKlinis;
 use App\Models\Terapis;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class RekamMedisTest extends TestCase
@@ -73,14 +75,77 @@ class RekamMedisTest extends TestCase
             'assigned_terapis_id' => $terapisA->id,
         ]);
 
-        $this->actingAs($userA)
+        $response = $this->actingAs($userA)
             ->postJson("/api/patients/{$ownPasien->id}/photos", [
                 'label'    => 'Before',
                 'filename' => 'before.png',
                 'content'  => self::VALID_PNG_BASE64,
             ])
             ->assertCreated()
-            ->assertJsonStructure(['id', 'label', 'date', 'objectRef']);
+            ->assertJsonStructure(['id', 'label', 'date', 'objectRef', 'url']);
+
+        $this->assertStringContainsString('expires=', $response->json('url'));
+        $this->assertStringContainsString('signature=', $response->json('url'));
+    }
+
+    public function test_signed_photo_url_streams_without_bearer_header(): void
+    {
+        Storage::fake('public');
+
+        $pasien = Pasien::create([
+            'nama_pasien'    => 'Pasien Foto',
+            'usia'           => 30,
+            'alamat'         => 'Jl. Foto',
+            'nomor_telp'     => '0814',
+            'rekam_medis_id' => 'RM-FOTO-001',
+        ]);
+
+        $objectRef = 'clinical/RM-FOTO-001/browser-safe.png';
+        Storage::disk('public')->put($objectRef, base64_decode(substr(self::VALID_PNG_BASE64, strpos(self::VALID_PNG_BASE64, ',') + 1)));
+
+        $photo = FotoKlinis::create([
+            'pasien_id'  => $pasien->id,
+            'label'      => 'Before',
+            'tanggal'    => '08 Jun',
+            'object_ref' => $objectRef,
+        ]);
+
+        $url = URL::temporarySignedRoute('photos.raw', now()->addMinutes(5), ['photo' => $photo->id]);
+        $parts = parse_url($url);
+        $uri = ($parts['path'] ?? '') . '?' . ($parts['query'] ?? '');
+
+        $this->get($uri)
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/png');
+    }
+
+    public function test_missing_photo_object_streams_visible_placeholder(): void
+    {
+        Storage::fake('public');
+
+        $pasien = Pasien::create([
+            'nama_pasien'    => 'Pasien Missing Foto',
+            'usia'           => 31,
+            'alamat'         => 'Jl. Missing',
+            'nomor_telp'     => '0815',
+            'rekam_medis_id' => 'RM-FOTO-404',
+        ]);
+
+        $photo = FotoKlinis::create([
+            'pasien_id'  => $pasien->id,
+            'label'      => 'After',
+            'tanggal'    => '08 Jun',
+            'object_ref' => 'local://clinical/RM-FOTO-404/missing.png',
+        ]);
+
+        $url = URL::temporarySignedRoute('photos.raw', now()->addMinutes(5), ['photo' => $photo->id]);
+        $parts = parse_url($url);
+        $uri = ($parts['path'] ?? '') . '?' . ($parts['query'] ?? '');
+
+        $this->get($uri)
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/svg+xml; charset=UTF-8')
+            ->assertSee('Foto tidak tersedia', false);
     }
 
     public function test_manajer_can_attach_photo_to_any_pasien(): void

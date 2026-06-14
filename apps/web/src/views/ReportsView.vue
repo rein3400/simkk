@@ -77,9 +77,13 @@ const exportReport = async () => {
     </section>
 
     <aside v-if="report" class="report-side">
-      <span class="eyebrow">Export laporan</span>
-      <h2>{{ report.output }}</h2>
-      <p>Nilai berasal dari transaksi, FIFO, dan komisi yang tersimpan di database lokal.</p>
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Export laporan</span>
+          <h2>{{ report.output }}</h2>
+        </div>
+      </div>
+      <p class="report-side-hint">Nilai berasal dari transaksi, FIFO, dan komisi yang tersimpan di database lokal.</p>
       <button class="primary-action" data-testid="export-report" type="button" :disabled="exporting" @click="exportReport">
         {{ exporting ? "Menyiapkan..." : `Export ${report.output}` }}
       </button>

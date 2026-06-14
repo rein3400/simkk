@@ -34,11 +34,11 @@ const discount = ref(0);
 const paymentMethod = ref("Tunai");
 const paid = ref(false);
 const paying = ref(false);
-const voiding = ref(false);
 const lastReceiptId = ref("");
 const toastVisible = ref(false);
 const toastMessage = ref("");
 const confirmVoidId = ref<string | number | null>(null);
+const deletingTransactionId = ref<string | number | null>(null);
 
 const categories = ["Semua", "Treatment", "Produk", "Paket"];
 const isManajer = computed(() => props.role === "Manajer" || props.role === "Admin");
@@ -157,7 +157,7 @@ const cancelVoid = () => {
 const confirmVoid = async () => {
   const id = confirmVoidId.value;
   if (id === null || id === undefined) return;
-  voiding.value = true;
+  deletingTransactionId.value = id;
   try {
     const result = await deleteTransaction(props.token, id);
     confirmVoidId.value = null;
@@ -169,7 +169,7 @@ const confirmVoid = async () => {
   } catch (error) {
     showToast(error instanceof Error ? error.message : "Void transaksi gagal.");
   } finally {
-    voiding.value = false;
+    deletingTransactionId.value = null;
   }
 };
 </script>
@@ -220,7 +220,7 @@ const confirmVoid = async () => {
 
       <label class="select-label">
         Pilih pasien
-        <select v-model.number="selectedPatientId">
+        <select class="patient-select" v-model.number="selectedPatientId">
           <option v-for="patient in filteredPatients" :key="patient.id" :value="patient.id">
             {{ patient.name }} - {{ patient.recordId }}
           </option>
@@ -235,7 +235,7 @@ const confirmVoid = async () => {
 
       <label class="select-label">
         Terapis bertugas
-        <select v-model.number="selectedTherapistId" data-testid="therapist-select">
+        <select class="patient-select" v-model.number="selectedTherapistId" data-testid="therapist-select">
           <option value="">Pilih terapis untuk mengunci komisi</option>
           <option v-for="therapist in therapists" :key="therapist.id" :value="therapist.id">
             {{ therapist.name }} - {{ therapist.status }}
@@ -293,16 +293,16 @@ const confirmVoid = async () => {
           </div>
           <div v-if="confirmVoidId === trx.id" class="void-confirm">
             <span>Yakin hapus / void {{ trx.id }}?</span>
-            <button class="danger-action" type="button" :disabled="voiding" @click="confirmVoid">
-              <ShieldX :size="14" /> {{ voiding ? "Memproses..." : "Ya, hapus" }}
+            <button class="danger-action" type="button" :disabled="deletingTransactionId === trx.id" @click="confirmVoid">
+              <ShieldX :size="14" /> {{ deletingTransactionId === trx.id ? "Memproses..." : "Ya, hapus" }}
             </button>
-            <button class="secondary-action compact-action" type="button" :disabled="voiding" @click="cancelVoid">Batal</button>
+            <button class="secondary-action compact-action" type="button" :disabled="deletingTransactionId === trx.id" @click="cancelVoid">Batal</button>
           </div>
           <button
             v-else
             class="danger-action compact-action"
             type="button"
-            :disabled="voiding"
+            :disabled="deletingTransactionId === trx.id"
             :data-testid="`void-${trx.id}`"
             @click="askVoid(trx.id)"
           >
@@ -412,29 +412,6 @@ const confirmVoid = async () => {
   color: var(--color-ink, #0f0f0f);
   text-transform: none;
   letter-spacing: 0;
-}
-.danger-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.5rem 0.9rem;
-  background: transparent;
-  border: 1px solid #b03a2e;
-  color: #b03a2e;
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 200ms ease, color 200ms ease;
-}
-.danger-action:hover:not(:disabled) {
-  background: #b03a2e;
-  color: var(--color-cream, #f5f1ea);
-}
-.danger-action:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 .compact-action {
   padding: 0.4rem 0.75rem;

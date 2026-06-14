@@ -82,9 +82,9 @@ const sinceLabel = computed(() => {
 <template>
   <div class="min-h-screen bg-cream font-body text-ink">
     <header
-      class="sticky top-0 z-30 h-[72px] border-b border-line bg-cream/80 backdrop-blur-md"
+      class="sticky top-0 z-30 border-b border-line bg-cream/80 backdrop-blur-md"
     >
-      <div class="mx-auto flex h-full max-w-[1440px] items-center gap-6 px-6 lg:px-10">
+      <div class="mx-auto flex h-[72px] max-w-[1440px] items-center gap-6 px-6 lg:px-10">
         <a href="#" class="group flex items-center gap-3" aria-label="SIM-KK beranda">
           <span
             class="grid h-10 w-10 place-items-center rounded-full bg-forest font-display text-base text-cream shadow-sm"
