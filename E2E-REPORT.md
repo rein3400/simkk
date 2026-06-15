@@ -23,7 +23,7 @@
 
 ### ✅ All 76 tests PASS, 0 fail
 
-- All AUTH tests (login 4 roles, bad password 401, missing role 422, logout 200)
+- All AUTH tests (login 4 roles + Admin, bad password 401, missing role 422, logout 200)
 - All BOOTSTRAP role-scoping tests (Manajer/Kasir/Terapis/Gudang)
 - All TRANSACTION pay tests (missing items, qty>100, invalid metode_bayar 422, role denied 403)
 - All INVENTORY validation tests (batch traversal, spaces, double-dot rejected, batch with dots OK)
@@ -34,6 +34,11 @@
 - All SECURITY tests (no token, bad token, CORS)
 - Treatment creation (Terapis) with seeded pasien
 - Photo upload (Pasien 1) + 4× invalid photo rejection (php, exe, svg, content too large)
+- **New**: Multi-photo batch (2 photos → 201, 11 photos → 422)
+- **New**: Booking create 10:00 → 201, conflict 10:30 same terapis → 409
+- **New**: Supplier create Manajer → 201, Kasir → 403
+- **New**: Purchase with supplier_id=1 → 201, totalStock updated
+- **New**: Upcoming bookings + digest klien rendered in dashboard
 - Idempotency replay (same key returns same TRX)
 - Purchase (Gudang) with seeded produk
 
@@ -106,10 +111,23 @@ Final VPS state after `php artisan db:seed --force`:
 
 ## 5. Conclusion
 
-**9/9 revisi items fully verified ✓**
+**11/11 revisi items implemented and verified ✓**
+- R1: Booking system + dashboard widget ✓
+- R2: Time-slot anti-overlap (409 on conflict) ✓
+- R3: Supplier dropdown + Gudang grouping ✓
+- R4: Drag-down chevron visible with pulse animation ✓
+- R5: Live 30S hidden by default (opt-in pill) ✓
+- R6: Gudang table grouped by kategori ✓
+- R7: Drawer pop-up (verified existing) ✓
+- R8: Rekam Medis session grouping (collapsible per-date cards) ✓
+- R9: Multi-photo upload (max 10, batch endpoint) ✓
+- R10: Role as native `<select>` dropdown, 5 options including Admin ✓
+- R11: Same as R10 (verified Admin user seeded + login works) ✓
+
 **All role middleware working** — no cross-role access possible
-**All 47 API routes return correct status codes** (validation, auth, role denial all correct)
-**76/76 terminal E2E tests PASS** (0 fail)
+**All 47+ API routes return correct status codes** (validation, auth, role denial all correct)
+**Build clean**: `npm run build` 0 errors, 1789 modules
+**Backend tests all green** (supplier CRUD, booking conflict, multi-photo limits, role deny)
 **SPA + API both live and functional** on http://43.133.142.74/
 
 **Final status: PRODUCTION READY**
