@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BackupController;
 use App\Http\Controllers\Api\BootstrapController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DailyReportController;
+use App\Http\Controllers\Api\DeployController;
 use App\Http\Controllers\Api\InventarisController;
 use App\Http\Controllers\Api\InventoryMovementController;
 use App\Http\Controllers\Api\LaporanController;
@@ -73,6 +74,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Manual backup trigger (Manajer). Runs .workflow/sim-kk-backup.sh via Symfony Process.
     Route::post('/backup/trigger', [BackupController::class, 'trigger'])
+        ->middleware('role:Manajer');
+
+    // Deploy endpoint — Manajer-only, deploy secret required (HTTP-based deploy when SSH is filtered).
+    Route::post('/admin/deploy', DeployController::class)
         ->middleware('role:Manajer');
 
     // Inventory Movements — per barang per hari, 11 columns.
