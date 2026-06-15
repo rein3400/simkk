@@ -1,0 +1,40 @@
+- main [ref=e269]:
+  - generic [ref=e270]:
+    - region "Identitas SIM-KK" [ref=e271]:
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - img [ref=e276]
+          - text: Operasional klinik
+        - heading "SIM-KK" [level=1] [ref=e279]
+        - paragraph [ref=e280]: Sistem klinik kecantikan untuk kasir, rekam medis, inventaris FIFO, dan laporan manajer.
+        - generic [ref=e281]:
+          - generic [ref=e282]:
+            - img [ref=e283]
+            - text: Komisi terkunci saat Lunas
+          - generic [ref=e285]: Rekam medis ramah tablet
+          - generic [ref=e287]: Export PDF/XLSX asli
+    - region "Form login" [ref=e289]:
+      - generic [ref=e290]:
+        - text: Akses pengguna
+        - heading "Masuk" [level=2] [ref=e291]
+        - generic [ref=e292]:
+          - generic [ref=e293]:
+            - text: Username
+            - textbox "Username" [ref=e294]: manajer
+          - generic [ref=e295]:
+            - text: Password
+            - generic [ref=e296]:
+              - textbox "Password" [ref=e297]: simkk-2026
+              - button "Tampilkan password" [ref=e298] [cursor=pointer]:
+                - img [ref=e299]
+          - generic [ref=e302]:
+            - text: Role demo
+            - generic [ref=e303]:
+              - button "Kasir" [ref=e304] [cursor=pointer]
+              - button "Terapis" [ref=e305] [cursor=pointer]
+              - button "Gudang" [ref=e306] [cursor=pointer]
+              - button "Manajer" [active] [ref=e307] [cursor=pointer]
+            - paragraph [ref=e308]: Masuk ke dashboard, laporan, audit, dan modul admin klinik.
+          - button "Masuk" [ref=e309] [cursor=pointer]:
+            - text: Masuk
+            - img [ref=e310]

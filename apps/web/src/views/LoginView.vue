@@ -9,7 +9,7 @@ const props = defineProps<{ loading: boolean; error: string }>();
 const emit = defineEmits<{ login: [payload: LoginPayload] }>();
 
 const selectedRole = ref<Role>("Kasir");
-const roles: Role[] = ["Kasir", "Terapis", "Gudang", "Manajer"];
+const roles: Role[] = ["Kasir", "Terapis", "Gudang", "Manajer", "Admin"];
 const usernames: Record<Role, string> = {
   Kasir: "kasir",
   Terapis: "terapis",
@@ -133,23 +133,26 @@ const proofBadges = [
             </label>
 
             <div>
-              <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-sage">Role demo</span>
-              <div class="mt-3 flex flex-wrap gap-2" id="role-chips">
-                <button
-                  v-for="role in roles"
-                  :key="role"
-                  type="button"
-                  :data-role="role"
-                  :class="[
-                    'rounded-full px-4 py-2 font-body text-sm font-semibold transition-all duration-300 ease-[var(--ease-editorial)]',
-                    selectedRole === role
-                      ? 'border-2 border-ink bg-ink text-cream'
-                      : 'border border-stone bg-cream text-sage hover:bg-parchment hover:text-ink',
-                  ]"
-                  @click="selectedRole = role"
+              <label
+                for="role-select"
+                class="font-mono text-[11px] font-bold uppercase tracking-widest text-sage"
+              >
+                Role demo
+              </label>
+              <div class="relative mt-3">
+                <select
+                  id="role-select"
+                  v-model="selectedRole"
+                  data-testid="role-select"
+                  class="w-full appearance-none border-0 border-b border-stone bg-transparent py-2 pr-10 font-body text-lg text-ink focus:border-forest focus:outline-none focus:ring-0"
                 >
-                  {{ role }}
-                </button>
+                  <option v-for="role in roles" :key="role" :value="role">{{ role }}</option>
+                </select>
+                <ChevronDown
+                  :size="18"
+                  class="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 text-sage"
+                  aria-hidden="true"
+                />
               </div>
               <p
                 class="mt-3 font-body text-sm font-semibold text-forest"

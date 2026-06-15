@@ -1,0 +1,87 @@
+- generic [ref=e746]:
+  - banner [ref=e747]:
+    - generic [ref=e748]:
+      - link "SIM-KK beranda" [ref=e749] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e750]: SK
+        - generic [ref=e751]:
+          - strong [ref=e752]: SIM-KK
+          - generic [ref=e753]: Samarinda
+      - generic [ref=e754]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e755]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e756]:
+        - button "Refresh" [ref=e757] [cursor=pointer]:
+          - img [ref=e758]
+          - generic [ref=e763]: Refresh
+        - generic [ref=e764]:
+          - img [ref=e765]
+          - generic [ref=e768]: Terapis
+          - generic [ref=e769]: / Shift Treatment A
+        - generic [ref=e770]:
+          - generic [ref=e771]: DM
+          - generic [ref=e772]:
+            - generic [ref=e773]: dr. Melati
+            - generic [ref=e774]: Login terkunci
+        - button "Keluar" [ref=e775] [cursor=pointer]:
+          - img [ref=e776]
+          - generic [ref=e779]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e780]:
+      - generic [ref=e782]:
+        - generic [ref=e783]:
+          - img [ref=e784]
+          - text: Modul aktif
+        - button "Rekam Medis Timeline pasien" [ref=e788] [cursor=pointer]:
+          - img [ref=e789]
+          - generic [ref=e793]: Rekam Medis
+          - generic [ref=e794]: Timeline pasien
+        - generic [ref=e795]:
+          - img [ref=e796]
+          - text: Rekam medis, catatan tindakan, dan foto klinis.
+  - main [ref=e799]:
+    - generic [ref=e800]:
+      - complementary [ref=e801]:
+        - generic [ref=e802]: Rekam medis
+        - combobox [ref=e803]:
+          - option "Belum ada pasien" [disabled] [selected]
+        - paragraph [ref=e804]: Belum ada pasien terdaftar. Hubungi kasir untuk mendaftarkan pasien baru.
+        - heading "— pilih pasien —" [level=2] [ref=e805]
+        - paragraph [ref=e806]: Diperbarui 0s lalu
+      - generic [ref=e810]:
+        - generic [ref=e811]: Timeline treatment
+        - heading "Riwayat kronologis" [level=2] [ref=e812]
+      - generic [ref=e813]:
+        - generic [ref=e814]:
+          - generic [ref=e815]:
+            - generic [ref=e816]: Before / After
+            - heading "Referensi object storage" [level=2] [ref=e817]
+          - img [ref=e818]
+        - generic [ref=e821] [cursor=pointer]:
+          - button "Choose File" [ref=e822]
+          - generic [ref=e823]:
+            - img [ref=e824]
+            - strong [ref=e827]: Pilih atau drop foto klinis
+            - text: JPG/PNG, tersimpan sebagai object reference lokal.
+        - generic [ref=e828]:
+          - generic [ref=e829]:
+            - text: Label foto
+            - combobox "Label foto" [ref=e830]:
+              - option "Before"
+              - option "After" [selected]
+          - generic [ref=e831]:
+            - checkbox "Consent pasien sudah diverifikasi" [ref=e832]
+            - generic [ref=e833]:
+              - img [ref=e834]
+              - text: Consent pasien sudah diverifikasi
+        - generic [ref=e837]:
+          - text: Catatan tindakan
+          - textbox "Catatan tindakan" [ref=e838]
+        - button "Simpan catatan" [ref=e839] [cursor=pointer]:
+          - img [ref=e840]
+          - text: Simpan catatan
+        - button "Upload foto klinis" [disabled] [ref=e844]:
+          - img [ref=e845]
+          - text: Upload foto klinis

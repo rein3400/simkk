@@ -1,0 +1,25 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - link "发送远程命令" [ref=e4] [cursor=pointer]:
+      - /url: javascript:void(0);
+      - text: 发送远程命令
+    - strong [ref=e6]:
+      - text: 连接成功：如果长时间处于黑屏状态，请按任意键唤醒。如长时间卡在欢迎界面，请
+      - link "参考设置" [ref=e7] [cursor=pointer]:
+        - /url: http://wiki.qcloud.com/wiki/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95Ubuntu%E5%8D%A1%E5%9C%A8%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2%E7%9A%84%E9%97%AE%E9%A2%98
+      - text: 。如需粘贴命令，请点击
+      - link "这里" [ref=e8] [cursor=pointer]:
+        - /url: javascript:void(0)
+  - alertdialog [ref=e125]:
+    - generic [ref=e126]:
+      - strong [ref=e127]: 粘贴命令
+      - button "关闭" [ref=e128] [cursor=pointer]
+    - generic [ref=e130]:
+      - generic [ref=e132]: 将内容粘贴至文本框，暂不支持中文等非标准键盘值特殊字符
+      - list [ref=e133]:
+        - listitem [ref=e134]:
+          - generic [ref=e136] [cursor=pointer]: 命令文本内容 *
+          - textbox [ref=e139]: ubuntu
+    - generic [ref=e141]:
+      - button "确定" [active] [ref=e142]
+      - button "取消" [ref=e143] [cursor=pointer]

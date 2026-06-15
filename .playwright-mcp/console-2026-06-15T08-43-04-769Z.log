@@ -1,0 +1,30 @@
+[    7467ms] [WARNING] New state 'loaded', was 'disconnected'. Msg: noVNC ready: native WebSockets, canvas rendering @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    7468ms] [LOG] state=loaded @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    7468ms] [WARNING] New state 'connect', was 'loaded'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    7471ms] [LOG] state=connect @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    7494ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F%2Fjktvnc.qcloud.com%3A443%2Fvnc%3Fs%3DRFprR04vZkdkNWI1d3VnWnNYdWQyTjJOejR2b2l5YTk5THlYNW5LM3ZISjRXb25VN3FwVUE3U04yZzdxM1laazBmbWpLYXVCYjh3SkFvbjd6L2FOOFFveVpBMERrN000Y1FrS0dUcndMbFU9%26password%3D%26isWindows%3Dfalse%26isUbuntu%3Dtrue:0
+[    8426ms] [WARNING] New state 'ProtocolVersion', was 'connect'. Msg: Starting VNC handshake @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8427ms] [LOG] state=ProtocolVersion @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    8858ms] [WARNING] New state 'Security', was 'ProtocolVersion'. Msg: Sent ProtocolVersion: 003.008 @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8858ms] [LOG] state=Security @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    8927ms] [WARNING] New state 'Authentication', was 'Security'. Msg: Authenticating using scheme: 1 @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8927ms] [LOG] state=Authentication @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    8927ms] [WARNING] New state 'SecurityResult', was 'Authentication'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8927ms] [LOG] state=SecurityResult @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    8995ms] [WARNING] New state 'ClientInitialisation', was 'SecurityResult'. Msg: Authentication OK @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8996ms] [LOG] state=ClientInitialisation @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    8996ms] [WARNING] New state 'ServerInitialisation', was 'ClientInitialisation'. Msg: Authentication OK @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    8996ms] [LOG] state=ServerInitialisation @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    9066ms] [WARNING] Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently @ https://img.qcloud.com/qcloud/app/active_vnc/lib/display.js?v=010801:0
+[    9070ms] [WARNING] New state 'normal', was 'ServerInitialisation'. Msg: Connected (encrypted) to: QEMU (3d089842-e0d7-4d50-8ed6-d03a5e83e014) @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    9070ms] [LOG] state=normal @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    9817ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[   11865ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[   13907ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[   35720ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://img.qcloud.com/qcloud/app/active_vnc/style/img/scb.png:0
+[  786598ms] [WARNING] WebSocket on-close event @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[  786653ms] [ERROR] New state 'failed', was 'normal'. Msg: Server disconnected (code: 1000, reason: Target closed) @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[  786653ms] [ERROR] Error while connected. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[  786654ms] [LOG] state=failed @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[  786705ms] [WARNING] New state 'disconnected', was 'failed'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[  786705ms] [LOG] state=disconnected @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0

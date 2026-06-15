@@ -126,9 +126,28 @@ export async function addClinicalPhoto(token: string, patientId: number, payload
   return parseJson(response);
 }
 
+/**
+ * Per revisi "dibuat bisa lebih dari 1 gambar" — batch upload up to 10 photos
+ * in a single round trip. Backend returns 201 (all succeeded) or 207
+ * (partial — see response.errors[]).
+ */
+export async function addClinicalPhotos(token: string, patientId: number, photos: Array<{
+  label: "Before" | "After";
+  filename: string;
+  content: string;
+}>) {
+  const response = await fetch(apiUrl(`/api/patients/${patientId}/photos/batch`), {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify({ photos }),
+  });
+  return parseJson(response);
+}
+
 export async function addPurchase(token: string, payload: {
   productId: number;
-  supplier: string;
+  supplierId: number;
+  supplier?: string;
   batchCode: string;
   qty: number;
   hpp: number;
@@ -140,6 +159,52 @@ export async function addPurchase(token: string, payload: {
     body: JSON.stringify(payload),
   });
   return parseJson<InventoryProduct>(response);
+}
+
+// Per revisi R3 — supplier master list. Read-only for any authed user;
+// write happens via /api/admin/suppliers (Manajer only).
+export interface SupplierRecord {
+  id: number;
+  nama: string;
+  kontak?: string | null;
+  telepon?: string | null;
+  email?: string | null;
+}
+
+export async function listSuppliers(token: string) {
+  const response = await fetch(apiUrl("/api/suppliers"), { headers: authHeaders(token) });
+  return parseJson<SupplierRecord[]>(response);
+}
+
+export async function listAdminSuppliers(token: string) {
+  const response = await fetch(apiUrl("/api/admin/suppliers"), { headers: authHeaders(token) });
+  return parseJson<SupplierRecord[]>(response);
+}
+
+export async function createAdminSupplier(token: string, payload: Omit<SupplierRecord, "id">) {
+  const response = await fetch(apiUrl("/api/admin/suppliers"), {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  return parseJson<SupplierRecord>(response);
+}
+
+export async function updateAdminSupplier(token: string, id: number, payload: Omit<SupplierRecord, "id">) {
+  const response = await fetch(apiUrl(`/api/admin/suppliers/${id}`), {
+    method: "PATCH",
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  return parseJson<SupplierRecord>(response);
+}
+
+export async function deleteAdminSupplier(token: string, id: number) {
+  const response = await fetch(apiUrl(`/api/admin/suppliers/${id}`), {
+    method: "DELETE",
+    headers: authHeaders(token),
+  });
+  return parseJson(response);
 }
 
 export async function downloadReport(token: string, reportId: ReportPreview["id"]): Promise<Blob> {
@@ -351,11 +416,122 @@ export interface DashboardResponse {
   top_services: { nama: string; count: number }[];
   last_7_days_revenue: { date: string; total: number }[];
   date: string;
+  // Per revisi R1 — upcoming bookings + digest klien.
+  upcoming_bookings?: BookingRecord[];
+  digest_klien?: DigestKlien[];
+}
+
+export interface BookingRecord {
+  id: number;
+  pasien: { id?: number; rekam_medis_id?: string; nama: string } | null;
+  terapis: { id?: number; nama: string } | null;
+  layanan?: string | null;
+  scheduled_at: string;
+  duration_min: number;
+  status: "booked" | "confirmed" | "done" | "cancelled" | "no_show";
+  notes?: string | null;
+  source?: "walk_in" | "phone" | "web";
+}
+
+export interface DigestKlien {
+  id: number;
+  rekam_medis_id: string;
+  nama: string;
+  last_treatment: string | null;
+  last_note: string | null;
 }
 
 export async function getDashboard(token: string): Promise<DashboardResponse> {
   const response = await authedFetch(token, "/api/dashboard", { method: "GET"  });
   return parseJson<DashboardResponse>(response);
+}
+
+/* ====================================================================
+ * Bookings (per revisi R1/R2)
+ * ==================================================================== */
+
+export interface AvailabilitySlot {
+  start: string;
+  end: string;
+  available: boolean;
+}
+
+export interface BookedSlot {
+  id: number;
+  start: string;
+  end: string;
+  pasien_id: number;
+  status: string;
+}
+
+export interface AvailabilityResponse {
+  date: string;
+  terapis_id: number;
+  booked: BookedSlot[];
+  slots: AvailabilitySlot[];
+}
+
+export async function getAvailability(token: string, params: { terapis_id: number; date: string }) {
+  const q = new URLSearchParams({ terapis_id: String(params.terapis_id), date: params.date });
+  const response = await fetch(apiUrl(`/api/bookings/availability?${q.toString()}`), {
+    headers: authHeaders(token),
+  });
+  return parseJson<AvailabilityResponse>(response);
+}
+
+export async function listBookings(token: string, params?: { date?: string; terapis_id?: number; status?: string }) {
+  const q = new URLSearchParams();
+  if (params?.date) q.set("date", params.date);
+  if (params?.terapis_id) q.set("terapis_id", String(params.terapis_id));
+  if (params?.status) q.set("status", params.status);
+  const qs = q.toString();
+  const response = await fetch(apiUrl(`/api/bookings${qs ? `?${qs}` : ""}`), {
+    headers: authHeaders(token),
+  });
+  return parseJson<BookingRecord[]>(response);
+}
+
+export async function createBooking(token: string, payload: {
+  pasien_id: number;
+  terapis_id: number;
+  layanan_id?: number;
+  scheduled_at: string;
+  duration_min?: number;
+  notes?: string;
+  source?: "walk_in" | "phone" | "web";
+}) {
+  const response = await fetch(apiUrl("/api/bookings"), {
+    method: "POST",
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  return parseJson<BookingRecord>(response);
+}
+
+export async function updateBooking(token: string, id: number, payload: Partial<{
+  pasien_id: number;
+  terapis_id: number;
+  layanan_id: number | null;
+  scheduled_at: string;
+  duration_min: number;
+  status: "booked" | "confirmed" | "done" | "cancelled" | "no_show";
+  notes: string;
+  source: "walk_in" | "phone" | "web";
+}>) {
+  const response = await fetch(apiUrl(`/api/bookings/${id}`), {
+    method: "PATCH",
+    headers: authHeaders(token),
+    body: JSON.stringify(payload),
+  });
+  return parseJson<BookingRecord>(response);
+}
+
+export async function cancelBooking(token: string, id: number) {
+  const response = await fetch(apiUrl(`/api/bookings/${id}`), {
+    method: "DELETE",
+    headers: authHeaders(token),
+  });
+  return parseJson(response);
 }
 
 /* ====================================================================

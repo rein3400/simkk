@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { Camera, Check, FileImage, Pencil, Save, ShieldCheck, Trash2, UploadCloud, X } from "@lucide/vue";
+import { Camera, Check, ChevronDown, FileImage, FileText, Pencil, Save, ShieldCheck, Trash2, UploadCloud, X } from "@lucide/vue";
 import PhotoCompare from "../components/PhotoCompare.vue";
 import Timeline from "../components/Timeline.vue";
 import {
-  addClinicalPhoto,
+  addClinicalPhotos,
   addTreatment,
   deleteClinicalPhoto,
   deleteTreatment,
@@ -43,9 +43,10 @@ const saving = ref(false);
 const saved = ref(false);
 const photoSaving = ref(false);
 const photoLabel = ref<"Before" | "After">("After");
-const pendingFile = ref<File | null>(null);
-const pendingPreview = ref("");
-const pendingContent = ref("");
+// Per revisi "dibuat bisa lebih dari 1 gambar" — multiple file dropzone.
+const pendingFiles = ref<File[]>([]);
+const pendingPreviews = ref<string[]>([]);
+const pendingContents = ref<string[]>([]);
 const uploadProgress = ref(0);
 const consentAccepted = ref(false);
 const dragActive = ref(false);
@@ -216,41 +217,64 @@ const confirmDeletePhoto = async (photoId: string) => {
   }
 };
 
-const readFile = (file?: File) => {
+const readFiles = (files: FileList | null | undefined) => {
   photoError.value = "";
   photoStatus.value = "";
   uploadProgress.value = 0;
-  if (!file) return;
-  if (!file.type.startsWith("image/")) {
+  if (!files || files.length === 0) return;
+  const accepted: File[] = [];
+  const previews: string[] = [];
+  const contents: string[] = [];
+  let skipped = 0;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    if (!file.type.startsWith("image/")) {
+      skipped++;
+      continue;
+    }
+    accepted.push(file);
+  }
+  if (accepted.length === 0) {
     photoError.value = "File harus berupa gambar klinis.";
     return;
   }
-  pendingFile.value = file;
-  const reader = new FileReader();
-  reader.onload = () => {
-    pendingPreview.value = String(reader.result);
-    pendingContent.value = String(reader.result);
-    uploadProgress.value = 18;
-  };
-  reader.onerror = () => {
-    photoError.value = "Preview foto gagal dibaca.";
-  };
-  reader.readAsDataURL(file);
+  if (skipped > 0) {
+    photoStatus.value = `${skipped} file diabaikan (bukan gambar).`;
+  }
+  let loaded = 0;
+  for (const file of accepted) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      previews.push(String(reader.result));
+      contents.push(String(reader.result));
+      loaded++;
+      if (loaded === accepted.length) {
+        pendingFiles.value = accepted;
+        pendingPreviews.value = previews;
+        pendingContents.value = contents;
+        uploadProgress.value = 18;
+      }
+    };
+    reader.onerror = () => {
+      photoError.value = "Preview foto gagal dibaca.";
+    };
+    reader.readAsDataURL(file);
+  }
 };
 
 const onFileChange = (event: Event) => {
-  readFile((event.target as HTMLInputElement).files?.[0]);
+  readFiles((event.target as HTMLInputElement).files);
 };
 
 const onDrop = (event: DragEvent) => {
   dragActive.value = false;
-  readFile(event.dataTransfer?.files?.[0]);
+  readFiles(event.dataTransfer?.files);
 };
 
 const clearPendingPhoto = () => {
-  pendingFile.value = null;
-  pendingPreview.value = "";
-  pendingContent.value = "";
+  pendingFiles.value = [];
+  pendingPreviews.value = [];
+  pendingContents.value = [];
   uploadProgress.value = 0;
   consentAccepted.value = false;
   photoStatus.value = "";
@@ -258,21 +282,28 @@ const clearPendingPhoto = () => {
 };
 
 const uploadPhoto = async () => {
-  if (!selectedPatient.value || !pendingFile.value || !pendingContent.value || !consentAccepted.value) return;
+  if (!selectedPatient.value || pendingFiles.value.length === 0 || pendingContents.value.length === 0 || !consentAccepted.value) return;
   photoSaving.value = true;
   photoError.value = "";
   photoStatus.value = "";
   uploadProgress.value = 54;
   try {
-    await addClinicalPhoto(props.token, selectedPatient.value.id, {
+    const photos = pendingFiles.value.map((file, i) => ({
       label: photoLabel.value,
-      filename: pendingFile.value.name,
-      content: pendingContent.value,
-    });
+      filename: file.name,
+      content: pendingContents.value[i],
+    }));
+    const result = (await addClinicalPhotos(props.token, selectedPatient.value.id, photos)) as { uploaded?: unknown[]; errors?: unknown[] } | null;
     uploadProgress.value = 100;
-    photoStatus.value = "Foto klinis tersimpan dengan referensi lokal.";
+    const uploadedCount = Array.isArray(result?.uploaded) ? result.uploaded.length : 0;
+    const errorCount = Array.isArray(result?.errors) ? result.errors.length : 0;
+    if (errorCount === 0) {
+      photoStatus.value = `${uploadedCount} foto klinis tersimpan dengan referensi lokal.`;
+    } else {
+      photoStatus.value = `${uploadedCount} tersimpan, ${errorCount} gagal.`;
+    }
     await refresh();
-    showToast("Foto klinis tersimpan.");
+    showToast(photoStatus.value);
   } catch (error) {
     photoError.value = error instanceof Error ? error.message : "Upload foto gagal.";
   } finally {
@@ -326,6 +357,30 @@ markUpdated();
         </div>
       </div>
 
+      <!-- Per revisi R8 — collapsible per-date session cards. -->
+      <div v-if="selectedPatient && selectedPatient.sessions && selectedPatient.sessions.length" class="session-list" data-testid="session-list">
+        <details
+          v-for="(session, idx) in selectedPatient.sessions"
+          :key="session.date"
+          class="session-card"
+          :open="idx === 0"
+          :data-testid="`session-${session.date}`"
+        >
+          <summary class="session-head">
+            <ChevronDown :size="18" class="drag-down-toggle" :class="{ 'is-open': idx === 0 }" />
+            <span class="session-date">{{ session.date }}</span>
+            <span class="session-count">{{ session.treatments.length }} catatan · {{ session.photos.length }} foto</span>
+          </summary>
+          <div v-if="session.note_excerpt" class="session-note">
+            <FileText :size="14" />
+            <em>"{{ session.note_excerpt }}"</em>
+          </div>
+          <div v-if="session.photos.length" class="session-photos">
+            <img v-for="photo in session.photos" :key="photo.id" :src="photo.url ?? ''" :alt="`Foto ${photo.label}`" :data-testid="`session-photo-${photo.id}`" />
+          </div>
+        </details>
+      </div>
+
       <Timeline v-if="selectedPatient && visibleTreatments.length" :notes="visibleTreatments">
         <template #actions="{ note }">
           <div v-if="isTerapisOrManajer && note.id !== undefined" class="timeline-actions">
@@ -353,7 +408,7 @@ markUpdated();
         </template>
       </Timeline>
 
-      <div v-if="selectedPatient && visibleTreatments.length === 0" class="quiet-empty">
+      <div v-if="selectedPatient && (!selectedPatient.sessions || selectedPatient.sessions.length === 0) && visibleTreatments.length === 0" class="quiet-empty">
         Belum ada treatment tersimpan.
       </div>
 
@@ -406,23 +461,25 @@ markUpdated();
 
       <div
         class="upload-dropzone"
-        :class="{ active: dragActive, ready: pendingPreview }"
+        :class="{ active: dragActive, ready: pendingPreviews.length > 0 }"
         data-testid="photo-dropzone"
         @dragover.prevent="dragActive = true"
         @dragleave.prevent="dragActive = false"
         @drop.prevent="onDrop"
       >
-        <input data-testid="photo-input" type="file" accept="image/*" @change="onFileChange" />
-        <div v-if="pendingPreview" class="pending-photo">
-          <img :src="pendingPreview" alt="Preview foto klinis" data-testid="photo-preview" />
-          <button type="button" aria-label="Hapus preview" @click="clearPendingPhoto">
-            <X :size="15" />
-          </button>
+        <input data-testid="photo-input" type="file" accept="image/*" multiple @change="onFileChange" />
+        <div v-if="pendingPreviews.length > 0" class="pending-photos">
+          <div v-for="(src, idx) in pendingPreviews" :key="idx" class="pending-photo">
+            <img :src="src" :alt="`Preview foto ${idx + 1}`" :data-testid="`photo-preview-${idx}`" />
+            <button type="button" aria-label="Hapus preview" @click="clearPendingPhoto">
+              <X :size="15" />
+            </button>
+          </div>
         </div>
         <div v-else>
           <UploadCloud :size="23" />
-          <strong>Pilih atau drop foto klinis</strong>
-          <span>JPG/PNG, tersimpan sebagai object reference lokal.</span>
+          <strong>Pilih atau drop foto klinis (bisa lebih dari 1)</strong>
+          <span>JPG/PNG, maks 10 foto sekaligus, tersimpan sebagai object reference lokal.</span>
         </div>
       </div>
 
@@ -442,7 +499,7 @@ markUpdated();
       <div v-if="uploadProgress > 0" class="upload-progress" :aria-valuenow="uploadProgress" aria-valuemin="0" aria-valuemax="100" role="progressbar">
         <span :style="{ width: `${uploadProgress}%` }" />
       </div>
-      <p v-if="pendingFile" class="file-note"><FileImage :size="14" /> {{ pendingFile.name }}</p>
+      <p v-if="pendingFiles.length > 0" class="file-note"><FileImage :size="14" /> {{ pendingFiles.length }} foto siap upload</p>
       <p v-if="photoStatus" class="success-note">{{ photoStatus }}</p>
       <p v-if="photoError" class="error-note">{{ photoError }}</p>
 
@@ -459,11 +516,11 @@ markUpdated();
         class="secondary-action"
         data-testid="upload-photo"
         type="button"
-        :disabled="photoSaving || !pendingFile || !consentAccepted"
+        :disabled="photoSaving || pendingFiles.length === 0 || !consentAccepted"
         @click="uploadPhoto"
       >
         <Camera :size="17" />
-        {{ photoSaving ? "Mengunggah..." : "Upload foto klinis" }}
+        {{ photoSaving ? "Mengunggah..." : pendingFiles.length > 1 ? `Upload ${pendingFiles.length} foto` : "Upload foto klinis" }}
       </button>
     </section>
 

@@ -1,0 +1,77 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - link "SumoPod" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e9]:
+            - img [ref=e10]
+            - generic [ref=e13]: SumoPod
+        - generic [ref=e15]:
+          - link "Home" [ref=e16] [cursor=pointer]:
+            - /url: /
+          - link "Templates" [ref=e17] [cursor=pointer]:
+            - /url: /templates
+          - link "Pricing" [ref=e18] [cursor=pointer]:
+            - /url: /#pricing
+          - link "Features" [ref=e19] [cursor=pointer]:
+            - /url: /#features
+      - generic [ref=e20]:
+        - link "Login" [ref=e21] [cursor=pointer]:
+          - /url: /login
+          - img [ref=e22]
+          - text: Login
+        - link "Get Started" [ref=e25] [cursor=pointer]:
+          - /url: /register
+  - main [ref=e26]
+  - contentinfo [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - generic [ref=e37]: SumoPod
+          - paragraph [ref=e38]: SumoPod offers seamless container and application purchasing solutions for businesses of all sizes.
+        - generic [ref=e39]:
+          - heading "Quick Links" [level=3] [ref=e40]
+          - list [ref=e41]:
+            - listitem [ref=e42]:
+              - link "Home" [ref=e43] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e44]:
+              - link "Get Started" [ref=e45] [cursor=pointer]:
+                - /url: /register
+            - listitem [ref=e46]:
+              - link "Login" [ref=e47] [cursor=pointer]:
+                - /url: /login
+        - generic [ref=e48]:
+          - heading "Product" [level=3] [ref=e49]
+          - list [ref=e50]:
+            - listitem [ref=e51]:
+              - link "Features" [ref=e52] [cursor=pointer]:
+                - /url: /#features
+            - listitem [ref=e53]:
+              - link "Pricing" [ref=e54] [cursor=pointer]:
+                - /url: /#pricing
+        - generic [ref=e55]:
+          - heading "Legal" [level=3] [ref=e56]
+          - list [ref=e57]:
+            - listitem [ref=e58]:
+              - link "Privacy Policy" [ref=e59] [cursor=pointer]:
+                - /url: /privacy-policy
+            - listitem [ref=e60]:
+              - link "Terms of Service" [ref=e61] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e62]:
+              - link "Refund Policy" [ref=e63] [cursor=pointer]:
+                - /url: /refund-policy
+        - generic [ref=e64]:
+          - heading "Contact" [level=3] [ref=e65]
+          - list [ref=e66]:
+            - listitem [ref=e67]:
+              - img [ref=e68]
+              - generic [ref=e71]: support@sumopod.com
+            - listitem [ref=e72]:
+              - img [ref=e73]
+              - generic [ref=e77]: +62851-9005-2577
+      - paragraph [ref=e79]: © 2026 KodingWorks - PT Koding Kreasi Indonesia. All rights reserved.

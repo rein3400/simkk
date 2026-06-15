@@ -37,6 +37,15 @@ export interface Patient {
   riskNote: string;
   treatments: TreatmentNote[];
   photos: ClinicalPhoto[];
+  // Per revisi R8 — collapsible session cards grouped by date.
+  sessions?: TreatmentSession[];
+}
+
+export interface TreatmentSession {
+  date: string;
+  treatments: TreatmentNote[];
+  photos: ClinicalPhoto[];
+  note_excerpt: string | null;
 }
 
 export interface TreatmentNote {

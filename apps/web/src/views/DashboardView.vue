@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import { ArrowDown, ArrowUp, Database, ShieldCheck, Sparkles, TrendingUp, Wallet } from "@lucide/vue";
+import { ArrowDown, ArrowUp, Calendar, Database, ShieldCheck, Sparkles, TrendingUp, UserCircle, Wallet } from "@lucide/vue";
 import { getDashboard, triggerBackup, type DashboardResponse } from "../services/api";
 import { percent, rupiah, shortDay } from "../utils/format";
 
@@ -20,6 +20,19 @@ const showToast = (message: string, variant: "success" | "error" = "success") =>
   window.setTimeout(() => {
     toastVisible.value = false;
   }, 3200);
+};
+
+// Format ISO datetime from booking API to "Senin, 14 Jun 14:00".
+const formatBookingTime = (iso: string): string => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleString("id-ID", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
 const load = async () => {
@@ -152,6 +165,36 @@ onMounted(() => {
               </li>
             </ol>
             <p v-else class="quiet-empty">Belum ada data.</p>
+          </article>
+        </div>
+
+        <!-- Per revisi R1 — jadwal booking + digest klien. -->
+        <div v-if="data.upcoming_bookings?.length || data.digest_klien?.length" class="dual-grid">
+          <article v-if="data.upcoming_bookings?.length" class="panel" data-testid="upcoming-bookings">
+            <span class="eyebrow">Jadwal booking</span>
+            <h3 class="panel-title">3 hari ke depan</h3>
+            <ul class="ranked-list">
+              <li v-for="b in data.upcoming_bookings" :key="b.id">
+                <Calendar :size="14" />
+                <strong>{{ b.pasien?.nama ?? "—" }}</strong>
+                <span class="font-mono text-xs">{{ formatBookingTime(b.scheduled_at) }} · {{ b.duration_min }}m</span>
+                <span class="font-mono text-xs font-semibold text-forest">{{ b.terapis?.nama ?? "—" }}</span>
+              </li>
+            </ul>
+          </article>
+
+          <article v-if="data.digest_klien?.length" class="panel" data-testid="digest-klien">
+            <span class="eyebrow">Digest klien</span>
+            <h3 class="panel-title">Recent activity</h3>
+            <ul class="ranked-list">
+              <li v-for="d in data.digest_klien" :key="d.id">
+                <UserCircle :size="14" />
+                <strong>{{ d.nama }}</strong>
+                <span class="font-mono text-xs">{{ d.rekam_medis_id }}</span>
+                <span v-if="d.last_treatment" class="font-mono text-xs text-sage">{{ d.last_treatment }}</span>
+                <p v-if="d.last_note" class="text-xs text-sage italic">"{{ d.last_note }}"</p>
+              </li>
+            </ul>
           </article>
         </div>
       </template>

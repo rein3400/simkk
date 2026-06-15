@@ -1,0 +1,165 @@
+- generic [ref=e46]:
+  - banner [ref=e47]:
+    - generic [ref=e48]:
+      - link "SIM-KK beranda" [ref=e49] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e50]: SK
+        - generic [ref=e51]:
+          - strong [ref=e52]: SIM-KK
+          - generic [ref=e53]: Samarinda
+      - generic [ref=e54]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e55]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e56]:
+        - button "Live 30s" [ref=e57] [cursor=pointer]:
+          - img [ref=e58]
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - text: Live 30s
+        - generic [ref=e70]:
+          - img [ref=e71]
+          - generic [ref=e74]: Manajer
+          - generic [ref=e75]: / Shift Audit
+        - generic [ref=e76]:
+          - generic [ref=e77]: MK
+          - generic [ref=e78]:
+            - generic [ref=e79]: Manajer Klinik
+            - generic [ref=e80]: Live · updated 10s lalu
+        - button "Keluar" [ref=e81] [cursor=pointer]:
+          - img [ref=e82]
+          - generic [ref=e85]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - img [ref=e90]
+            - text: Modul aktif
+          - generic [ref=e93]:
+            - button "Kasir POS cepat" [active] [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - generic [ref=e97]: Kasir
+              - generic [ref=e98]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e99] [cursor=pointer]:
+              - img [ref=e100]
+              - generic [ref=e104]: Rekam Medis
+              - generic [ref=e105]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e106] [cursor=pointer]:
+              - img [ref=e107]
+              - generic [ref=e117]: Gudang
+              - generic [ref=e118]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e119] [cursor=pointer]:
+              - img [ref=e120]
+              - generic [ref=e123]: Laporan
+              - generic [ref=e124]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+              - generic [ref=e130]: Closing Harian
+              - generic [ref=e131]: Submit / Approve
+          - generic [ref=e132]:
+            - img [ref=e133]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e136]:
+          - generic [ref=e137]: Admin
+          - generic [ref=e138]:
+            - button "Dashboard Statistik harian" [ref=e139] [cursor=pointer]:
+              - img [ref=e140]
+              - generic [ref=e143]: Dashboard
+              - generic [ref=e144]: Statistik harian
+            - button "Layanan CRUD master" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+              - generic [ref=e150]: Layanan
+              - generic [ref=e151]: CRUD master
+            - button "Produk Master produk" [ref=e152] [cursor=pointer]:
+              - img [ref=e153]
+              - generic [ref=e163]: Produk
+              - generic [ref=e164]: Master produk
+            - button "User Akun & shift" [ref=e165] [cursor=pointer]:
+              - img [ref=e166]
+              - generic [ref=e178]: User
+              - generic [ref=e179]: Akun & shift
+          - generic [ref=e180]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e182] [cursor=pointer]:
+            - img [ref=e183]
+            - generic [ref=e187]: Audit Log
+            - generic [ref=e188]: 50 entri terakhir
+  - main [ref=e189]:
+    - generic [ref=e379]:
+      - generic [ref=e380]:
+        - generic [ref=e381]:
+          - generic [ref=e382]:
+            - generic [ref=e383]: Point of Sale
+            - heading "Catalog tindakan & produk" [level=2] [ref=e384]
+          - generic [ref=e385]:
+            - button "Semua" [ref=e386] [cursor=pointer]
+            - button "Treatment" [ref=e387] [cursor=pointer]
+            - button "Produk" [ref=e388] [cursor=pointer]
+            - button "Paket" [ref=e389] [cursor=pointer]
+        - generic [ref=e390]: Tidak ada layanan atau produk yang cocok dengan pencarian.
+      - generic [ref=e391]:
+        - generic [ref=e392]:
+          - generic [ref=e393]:
+            - generic [ref=e394]: Konteks pasien
+            - heading [level=2]
+          - img [ref=e395]
+        - generic [ref=e398]:
+          - text: Pilih pasien
+          - combobox "Pilih pasien" [ref=e399]
+        - generic [ref=e400]:
+          - text: Terapis bertugas
+          - combobox "Terapis bertugas" [ref=e401]:
+            - option "Pilih terapis untuk mengunci komisi" [selected]
+        - generic [ref=e402]:
+          - strong [ref=e403]: Belum terkunci
+          - paragraph [ref=e404]: Pilih terapis sebelum menutup transaksi.
+      - complementary [ref=e405]:
+        - generic [ref=e406]:
+          - generic [ref=e407]:
+            - generic [ref=e408]: Billing pasien
+            - heading "Keranjang tagihan" [level=2] [ref=e409]
+          - img [ref=e411]
+        - generic [ref=e414]:
+          - img [ref=e415]
+          - paragraph [ref=e418]: Pilih layanan atau produk dari katalog untuk memulai transaksi.
+        - list
+        - generic [ref=e419]:
+          - generic [ref=e420]:
+            - generic [ref=e421]: Metode bayar
+            - generic [ref=e422]:
+              - img [ref=e423]
+              - combobox "Metode bayar" [ref=e425]:
+                - option "Tunai" [selected]
+                - option "QRIS"
+                - option "Debit"
+                - option "Transfer"
+          - generic [ref=e426]:
+            - generic [ref=e427]: Diskon (Rp)
+            - spinbutton "Diskon (Rp)" [ref=e428]: "0"
+        - generic [ref=e430]:
+          - term [ref=e431]: 0 item
+          - definition [ref=e432]: Rp 0
+        - generic [ref=e433]:
+          - generic [ref=e434]:
+            - generic [ref=e435]: Total tagihan
+            - strong [ref=e436]: Rp 0
+          - generic [ref=e437]:
+            - img [ref=e439]
+            - generic [ref=e442]:
+              - text: Estimasi komisi
+              - generic [ref=e443]: Rp 0
+        - generic [ref=e444]:
+          - button "Clear" [disabled] [ref=e445] [cursor=pointer]:
+            - img [ref=e446]
+            - generic [ref=e450]: Clear
+          - button "Baru" [disabled] [ref=e451] [cursor=pointer]:
+            - img [ref=e452]
+            - generic [ref=e455]: Baru
+        - button "Tandai Lunas" [disabled] [ref=e456] [cursor=pointer]:
+          - img [ref=e457]
+          - generic [ref=e460]: Tandai Lunas
+        - paragraph [ref=e461]:
+          - text: Receipt dan buku besar kas dicatat setelah status
+          - emphasis [ref=e462]: Lunas
+          - text: .

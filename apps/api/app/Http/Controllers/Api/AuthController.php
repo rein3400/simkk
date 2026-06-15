@@ -16,8 +16,8 @@ class AuthController extends Controller
         $validated = $request->validate([
             'username' => 'required|string|max:20',
             'password' => 'required|string|max:255',
-            'level'    => 'required_without:role|string|in:Kasir,Terapis,Gudang,Manajer',
-            'role'     => 'required_without:level|string|in:Kasir,Terapis,Gudang,Manajer',
+            'level'    => 'required_without:role|string|in:Kasir,Terapis,Gudang,Manajer,Admin',
+            'role'     => 'required_without:level|string|in:Kasir,Terapis,Gudang,Manajer,Admin',
         ]);
 
         $level = $validated['level'] ?? $validated['role'];

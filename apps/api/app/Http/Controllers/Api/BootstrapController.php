@@ -164,8 +164,46 @@ class BootstrapController extends Controller
                     'objectRef' => $f->object_ref,
                     'url'       => $this->photoUrl($f->id),
                 ]),
+                // Per revisi R8 — group treatments + photos by date for
+                // collapsible session cards in the UI.
+                'sessions' => $this->groupBySessionDate($p),
             ];
         });
+    }
+
+    /**
+     * Group a patient's treatments and photos into collapsible session
+     * cards by date. Each session has {date, treatments: [...], photos: [...],
+     * note_excerpt: string|null} so the UI can render one card per visit.
+     */
+    private function groupBySessionDate(\App\Models\Pasien $p): array
+    {
+        $byDate = [];
+        foreach ($p->treatments as $t) {
+            $date = (string) $t->tanggal;
+            if (!isset($byDate[$date])) $byDate[$date] = ['date' => $date, 'treatments' => [], 'photos' => [], 'note_excerpt' => null];
+            $byDate[$date]['treatments'][] = [
+                'id'        => $t->id,
+                'therapist' => $t->terapis,
+                'title'     => $t->judul,
+                'notes'     => $t->catatan,
+            ];
+            $excerpt = $t->catatan ? mb_substr((string) $t->catatan, 0, 80) : null;
+            if ($excerpt) $byDate[$date]['note_excerpt'] = $excerpt;
+        }
+        foreach ($p->photos as $f) {
+            $date = (string) $f->tanggal;
+            if (!isset($byDate[$date])) $byDate[$date] = ['date' => $date, 'treatments' => [], 'photos' => [], 'note_excerpt' => null];
+            $byDate[$date]['photos'][] = [
+                'id'        => (string) $f->id,
+                'label'     => $f->label,
+                'objectRef' => $f->object_ref,
+                'url'       => $this->photoUrl($f->id),
+            ];
+        }
+        // Newest first.
+        usort($byDate, fn ($a, $b) => strcmp($b['date'], $a['date']));
+        return array_values($byDate);
     }
 
     private function photoUrl(int $photoId): string

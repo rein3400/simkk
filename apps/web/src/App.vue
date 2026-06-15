@@ -28,8 +28,19 @@ const loading = ref(false);
 const loginError = ref("");
 const refreshing = ref(false);
 const lastUpdated = ref<Date | null>(null);
-const realtimeEnabled = ref(false);
+// Live-update polling is opt-in: user must click the live pill to start
+// automatic 30s refresh. Default off so the panel starts collapsed
+// (per revisi: "Live 30S" panel hidden by default).
+const userWantsLive = ref(false);
+const realtimeEnabled = computed(() => userWantsLive.value && liveRolesForRole(currentRole.value).length > 0);
 let refreshTimer: number | null = null;
+
+// Roles that can opt-in to live polling. Terapis & Gudang edit isolated
+// data and don't need transaction-stream updates.
+const liveRolesForRole = (role: Role | null): Role[] =>
+  role && (role === "Kasir" || role === "Manajer" || role === "Admin")
+    ? [role]
+    : [];
 const appData = ref<AppData>({
   users: [],
   patients: [],
@@ -89,20 +100,28 @@ const stopRealtime = () => {
     window.clearInterval(refreshTimer);
     refreshTimer = null;
   }
-  realtimeEnabled.value = false;
 };
 
 const startRealtime = () => {
   stopRealtime();
   // 30s polling for roles that operate at the front desk (Kasir) or oversee
   // the rest of the clinic (Manajer / Admin). Terapis & Gudang edit isolated
-  // data and don't need transaction-stream updates.
-  const liveRoles: Role[] = ["Kasir", "Manajer", "Admin"];
-  if (!liveRoles.includes(currentRole.value)) return;
-  realtimeEnabled.value = true;
+  // data and don't need transaction-stream updates. Opt-in: user must have
+  // clicked the live pill to enable.
+  if (!userWantsLive.value) return;
+  if (liveRolesForRole(currentRole.value).length === 0) return;
   refreshTimer = window.setInterval(() => {
     void refreshData({ silent: true });
   }, REFRESH_INTERVAL_MS);
+};
+
+const toggleLive = () => {
+  userWantsLive.value = !userWantsLive.value;
+  if (userWantsLive.value) {
+    startRealtime();
+  } else {
+    stopRealtime();
+  }
 };
 
 const setActiveView = (view: ViewKey) => {
@@ -144,7 +163,7 @@ const logout = () => {
   authUser.value = null;
   searchQuery.value = "";
   lastUpdated.value = null;
-  realtimeEnabled.value = false;
+  userWantsLive.value = false;
   try { localStorage.removeItem("simkk_token"); } catch { /* noop */ }
 };
 
@@ -170,6 +189,7 @@ onBeforeUnmount(() => {
     @update:search="searchQuery = $event"
     @logout="logout"
     @manual-refresh="refreshData()"
+    @toggle-live="toggleLive"
   >
     <component :is="activeComponent" v-bind="viewProps" @refresh="refreshData()" />
   </AppShell>

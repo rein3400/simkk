@@ -1,0 +1,64 @@
+- generic [ref=e891]:
+  - banner [ref=e892]:
+    - generic [ref=e893]:
+      - link "SIM-KK beranda" [ref=e894] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e895]: SK
+        - generic [ref=e896]:
+          - strong [ref=e897]: SIM-KK
+          - generic [ref=e898]: Samarinda
+      - generic [ref=e899]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e900]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e901]:
+        - button "Refresh" [ref=e902] [cursor=pointer]:
+          - img [ref=e903]
+          - generic [ref=e908]: Refresh
+        - generic [ref=e909]:
+          - img [ref=e910]
+          - generic [ref=e913]: Gudang
+          - generic [ref=e914]: / Shift Gudang
+        - generic [ref=e915]:
+          - generic [ref=e916]: RP
+          - generic [ref=e917]:
+            - generic [ref=e918]: Raka Pramana
+            - generic [ref=e919]: Login terkunci
+        - button "Keluar" [ref=e920] [cursor=pointer]:
+          - img [ref=e921]
+          - generic [ref=e924]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e925]:
+      - generic [ref=e927]:
+        - generic [ref=e928]:
+          - img [ref=e929]
+          - text: Modul aktif
+        - button "Gudang FIFO & HPP" [ref=e933] [cursor=pointer]:
+          - img [ref=e934]
+          - generic [ref=e944]: Gudang
+          - generic [ref=e945]: FIFO & HPP
+        - generic [ref=e946]:
+          - img [ref=e947]
+          - text: Stok, batch FIFO, HPP, dan barang masuk.
+  - main [ref=e950]:
+    - generic [ref=e952]:
+      - generic [ref=e953]:
+        - generic [ref=e954]:
+          - generic [ref=e955]: Gudang
+          - heading "Stok, batch, dan HPP" [level=2] [ref=e956]
+        - button "Barang masuk" [ref=e957] [cursor=pointer]:
+          - img [ref=e958]
+          - text: Barang masuk
+      - table [ref=e963]:
+        - rowgroup [ref=e964]:
+          - row "Produk Kategori Total Batch awal Expired HPP Status" [ref=e965]:
+            - columnheader "Produk" [ref=e966]
+            - columnheader "Kategori" [ref=e967]
+            - columnheader "Total" [ref=e968]
+            - columnheader "Batch awal" [ref=e969]
+            - columnheader "Expired" [ref=e970]
+            - columnheader "HPP" [ref=e971]
+            - columnheader "Status" [ref=e972]
+        - rowgroup
+      - generic [ref=e973]: Tidak ada stok atau batch yang cocok.

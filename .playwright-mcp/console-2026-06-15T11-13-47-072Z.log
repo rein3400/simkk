@@ -1,0 +1,15 @@
+[    2400ms] [WARNING] New state 'loaded', was 'disconnected'. Msg: noVNC ready: native WebSockets, canvas rendering @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2401ms] [LOG] state=loaded @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2402ms] [WARNING] New state 'connect', was 'loaded'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2408ms] [LOG] state=connect @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2546ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F%2Fjktvnc.qcloud.com%3A443%2Fvnc%3Fs%3D...:0
+[    3158ms] [WARNING] New state 'ProtocolVersion', was 'connect'. Msg: Starting VNC handshake @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    3158ms] [LOG] state=ProtocolVersion @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    3599ms] [WARNING] WebSocket on-close event @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    3600ms] [ERROR] New state 'failed', was 'ProtocolVersion'. Msg: Failed to connect to server (code: 1006) @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    3600ms] [LOG] state=failed @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    3663ms] [WARNING] New state 'disconnected', was 'failed'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    3664ms] [LOG] state=disconnected @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    4754ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[    6795ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[    8860ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0

@@ -18,10 +18,11 @@ class UserSeeder extends Seeder
             // manager on duty. See apps/api/app/Http/Controllers/Api/UserAdminController.php
             // (`update`) for the rename endpoint.
             ['username' => 'manajer', 'password' => Hash::make('simkk-2026'), 'nama_lengkap' => 'Manajer Klinik', 'level' => 'Manajer', 'shift' => 'Audit'],
+            ['username' => 'admin',   'password' => Hash::make('simkk-2026'), 'nama_lengkap' => 'Admin Sistem',  'level' => 'Admin',   'shift' => 'Audit'],
         ];
 
         foreach ($users as $u) {
-            User::create($u);
+            User::firstOrCreate(['username' => $u['username']], $u);
         }
     }
 }

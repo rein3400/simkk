@@ -14,6 +14,7 @@ class PembelianSupplier extends Model
     protected $fillable = [
         'produk_id',
         'kode_batch',
+        'supplier_id',
         'qty',
         'hpp',
         'supplier',
@@ -27,5 +28,10 @@ class PembelianSupplier extends Model
     public function produk(): BelongsTo
     {
         return $this->belongsTo(Produk::class);
+    }
+
+    public function supplierRef(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 }

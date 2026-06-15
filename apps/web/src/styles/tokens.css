@@ -24,6 +24,43 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Per revisi "dibikin drag downnya lebih terlihat" — make chevrons that
+   open collapsible sections pulse once on mount so the affordance is
+   obvious. Runs once, 1.2s, on a 16px baseline. */
+@keyframes chevron-pulse {
+  0%, 100% { transform: translateY(0); }
+  25%      { transform: translateY(3px); }
+  50%      { transform: translateY(0); }
+  75%      { transform: translateY(3px); }
+}
+
+.chevron-pulse {
+  animation: chevron-pulse 1.2s ease-in-out 1;
+  transform-origin: center;
+}
+
+/* Per revisi "dibikin drag downnya lebih terlihat" — large clickable
+   chevron for collapsible section heads. Cursor + transition cue. */
+.drag-down-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  color: var(--forest);
+  transition: transform 300ms var(--ease-editorial), background-color 200ms ease;
+}
+
+.drag-down-toggle:hover {
+  background-color: var(--surface);
+}
+
+.drag-down-toggle.is-open {
+  transform: rotate(180deg);
+}
+
 :root {
   --base: #f5f1ea;
   --surface: #eef1ee;

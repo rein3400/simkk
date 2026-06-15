@@ -2,7 +2,7 @@
 // Comprehensive E2E Test Suite for SIM-KK
 // Run: node .workflow/e2e-deep.js
 
-const BASE = "http://127.0.0.1:8000";
+const BASE = "http://43.133.142.74";
 let PASS = 0, FAIL = 0, TOTAL = 0;
 
 async function api(desc, expectedCode, method, url, opts = {}) {

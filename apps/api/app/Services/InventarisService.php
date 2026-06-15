@@ -16,6 +16,13 @@ class InventarisService
         return DB::transaction(function () use ($data) {
             $produk = Produk::findOrFail($data['produk_id']);
 
+            // Per revisi R3 — resolve the legacy `supplier` string from the
+            // registered master so existing display logic (which still reads
+            // `batch->supplier`) keeps working.
+            if (!empty($data['supplier_id']) && empty($data['supplier'])) {
+                $data['supplier'] = \App\Models\Supplier::find($data['supplier_id'])?->nama;
+            }
+
             $pembelian = PembelianSupplier::create($data);
             $batch = BatchStok::create($data);
 

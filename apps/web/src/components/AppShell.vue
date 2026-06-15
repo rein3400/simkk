@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from "vue";
-import { Boxes, ClipboardList, Database, LineChart, LogOut, Package, Radio, ReceiptText, RefreshCcw, Search, ShieldCheck, Sparkles, Stethoscope, Users2, UserCog } from "@lucide/vue";
+import { Boxes, ChevronDown, ClipboardList, Database, LineChart, LogOut, Package, Radio, ReceiptText, RefreshCcw, Search, ShieldCheck, Sparkles, Stethoscope, Users2, UserCog } from "@lucide/vue";
 import type { Role, User, ViewKey } from "../types/domain";
 
 const props = defineProps<{
@@ -20,6 +20,7 @@ defineEmits<{
   "update:search": [value: string];
   logout: [];
   "manual-refresh": [];
+  "toggle-live": [];
 }>();
 
 interface NavItem {
@@ -117,18 +118,32 @@ const sinceLabel = computed(() => {
         </label>
 
         <div class="ml-auto flex items-center gap-3 md:ml-0">
+          <!-- Manual refresh (always available, immediate one-shot) -->
           <button
+            v-if="realtimeEnabled"
             type="button"
             class="hidden items-center gap-2 rounded-full border border-line bg-cream/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-forest transition-colors hover:border-forest lg:inline-flex"
-            :title="realtimeEnabled ? `Sinkron otomatis 30 detik · update ${props.lastUpdated ? new Date(props.lastUpdated).toLocaleTimeString('id-ID') : 'belum'}` : 'Tekan untuk refresh'"
+            title="Sinkron otomatis 30 detik. Klik untuk refresh sekarang."
             data-testid="manual-refresh"
             @click="$emit('manual-refresh')"
           >
             <RefreshCcw :size="13" :class="refreshing ? 'animate-spin text-champagne' : ''" />
-            <span v-if="realtimeEnabled" class="inline-flex items-center gap-1">
-              <Radio :size="11" class="text-forest" /> Live 30s
-            </span>
-            <span v-else>Refresh</span>
+            <Radio :size="11" class="text-forest" />
+            Live 30s
+          </button>
+
+          <!-- Live 30S panel — collapsed by default (per revisi "di hidden").
+               Click expands to full pill; click again to turn off. -->
+          <button
+            v-else
+            type="button"
+            class="hidden items-center gap-2 rounded-full border border-line bg-cream/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest text-sage transition-colors hover:border-forest hover:text-forest lg:inline-flex"
+            title="Live 30s tersembunyi. Klik untuk mengaktifkan auto-refresh."
+            data-testid="live-toggle"
+            @click="$emit('toggle-live')"
+          >
+            <ChevronDown :size="13" class="chevron-pulse" />
+            <span>Live · klik untuk aktifkan</span>
           </button>
 
           <div

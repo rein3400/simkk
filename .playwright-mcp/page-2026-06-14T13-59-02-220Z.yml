@@ -1,0 +1,129 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e7]:
+      - generic [ref=e9]:
+        - img [ref=e10]
+        - generic [ref=e13]: SumoPod
+      - navigation [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]:
+            - heading "Learning" [level=3] [ref=e18]
+            - list [ref=e19]:
+              - listitem [ref=e20]:
+                - link "Learn" [ref=e21] [cursor=pointer]:
+                  - /url: /dashboard/learn
+                  - img [ref=e23]
+                  - text: Learn
+              - listitem [ref=e26]:
+                - link "Community" [ref=e27] [cursor=pointer]:
+                  - /url: /dashboard/community
+                  - img [ref=e29]
+                  - text: Community
+          - generic [ref=e32]:
+            - heading "Services" [level=3] [ref=e34]
+            - list [ref=e35]:
+              - listitem [ref=e36]:
+                - link "Chat" [ref=e37] [cursor=pointer]:
+                  - /url: /dashboard/chat
+                  - img [ref=e39]
+                  - text: Chat
+              - listitem [ref=e42]:
+                - link "AI" [ref=e43] [cursor=pointer]:
+                  - /url: /dashboard/ai
+                  - img [ref=e45]
+                  - text: AI
+              - listitem [ref=e55]:
+                - link "API Marketplace" [ref=e56] [cursor=pointer]:
+                  - /url: /dashboard/api
+                  - img [ref=e58]
+                  - text: API Marketplace
+              - listitem [ref=e62]:
+                - link "Services" [ref=e63] [cursor=pointer]:
+                  - /url: /dashboard/services
+                  - img [ref=e65]
+                  - text: Services
+              - listitem [ref=e67]:
+                - link "Security Advisor" [ref=e68] [cursor=pointer]:
+                  - /url: /dashboard/security
+                  - img [ref=e70]
+                  - text: Security Advisor
+              - listitem [ref=e72]:
+                - link "Managed Payment" [ref=e73] [cursor=pointer]:
+                  - /url: /dashboard/managed-payment
+                  - img [ref=e75]
+                  - text: Managed Payment
+          - generic [ref=e79]:
+            - heading "Infrastructure" [level=3] [ref=e81]
+            - list [ref=e82]:
+              - listitem [ref=e83]:
+                - link "Pods" [ref=e84] [cursor=pointer]:
+                  - /url: /dashboard/pods
+                  - img [ref=e86]
+                  - text: Pods
+              - listitem [ref=e91]:
+                - link "VPS" [ref=e92] [cursor=pointer]:
+                  - /url: /dashboard/vps
+                  - img [ref=e94]
+                  - text: VPS
+              - listitem [ref=e97]:
+                - link "Database" [ref=e98] [cursor=pointer]:
+                  - /url: /dashboard/database
+                  - img [ref=e100]
+                  - text: Database
+              - listitem [ref=e104]:
+                - link "Object Storage" [ref=e105] [cursor=pointer]:
+                  - /url: /dashboard/storage
+                  - img [ref=e107]
+                  - text: Object Storage
+              - listitem [ref=e109]:
+                - link "Domains" [ref=e110] [cursor=pointer]:
+                  - /url: /dashboard/domain
+                  - img [ref=e112]
+                  - text: Domains
+          - generic [ref=e115]:
+            - heading "Communication" [level=3] [ref=e117]
+            - list [ref=e118]:
+              - listitem [ref=e119]:
+                - link "Email SMTP" [ref=e120] [cursor=pointer]:
+                  - /url: /dashboard/email
+                  - img [ref=e122]
+                  - text: Email SMTP
+              - listitem [ref=e125]:
+                - link "Social API" [ref=e126] [cursor=pointer]:
+                  - /url: /dashboard/social
+                  - img [ref=e128]
+                  - text: Social API
+          - generic [ref=e130]:
+            - heading "Account" [level=3] [ref=e132]
+            - list [ref=e133]:
+              - listitem [ref=e134]:
+                - link "Billing" [ref=e135] [cursor=pointer]:
+                  - /url: /dashboard/billing
+                  - img [ref=e137]
+                  - text: Billing
+              - listitem [ref=e139]:
+                - link "Affiliate" [ref=e140] [cursor=pointer]:
+                  - /url: /dashboard/affiliate
+                  - img [ref=e142]
+                  - text: Affiliate
+              - listitem [ref=e147]:
+                - link "Settings" [ref=e148] [cursor=pointer]:
+                  - /url: /dashboard/settings
+                  - img [ref=e150]
+                  - text: Settings
+              - listitem [ref=e153]:
+                - link "Support" [ref=e154] [cursor=pointer]:
+                  - /url: /dashboard/support
+                  - img [ref=e156]
+                  - text: Support
+      - button "Scroll for More" [ref=e159] [cursor=pointer]:
+        - img [ref=e160]
+        - text: Scroll for More
+  - generic [ref=e162]:
+    - banner [ref=e163]:
+      - button "User User stefanusrein33@gmail.com" [ref=e168] [cursor=pointer]:
+        - img "User" [ref=e170]
+        - generic [ref=e171]:
+          - paragraph [ref=e172]: User
+          - paragraph [ref=e173]: stefanusrein33@gmail.com
+    - main [ref=e174]

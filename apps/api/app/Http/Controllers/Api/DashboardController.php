@@ -107,6 +107,49 @@ class DashboardController extends Controller
             ];
         }
 
+        // Per revisi R1 — upcoming bookings (next 3 days).
+        $upcomingBookings = DB::table('booking')
+            ->join('pasien', 'pasien.id', '=', 'booking.pasien_id')
+            ->join('terapis', 'terapis.id', '=', 'booking.terapis_id')
+            ->whereIn('booking.status', ['booked', 'confirmed'])
+            ->whereBetween('booking.scheduled_at', [$today, $today->addDays(3)->endOfDay()])
+            ->orderBy('booking.scheduled_at')
+            ->limit(10)
+            ->select('booking.id', 'booking.scheduled_at', 'booking.duration_min', 'booking.status', 'pasien.nama_pasien as pasien_nama', 'pasien.rekam_medis_id', 'terapis.nama as terapis_nama')
+            ->get()
+            ->map(fn ($r) => [
+                'id'           => (int) $r->id,
+                'scheduled_at' => CarbonImmutable::parse($r->scheduled_at)->format('Y-m-d\TH:i:s'),
+                'duration_min' => (int) $r->duration_min,
+                'status'       => $r->status,
+                'pasien'       => ['rekam_medis_id' => $r->rekam_medis_id, 'nama' => $r->pasien_nama],
+                'terapis'      => ['nama' => $r->terapis_nama],
+            ]);
+
+        // Per revisi R1 — digest klien: 5 most recent patients with their
+        // last treatment date and a summary of their most recent note.
+        $digestKlien = DB::table('pasien')
+            ->leftJoin('catatan_treatment', 'catatan_treatment.pasien_id', '=', 'pasien.id')
+            ->whereNull('pasien.deleted_at')
+            ->select(
+                'pasien.id',
+                'pasien.rekam_medis_id',
+                'pasien.nama_pasien',
+                DB::raw('MAX(catatan_treatment.tanggal) as last_treatment'),
+                DB::raw('(SELECT catatan FROM catatan_treatment WHERE pasien_id = pasien.id ORDER BY tanggal DESC LIMIT 1) as last_note')
+            )
+            ->groupBy('pasien.id', 'pasien.rekam_medis_id', 'pasien.nama_pasien')
+            ->orderByDesc('last_treatment')
+            ->limit(5)
+            ->get()
+            ->map(fn ($r) => [
+                'id'             => (int) $r->id,
+                'rekam_medis_id' => $r->rekam_medis_id,
+                'nama'           => $r->nama_pasien,
+                'last_treatment' => $r->last_treatment,
+                'last_note'      => $r->last_note ? mb_substr((string) $r->last_note, 0, 80) : null,
+            ]);
+
         return response()->json([
             'date'                  => $today->toDateString(),
             'revenue_today'         => $revenueToday,
@@ -118,6 +161,8 @@ class DashboardController extends Controller
             'top_therapists'        => $topTherapists,
             'top_services'          => $topServices,
             'last_7_days_revenue'   => $last7,
+            'upcoming_bookings'     => $upcomingBookings,
+            'digest_klien'          => $digestKlien,
         ]);
     }
 

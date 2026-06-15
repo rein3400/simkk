@@ -1,0 +1,5 @@
+- generic [ref=e3]:
+  - link "发送远程命令" [ref=e4] [cursor=pointer]:
+    - /url: javascript:void(0);
+    - text: 发送远程命令
+  - strong [ref=e6]: 连接中...若长时间处于连接中，可能是已在别处通过浏览器登录。

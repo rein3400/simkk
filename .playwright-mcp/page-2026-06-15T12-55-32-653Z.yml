@@ -1,0 +1,171 @@
+- generic [ref=e312]:
+  - banner [ref=e313]:
+    - generic [ref=e314]:
+      - link "SIM-KK beranda" [ref=e315] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e316]: SK
+        - generic [ref=e317]:
+          - strong [ref=e318]: SIM-KK
+          - generic [ref=e319]: Samarinda
+      - generic [ref=e320]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e321]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e322]:
+        - button "Live 30s" [ref=e323] [cursor=pointer]:
+          - img [ref=e324]
+          - generic [ref=e329]:
+            - img [ref=e330]
+            - text: Live 30s
+        - generic [ref=e336]:
+          - img [ref=e337]
+          - generic [ref=e340]: Manajer
+          - generic [ref=e341]: / Shift Audit
+        - generic [ref=e342]:
+          - generic [ref=e343]: MK
+          - generic [ref=e344]:
+            - generic [ref=e345]: Manajer Klinik
+            - generic [ref=e346]: Live · updated baru saja
+        - button "Keluar" [ref=e347] [cursor=pointer]:
+          - img [ref=e348]
+          - generic [ref=e351]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e352]:
+      - generic [ref=e353]:
+        - generic [ref=e354]:
+          - generic [ref=e355]:
+            - img [ref=e356]
+            - text: Modul aktif
+          - generic [ref=e359]:
+            - button "Kasir POS cepat" [ref=e360] [cursor=pointer]:
+              - img [ref=e361]
+              - generic [ref=e363]: Kasir
+              - generic [ref=e364]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e365] [cursor=pointer]:
+              - img [ref=e366]
+              - generic [ref=e370]: Rekam Medis
+              - generic [ref=e371]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e372] [cursor=pointer]:
+              - img [ref=e373]
+              - generic [ref=e383]: Gudang
+              - generic [ref=e384]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e385] [cursor=pointer]:
+              - img [ref=e386]
+              - generic [ref=e389]: Laporan
+              - generic [ref=e390]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e391] [cursor=pointer]:
+              - img [ref=e392]
+              - generic [ref=e396]: Closing Harian
+              - generic [ref=e397]: Submit / Approve
+          - generic [ref=e398]:
+            - img [ref=e399]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e402]:
+          - generic [ref=e403]: Admin
+          - generic [ref=e404]:
+            - button "Dashboard Statistik harian" [ref=e405] [cursor=pointer]:
+              - img [ref=e406]
+              - generic [ref=e409]: Dashboard
+              - generic [ref=e410]: Statistik harian
+            - button "Layanan CRUD master" [ref=e411] [cursor=pointer]:
+              - img [ref=e412]
+              - generic [ref=e416]: Layanan
+              - generic [ref=e417]: CRUD master
+            - button "Produk Master produk" [ref=e418] [cursor=pointer]:
+              - img [ref=e419]
+              - generic [ref=e429]: Produk
+              - generic [ref=e430]: Master produk
+            - button "User Akun & shift" [ref=e431] [cursor=pointer]:
+              - img [ref=e432]
+              - generic [ref=e444]: User
+              - generic [ref=e445]: Akun & shift
+          - generic [ref=e446]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e448] [cursor=pointer]:
+            - img [ref=e449]
+            - generic [ref=e453]: Audit Log
+            - generic [ref=e454]: 50 entri terakhir
+  - main [ref=e455]:
+    - generic [ref=e457]:
+      - generic [ref=e458]:
+        - generic [ref=e459]:
+          - generic [ref=e460]: Manajer · Dashboard
+          - heading "Ringkasan operasional harian" [level=2] [ref=e461]
+        - button "Trigger Backup" [ref=e462] [cursor=pointer]:
+          - img [ref=e463]
+          - text: Trigger Backup
+      - generic [ref=e467]:
+        - article [ref=e468]:
+          - generic [ref=e469]:
+            - img [ref=e470]
+            - text: Revenue hari ini
+          - strong [ref=e473]: Rp 575.000
+          - generic [ref=e474]:
+            - img [ref=e475]
+            - text: 100,0% vs kemarin
+        - article [ref=e477]:
+          - generic [ref=e478]:
+            - img [ref=e479]
+            - text: Transaksi hari ini
+          - strong [ref=e482]: "1"
+          - generic [ref=e483]: Lunas
+        - article [ref=e484]:
+          - generic [ref=e485]:
+            - img [ref=e486]
+            - text: Pending closings
+          - strong [ref=e489]: "0"
+          - generic [ref=e490]: Menunggu approve
+        - article [ref=e491]:
+          - generic [ref=e492]:
+            - img [ref=e493]
+            - text: Stok menipis
+          - strong [ref=e496]: "2"
+          - generic [ref=e497]: Produk prioritas
+      - article [ref=e498]:
+        - generic [ref=e499]: Revenue 7 hari terakhir
+        - heading "Tren penjualan" [level=3] [ref=e500]
+        - generic [ref=e501]:
+          - generic [ref=e502]:
+            - generic [ref=e505]: Rp 0
+            - generic [ref=e506]: 09/Jun
+          - generic [ref=e507]:
+            - generic [ref=e510]: Rp 0
+            - generic [ref=e511]: 10/Jun
+          - generic [ref=e512]:
+            - generic [ref=e515]: Rp 0
+            - generic [ref=e516]: 11/Jun
+          - generic [ref=e517]:
+            - generic [ref=e520]: Rp 0
+            - generic [ref=e521]: 12/Jun
+          - generic [ref=e522]:
+            - generic [ref=e525]: Rp 0
+            - generic [ref=e526]: 13/Jun
+          - generic [ref=e527]:
+            - generic [ref=e530]: Rp 0
+            - generic [ref=e531]: 14/Jun
+          - generic [ref=e532]:
+            - generic [ref=e535]: Rp 575.000
+            - generic [ref=e536]: 15/Jun
+      - generic [ref=e537]:
+        - article [ref=e538]:
+          - generic [ref=e539]: Top 3 terapis
+          - heading "Komisi tertinggi" [level=3] [ref=e540]
+          - list [ref=e541]:
+            - listitem [ref=e542]:
+              - generic [ref=e543]: "#1"
+              - strong [ref=e544]: Sinta Ayu
+              - generic [ref=e545]: 1 tindakan
+              - generic [ref=e546]: Rp 68.400
+            - listitem [ref=e547]:
+              - generic [ref=e548]: "#2"
+              - strong [ref=e549]: Rani Wulandari
+              - generic [ref=e550]: 1 tindakan
+              - generic [ref=e551]: Rp 57.100
+        - article [ref=e552]:
+          - generic [ref=e553]: Top 3 layanan
+          - heading "Paling laris" [level=3] [ref=e554]
+          - list [ref=e555]:
+            - listitem [ref=e556]:
+              - generic [ref=e557]: "#1"
+              - strong [ref=e558]: Acne Calm Facial
+              - generic [ref=e559]: 1 kali

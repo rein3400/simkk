@@ -1,0 +1,11 @@
+- generic [ref=e3]:
+  - link "发送远程命令" [ref=e4] [cursor=pointer]:
+    - /url: javascript:void(0);
+    - text: 发送远程命令
+  - strong [ref=e6]:
+    - text: 连接成功：如果长时间处于黑屏状态，请按任意键唤醒。如长时间卡在欢迎界面，请
+    - link "参考设置" [ref=e7] [cursor=pointer]:
+      - /url: http://wiki.qcloud.com/wiki/%E8%A7%A3%E5%86%B3%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95Ubuntu%E5%8D%A1%E5%9C%A8%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2%E7%9A%84%E9%97%AE%E9%A2%98
+    - text: 。如需粘贴命令，请点击
+    - link "这里" [ref=e8] [cursor=pointer]:
+      - /url: javascript:void(0)

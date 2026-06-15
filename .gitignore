@@ -1,0 +1,6 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+.workflow/stage2-r2-final.sh
+HALLUCINATION.md

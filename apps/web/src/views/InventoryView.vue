@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { PackagePlus, Trash2 } from "@lucide/vue";
+import { computed, onMounted, ref } from "vue";
+import { ChevronDown, PackagePlus, Trash2 } from "@lucide/vue";
 import ActionDrawer from "../components/ActionDrawer.vue";
-import { addPurchase, deletePurchase } from "../services/api";
+import { addPurchase, deletePurchase, listSuppliers, type SupplierRecord } from "../services/api";
 import type { InventoryBatch, InventoryProduct, Role } from "../types/domain";
 import { rupiah } from "../utils/format";
 
@@ -14,10 +14,27 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ refresh: [] }>();
 
+// Per revisi R3 — supplier is a registered master. No free text.
+const suppliers = ref<SupplierRecord[]>([]);
+const supplierId = ref<number | null>(null);
+
+onMounted(async () => {
+  ensureFirstCategoryOpen();
+  try {
+    suppliers.value = await listSuppliers(props.token);
+    if (suppliers.value.length > 0) {
+      supplierId.value = suppliers.value[0].id;
+    }
+  } catch {
+    suppliers.value = [];
+  }
+});
+
 const selectedProductId = ref(props.inventory[0]?.id ?? 0);
 const drawerOpen = ref(false);
 const saving = ref(false);
-const supplier = ref("PT Dermalab");
+// Legacy text fallback kept only for display in existing FIFO cards; new
+// writes go through `supplierId`.
 const batchCode = ref("NEW-0526");
 const qty = ref(24);
 const hpp = ref(98000);
@@ -48,6 +65,34 @@ const filteredInventory = computed(() => {
     ...product.batches.flatMap((batch) => [batch.code, batch.expiry, batch.supplier]),
   ].some((value) => String(value).toLocaleLowerCase("id-ID").includes(searchNeedle.value)));
 });
+
+// Per revisi R3/R6 — group by kategori. Each kategori is a collapsible
+// section so the user doesn't have to scroll a long flat list.
+const groupedByCategory = computed(() => {
+  const map = new Map<string, InventoryProduct[]>();
+  for (const product of filteredInventory.value) {
+    const key = product.category || "Lain-lain";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(product);
+  }
+  return Array.from(map.entries()).map(([category, products]) => ({ category, products }));
+});
+
+// Per revisi A7 — first kategori default-expanded, others collapsed.
+const openCategories = ref<Set<string>>(new Set());
+const ensureFirstCategoryOpen = () => {
+  if (openCategories.value.size === 0 && groupedByCategory.value.length > 0) {
+    openCategories.value.add(groupedByCategory.value[0].category);
+  }
+};
+const toggleCategory = (category: string) => {
+  if (openCategories.value.has(category)) {
+    openCategories.value.delete(category);
+  } else {
+    openCategories.value.add(category);
+  }
+};
+
 const selectedProduct = computed(() => (
   props.inventory.find((product) => product.id === selectedProductId.value)
   ?? filteredInventory.value[0]
@@ -55,12 +100,12 @@ const selectedProduct = computed(() => (
 ));
 
 const savePurchase = async () => {
-  if (!selectedProduct.value) return;
+  if (!selectedProduct.value || supplierId.value === null) return;
   saving.value = true;
   try {
     await addPurchase(props.token, {
       productId: selectedProduct.value.id,
-      supplier: supplier.value,
+      supplierId: supplierId.value,
       batchCode: batchCode.value,
       qty: Number(qty.value),
       hpp: Number(hpp.value),
@@ -124,37 +169,50 @@ const confirmDeleteBatch = async (id: number) => {
         {{ filteredInventory.length }} produk atau batch cocok dengan pencarian.
       </p>
 
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Produk</th>
-              <th>Kategori</th>
-              <th>Total</th>
-              <th>Batch awal</th>
-              <th>Expired</th>
-              <th>HPP</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="product in filteredInventory"
-              :key="product.id"
-              :class="{ selected: selectedProductId === product.id }"
-              @click="selectedProductId = product.id"
-            >
-              <td>{{ product.name }}</td>
-              <td>{{ product.category }}</td>
-              <td>{{ product.totalStock }}</td>
-              <td>{{ product.batches[0]?.code }}</td>
-              <td>{{ product.batches[0]?.expiry }}</td>
-              <td>{{ rupiah(product.batches[0]?.hpp ?? 0) }}</td>
-              <td><span class="status-chip" :class="product.status.toLowerCase()">{{ product.status }}</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Per revisi R3/R6 — grouped by kategori, collapsible per-category -->
+      <div v-for="group in groupedByCategory" :key="group.category" class="category-group" data-testid="category-group">
+        <button
+          type="button"
+          class="category-head"
+          :class="{ 'is-open': openCategories.has(group.category) }"
+          :data-testid="`category-toggle-${group.category}`"
+          @click="toggleCategory(group.category)"
+        >
+          <ChevronDown :size="18" class="drag-down-toggle" :class="{ 'is-open': openCategories.has(group.category), 'chevron-pulse': group === groupedByCategory[0] }" />
+          <span class="category-name">{{ group.category }}</span>
+          <span class="category-count">{{ group.products.length }} produk</span>
+        </button>
+        <div v-if="openCategories.has(group.category)" class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produk</th>
+                <th>Total</th>
+                <th>Batch awal</th>
+                <th>Expired</th>
+                <th>HPP</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="product in group.products"
+                :key="product.id"
+                :class="{ selected: selectedProductId === product.id }"
+                @click="selectedProductId = product.id"
+              >
+                <td>{{ product.name }}</td>
+                <td>{{ product.totalStock }}</td>
+                <td>{{ product.batches[0]?.code }}</td>
+                <td>{{ product.batches[0]?.expiry }}</td>
+                <td>{{ rupiah(product.batches[0]?.hpp ?? 0) }}</td>
+                <td><span class="status-chip" :class="product.status.toLowerCase()">{{ product.status }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
       <div v-if="filteredInventory.length === 0" class="quiet-empty">
         Tidak ada stok atau batch yang cocok.
       </div>
@@ -208,7 +266,12 @@ const confirmDeleteBatch = async (id: number) => {
 
     <ActionDrawer :open="drawerOpen" title="Input barang masuk" @close="drawerOpen = false">
       <div class="drawer-form">
-        <label>Supplier<input v-model="supplier" /></label>
+        <label>Supplier
+          <select v-model.number="supplierId" data-testid="supplier-select">
+            <option :value="null" disabled>— pilih supplier —</option>
+            <option v-for="s in suppliers" :key="s.id" :value="s.id">{{ s.nama }}</option>
+          </select>
+        </label>
         <label>Produk<input :value="selectedProduct?.name" disabled /></label>
         <label>Batch<input v-model="batchCode" /></label>
         <label>Qty<input v-model.number="qty" type="number" /></label>

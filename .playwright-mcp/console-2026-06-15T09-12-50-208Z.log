@@ -1,0 +1,24 @@
+[     426ms] [WARNING] New state 'loaded', was 'disconnected'. Msg: noVNC ready: native WebSockets, canvas rendering @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[     427ms] [LOG] state=loaded @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[     428ms] [WARNING] New state 'connect', was 'loaded'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[     432ms] [LOG] state=connect @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[     498ms] [WARNING] <meta name="apple-mobile-web-app-capable" content="yes"> is deprecated. Please include <meta name="mobile-web-app-capable" content="yes"> @ https://img.qcloud.com/qcloud/app/active_vnc/index.html?InstanceVncUrl=wss%3A%2F%2Fjktvnc.qcloud.com%3A443%2Fvnc%3Fs%3DZHlDTXk5a3g1bnMvUmUyNjMwVDEzMFE2WGxqalcxRnVLdDJXRm54NHhRVTBEM0xEV1BvRytMMS9SSTNxR0lnMDBmbWpLYXVCYjh3SkFvbjd6L2FOOFFveVpBMERrN000Y1FrS0dUcndMbFU9%26password%3D%26isWindows%3Dfalse%26isUbuntu%3Dtrue:0
+[    1481ms] [WARNING] New state 'ProtocolVersion', was 'connect'. Msg: Starting VNC handshake @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    1481ms] [LOG] state=ProtocolVersion @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    1929ms] [WARNING] New state 'Security', was 'ProtocolVersion'. Msg: Sent ProtocolVersion: 003.008 @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    1934ms] [LOG] state=Security @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    1999ms] [WARNING] New state 'Authentication', was 'Security'. Msg: Authenticating using scheme: 1 @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    1999ms] [LOG] state=Authentication @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2000ms] [WARNING] New state 'SecurityResult', was 'Authentication'. @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2000ms] [LOG] state=SecurityResult @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2069ms] [WARNING] New state 'ClientInitialisation', was 'SecurityResult'. Msg: Authentication OK @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2069ms] [LOG] state=ClientInitialisation @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2070ms] [WARNING] New state 'ServerInitialisation', was 'ClientInitialisation'. Msg: Authentication OK @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2070ms] [LOG] state=ServerInitialisation @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2141ms] [WARNING] Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multipage/canvas.html#concept-canvas-will-read-frequently @ https://img.qcloud.com/qcloud/app/active_vnc/lib/display.js?v=010801:0
+[    2160ms] [WARNING] New state 'normal', was 'ServerInitialisation'. Msg: Connected (encrypted) to: QEMU (3d089842-e0d7-4d50-8ed6-d03a5e83e014) @ https://img.qcloud.com/qcloud/app/active_vnc/lib/util.js:0
+[    2162ms] [LOG] state=normal @ https://img.qcloud.com/qcloud/app/active_vnc/index.1a42dce8a25f7cb36c9a.js:0
+[    2795ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[    4824ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[    6855ms] [ERROR] WebSocket connection to 'ws://localhost:17523/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ https://img.qcloud.com/qcloud/app/active_vnc/lib/websock.js?v=010801:0
+[   35354ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://img.qcloud.com/qcloud/app/active_vnc/style/img/scb.png:0

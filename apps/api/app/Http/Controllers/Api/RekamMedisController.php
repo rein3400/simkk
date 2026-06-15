@@ -179,31 +179,14 @@ class RekamMedisController extends Controller
             'content'  => 'required|string|max:14336',
         ]);
 
-        $bytes = $storage->decodeForValidation($validated['content']);
-        if ($bytes === null || $bytes === '' || @getimagesizefromstring($bytes) === false) {
+        try {
+            $photo = $this->processSinglePhoto($pasien, $validated, $storage, $audit, $user);
+        } catch (\InvalidArgumentException $e) {
             return response()->json([
                 'message' => 'The content is not a valid image.',
-                'errors'  => ['content' => ['File content must be a valid PNG, JPEG, WebP, or HEIC image.']],
+                'errors'  => ['content' => [$e->getMessage()]],
             ], 422);
         }
-
-        $objectRef = $storage->storeClinicalPhoto(
-            $pasien->rekam_medis_id,
-            $validated['filename'],
-            $validated['content'],
-        );
-
-        $photo = FotoKlinis::create([
-            'pasien_id'  => $pasien->id,
-            'label'      => $validated['label'],
-            'tanggal'    => now()->format('d M'),
-            'object_ref' => $objectRef,
-        ]);
-
-        $audit->log($user, 'photo.create', 'foto_klinis', (string) $photo->id, null, [
-            'patient' => $pasien->rekam_medis_id,
-            'photo_id' => $photo->id,
-        ]);
 
         return response()->json([
             'id'        => (string) $photo->id,
@@ -212,6 +195,99 @@ class RekamMedisController extends Controller
             'objectRef' => $photo->object_ref,
             'url'       => $this->photoUrl($photo->id),
         ], 201);
+    }
+
+    /**
+     * Per revisi "dibuat bisa lebih dari 1 gambar" — batch photo upload.
+     * Max 10 photos per request. Each photo validated individually; failures
+     * do not abort the whole batch — they are reported in the `errors` array
+     * with their original index. Successfully uploaded photos go to `uploaded`.
+     */
+    public function addPhotos(Request $request, int $patient, StorageService $storage, AuditService $audit): JsonResponse
+    {
+        $user = $request->user();
+        $pasien = Pasien::findOrFail($patient);
+
+        if ($user->level === 'Terapis') {
+            $terapis = $this->resolveTerapisForUser($user);
+            if ($terapis === null) {
+                return response()->json([
+                    'message' => 'Akun terapis belum terhubung ke data terapis. Hubungi admin.',
+                ], 422);
+            }
+            if ($pasien->assigned_terapis_id !== $terapis->id) {
+                return response()->json([
+                    'message' => 'Pasien ini bukan pasien yang Anda tangani.',
+                ], 403);
+            }
+        }
+
+        $validated = $request->validate([
+            'photos'              => 'required|array|min:1|max:10',
+            'photos.*.label'      => 'required|string|in:Before,After',
+            'photos.*.filename'   => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9._-]+\.(png|jpg|jpeg|webp|heic)$/i'],
+            'photos.*.content'    => 'required|string|max:14336',
+        ]);
+
+        $uploaded = [];
+        $errors = [];
+        foreach ($validated['photos'] as $index => $photoData) {
+            try {
+                $photo = $this->processSinglePhoto($pasien, $photoData, $storage, $audit, $user);
+                $uploaded[] = [
+                    'id'        => (string) $photo->id,
+                    'label'     => $photo->label,
+                    'date'      => $photo->tanggal,
+                    'objectRef' => $photo->object_ref,
+                    'url'       => $this->photoUrl($photo->id),
+                ];
+            } catch (\InvalidArgumentException $e) {
+                $errors[] = [
+                    'index'   => $index,
+                    'message' => $e->getMessage(),
+                ];
+            }
+        }
+
+        return response()->json([
+            'uploaded' => $uploaded,
+            'errors'   => $errors,
+        ], empty($errors) ? 201 : 207);
+    }
+
+    /**
+     * Single photo ingestion — used by both addPhoto (legacy) and addPhotos
+     * (batch). Encapsulates bytes validation, storage write, DB insert,
+     * audit log.
+     *
+     * @param array{label:string,filename:string,content:string} $data
+     */
+    private function processSinglePhoto(Pasien $pasien, array $data, StorageService $storage, AuditService $audit, User $user): FotoKlinis
+    {
+        $bytes = $storage->decodeForValidation($data['content']);
+        if ($bytes === null || $bytes === '' || @getimagesizefromstring($bytes) === false) {
+            throw new \InvalidArgumentException('File content must be a valid PNG, JPEG, WebP, or HEIC image.');
+        }
+
+        $objectRef = $storage->storeClinicalPhoto(
+            $pasien->rekam_medis_id,
+            $data['filename'],
+            $data['content'],
+        );
+
+        $photo = FotoKlinis::create([
+            'pasien_id'  => $pasien->id,
+            'label'      => $data['label'],
+            'tanggal'    => now()->format('Y-m-d'),
+            'object_ref' => $objectRef,
+        ]);
+
+        $audit->log($user, 'photo.create', 'foto_klinis', (string) $photo->id, null, [
+            'patient' => $pasien->rekam_medis_id,
+            'photo_id' => $photo->id,
+        ]);
+
+        return $photo;
     }
 
     public function deletePhoto(Request $request, int $patient, int $photo, StorageService $storage, AuditService $audit): JsonResponse

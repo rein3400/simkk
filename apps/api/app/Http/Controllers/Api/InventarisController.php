@@ -17,7 +17,11 @@ class InventarisController extends Controller
     {
         $validated = $request->validate([
             'produk_id'   => 'required|integer|exists:produk,id',
-            'supplier'    => ['required', 'string', 'max:60', 'regex:/^[^<>"\\x00-\\x1F]+$/'],
+            // Per revisi R3 — supplier is now a registered master. Legacy
+            // `supplier` string still accepted for backward compat but
+            // `supplier_id` is preferred and must reference the master.
+            'supplier_id' => 'required|integer|exists:supplier,id',
+            'supplier'    => ['nullable', 'string', 'max:60', 'regex:/^[^<>"\\x00-\\x1F]+$/'],
             // P2 #9: kode_batch must be safe ASCII (no slashes, no `..` segments).
             'kode_batch'  => ['required', 'string', 'max:30', 'regex:/^[A-Za-z0-9._-]+$/', 'not_regex:/\.\./'],
             'qty'         => 'required|integer|min:1',

@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\LayananController;
 use App\Http\Controllers\Api\ProdukController;
 use App\Http\Controllers\Api\RekamMedisController;
 use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\TelegramController;
 use App\Http\Controllers\Api\TransaksiController;
 use App\Http\Controllers\Api\UserAdminController;
@@ -40,6 +42,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/patients/{patient}/photos', [RekamMedisController::class, 'addPhoto'])
         ->middleware('role:Terapis,Manajer');
+    // Per revisi "dibuat bisa lebih dari 1 gambar" — batch upload up to 10 photos.
+    Route::post('/patients/{patient}/photos/batch', [RekamMedisController::class, 'addPhotos'])
+        ->middleware('role:Terapis,Manajer');
+
+    // Per revisi R1/R2 — booking system with time-slot anti-overlap.
+    Route::get('/bookings/availability', [BookingController::class, 'availability'])
+        ->middleware('role:Kasir,Terapis,Manajer');
+    Route::get('/bookings', [BookingController::class, 'index'])
+        ->middleware('role:Kasir,Terapis,Manajer');
+    Route::post('/bookings', [BookingController::class, 'store'])
+        ->middleware('role:Kasir,Terapis,Manajer');
+    Route::match(['put', 'patch'], '/bookings/{booking}', [BookingController::class, 'update'])
+        ->middleware('role:Kasir,Terapis,Manajer');
+    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])
+        ->middleware('role:Kasir,Terapis,Manajer');
     Route::delete('/patients/{patient}/photos/{photo}', [RekamMedisController::class, 'deletePhoto'])
         ->middleware('role:Terapis,Manajer');
 
@@ -122,7 +139,22 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('role:Manajer');
     Route::delete('/admin/users/{user}', [UserAdminController::class, 'destroy'])
         ->middleware('role:Manajer');
+
+    // Per revisi R3 — supplier master CRUD.
+    Route::get('/admin/suppliers', [SupplierController::class, 'index'])
+        ->middleware('role:Manajer');
+    Route::post('/admin/suppliers', [SupplierController::class, 'store'])
+        ->middleware('role:Manajer');
+    Route::match(['put', 'patch'], '/admin/suppliers/{supplier}', [SupplierController::class, 'update'])
+        ->middleware('role:Manajer');
+    Route::delete('/admin/suppliers/{supplier}', [SupplierController::class, 'destroy'])
+        ->middleware('role:Manajer');
 });
+
+// Lightweight read-only list for the Gudang / POS drawer — any authenticated
+// role may populate the dropdown (they can also see what suppliers exist),
+// but only Gudang/Manajer can write purchase orders.
+Route::middleware('auth:sanctum')->get('/suppliers', [SupplierController::class, 'index']);
 
 // Photo proxy — browser-safe signed URL for <img>; auth stays on the data APIs.
 Route::get('/photos/{photo}/raw', [RekamMedisController::class, 'streamPhoto'])
