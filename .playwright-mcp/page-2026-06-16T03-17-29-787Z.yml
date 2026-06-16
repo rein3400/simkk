@@ -1,0 +1,213 @@
+- generic [ref=e43]:
+  - banner [ref=e44]:
+    - generic [ref=e45]:
+      - link "SIM-KK beranda" [ref=e46] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e47]: SK
+        - generic [ref=e48]:
+          - strong [ref=e49]: SIM-KK
+          - generic [ref=e50]: Samarinda
+      - generic [ref=e51]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e52]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e53]:
+        - button "Live · klik untuk aktifkan" [ref=e54] [cursor=pointer]:
+          - img [ref=e55]
+          - generic [ref=e57]: Live · klik untuk aktifkan
+        - generic [ref=e58]:
+          - img [ref=e59]
+          - generic [ref=e62]: Manajer
+          - generic [ref=e63]: / Shift Audit
+        - generic [ref=e64]:
+          - generic [ref=e65]: MK
+          - generic [ref=e66]:
+            - generic [ref=e67]: Manajer Klinik
+            - generic [ref=e68]: Login terkunci
+        - button "Keluar" [ref=e69] [cursor=pointer]:
+          - img [ref=e70]
+          - generic [ref=e73]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e74]:
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - img [ref=e78]
+            - text: Modul aktif
+          - generic [ref=e81]:
+            - button "Kasir POS cepat" [ref=e82] [cursor=pointer]:
+              - img [ref=e83]
+              - generic [ref=e85]: Kasir
+              - generic [ref=e86]: POS cepat
+            - button "Rekam Medis Timeline pasien" [ref=e87] [cursor=pointer]:
+              - img [ref=e88]
+              - generic [ref=e92]: Rekam Medis
+              - generic [ref=e93]: Timeline pasien
+            - button "Gudang FIFO & HPP" [ref=e94] [cursor=pointer]:
+              - img [ref=e95]
+              - generic [ref=e105]: Gudang
+              - generic [ref=e106]: FIFO & HPP
+            - button "Laporan PDF / Excel" [ref=e107] [cursor=pointer]:
+              - img [ref=e108]
+              - generic [ref=e111]: Laporan
+              - generic [ref=e112]: PDF / Excel
+            - button "Closing Harian Submit / Approve" [ref=e113] [cursor=pointer]:
+              - img [ref=e114]
+              - generic [ref=e118]: Closing Harian
+              - generic [ref=e119]: Submit / Approve
+          - generic [ref=e120]:
+            - img [ref=e121]
+            - text: Dashboard, audit operasional, dan akses lintas modul.
+        - generic [ref=e124]:
+          - generic [ref=e125]: Admin
+          - generic [ref=e126]:
+            - button "Dashboard Statistik harian" [ref=e127] [cursor=pointer]:
+              - img [ref=e128]
+              - generic [ref=e131]: Dashboard
+              - generic [ref=e132]: Statistik harian
+            - button "Layanan CRUD master" [ref=e133] [cursor=pointer]:
+              - img [ref=e134]
+              - generic [ref=e138]: Layanan
+              - generic [ref=e139]: CRUD master
+            - button "Produk Master produk" [ref=e140] [cursor=pointer]:
+              - img [ref=e141]
+              - generic [ref=e151]: Produk
+              - generic [ref=e152]: Master produk
+            - button "User Akun & shift" [ref=e153] [cursor=pointer]:
+              - img [ref=e154]
+              - generic [ref=e166]: User
+              - generic [ref=e167]: Akun & shift
+          - generic [ref=e168]: Audit
+          - button "Audit Log 50 entri terakhir" [ref=e170] [cursor=pointer]:
+            - img [ref=e171]
+            - generic [ref=e175]: Audit Log
+            - generic [ref=e176]: 50 entri terakhir
+  - main [ref=e177]:
+    - generic [ref=e179]:
+      - generic [ref=e180]:
+        - generic [ref=e181]:
+          - generic [ref=e182]: Manajer · Dashboard
+          - heading "Ringkasan operasional harian" [level=2] [ref=e183]
+        - button "Trigger Backup" [ref=e184] [cursor=pointer]:
+          - img [ref=e185]
+          - text: Trigger Backup
+      - generic [ref=e189]:
+        - article [ref=e190]:
+          - generic [ref=e191]:
+            - img [ref=e192]
+            - text: Revenue hari ini
+          - strong [ref=e195]: Rp 0
+          - generic [ref=e196]:
+            - img [ref=e197]
+            - text: 100,0% vs kemarin
+        - article [ref=e199]:
+          - generic [ref=e200]:
+            - img [ref=e201]
+            - text: Transaksi hari ini
+          - strong [ref=e204]: "0"
+          - generic [ref=e205]: Lunas
+        - article [ref=e206]:
+          - generic [ref=e207]:
+            - img [ref=e208]
+            - text: Pending closings
+          - strong [ref=e211]: "0"
+          - generic [ref=e212]: Menunggu approve
+        - article [ref=e213]:
+          - generic [ref=e214]:
+            - img [ref=e215]
+            - text: Stok menipis
+          - strong [ref=e218]: "2"
+          - generic [ref=e219]: Produk prioritas
+      - article [ref=e220]:
+        - generic [ref=e221]: Revenue 7 hari terakhir
+        - heading "Tren penjualan" [level=3] [ref=e222]
+        - generic [ref=e223]:
+          - generic [ref=e224]:
+            - generic [ref=e227]: Rp 0
+            - generic [ref=e228]: 10/Jun
+          - generic [ref=e229]:
+            - generic [ref=e232]: Rp 0
+            - generic [ref=e233]: 11/Jun
+          - generic [ref=e234]:
+            - generic [ref=e237]: Rp 0
+            - generic [ref=e238]: 12/Jun
+          - generic [ref=e239]:
+            - generic [ref=e242]: Rp 0
+            - generic [ref=e243]: 13/Jun
+          - generic [ref=e244]:
+            - generic [ref=e247]: Rp 0
+            - generic [ref=e248]: 14/Jun
+          - generic [ref=e249]:
+            - generic [ref=e252]: Rp 575.000
+            - generic [ref=e253]: 15/Jun
+          - generic [ref=e254]:
+            - generic [ref=e257]: Rp 0
+            - generic [ref=e258]: 16/Jun
+      - generic [ref=e259]:
+        - article [ref=e260]:
+          - generic [ref=e261]: Top 3 terapis
+          - heading "Komisi tertinggi" [level=3] [ref=e262]
+          - paragraph [ref=e263]: Belum ada data.
+        - article [ref=e264]:
+          - generic [ref=e265]: Top 3 layanan
+          - heading "Paling laris" [level=3] [ref=e266]
+          - paragraph [ref=e267]: Belum ada data.
+      - generic [ref=e268]:
+        - article [ref=e269]:
+          - generic [ref=e270]: Jadwal booking
+          - heading "3 hari ke depan" [level=3] [ref=e271]
+          - list [ref=e272]:
+            - listitem [ref=e273]:
+              - img [ref=e274]
+              - strong [ref=e276]: Alya Maharani
+              - generic [ref=e277]: Sel, 16 Jun, 10.00 · 60m
+              - generic [ref=e278]: Sinta Ayu
+            - listitem [ref=e279]:
+              - img [ref=e280]
+              - strong [ref=e282]: Dewi Lestari
+              - generic [ref=e283]: Sel, 16 Jun, 14.00 · 90m
+              - generic [ref=e284]: Rani Wulandari
+            - listitem [ref=e285]:
+              - img [ref=e286]
+              - strong [ref=e288]: Yuni Kartika
+              - generic [ref=e289]: Rab, 17 Jun, 11.00 · 60m
+              - generic [ref=e290]: Sinta Ayu
+            - listitem [ref=e291]:
+              - img [ref=e292]
+              - strong [ref=e294]: Alya Maharani
+              - generic [ref=e295]: Kam, 18 Jun, 13.00 · 60m
+              - generic [ref=e296]: Rani Wulandari
+            - listitem [ref=e297]:
+              - img [ref=e298]
+              - strong [ref=e300]: Dewi Lestari
+              - generic [ref=e301]: Jum, 19 Jun, 15.00 · 30m
+              - generic [ref=e302]: Sinta Ayu
+        - article [ref=e303]:
+          - generic [ref=e304]: Digest klien
+          - heading "Recent activity" [level=3] [ref=e305]
+          - list [ref=e306]:
+            - listitem [ref=e307]:
+              - img [ref=e308]
+              - strong [ref=e312]: Alya Maharani
+              - generic [ref=e313]: RM-2026-0018
+              - generic [ref=e314]: 25 Mei
+              - paragraph [ref=e315]: "\"Patch test aman, foto after tersimpan.\""
+            - listitem [ref=e316]:
+              - img [ref=e317]
+              - strong [ref=e321]: Dewi Lestari
+              - generic [ref=e322]: RM-2026-0021
+              - generic [ref=e323]: 24 Mei
+              - paragraph [ref=e324]: "\"Pigment spot dipantau 14 hari.\""
+            - listitem [ref=e325]:
+              - img [ref=e326]
+              - strong [ref=e330]: Yuni Kartika
+              - generic [ref=e331]: RM-2026-0025
+            - listitem [ref=e332]:
+              - img [ref=e333]
+              - strong [ref=e337]: Bella Anggraini
+              - generic [ref=e338]: RM-2026-0029
+            - listitem [ref=e339]:
+              - img [ref=e340]
+              - strong [ref=e344]: Sarah Amalia
+              - generic [ref=e345]: RM-2026-0030

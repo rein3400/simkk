@@ -89,7 +89,11 @@ const ensureFirstCategoryOpen = () => {
   }
 };
 const toggleCategory = (category: string) => {
+  // eslint-disable-next-line no-console
+  console.log('toggleCategory', category, 'before=', openCategories.value);
   openCategories.value = { ...openCategories.value, [category]: !openCategories.value[category] };
+  // eslint-disable-next-line no-console
+  console.log('toggleCategory after=', openCategories.value);
 };
 
 const selectedProduct = computed(() => (

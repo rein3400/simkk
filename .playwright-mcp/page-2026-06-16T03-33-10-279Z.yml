@@ -1,0 +1,213 @@
+- generic [ref=e658]:
+  - banner [ref=e659]:
+    - generic [ref=e660]:
+      - link "SIM-KK beranda" [ref=e661] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e662]: SK
+        - generic [ref=e663]:
+          - strong [ref=e664]: SIM-KK
+          - generic [ref=e665]: Samarinda
+      - generic [ref=e666]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e667]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e668]:
+        - button "Live · klik untuk aktifkan" [ref=e669] [cursor=pointer]:
+          - img [ref=e670]
+          - generic [ref=e672]: Live · klik untuk aktifkan
+        - generic [ref=e673]:
+          - img [ref=e674]
+          - generic [ref=e677]: Terapis
+          - generic [ref=e678]: / Shift Treatment A
+        - generic [ref=e679]:
+          - generic [ref=e680]: DM
+          - generic [ref=e681]:
+            - generic [ref=e682]: dr. Melati
+            - generic [ref=e683]: Login terkunci
+        - button "Keluar" [ref=e684] [cursor=pointer]:
+          - img [ref=e685]
+          - generic [ref=e688]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e689]:
+      - generic [ref=e691]:
+        - generic [ref=e692]:
+          - img [ref=e693]
+          - text: Modul aktif
+        - button "Rekam Medis Timeline pasien" [ref=e697] [cursor=pointer]:
+          - img [ref=e698]
+          - generic [ref=e702]: Rekam Medis
+          - generic [ref=e703]: Timeline pasien
+        - generic [ref=e704]:
+          - img [ref=e705]
+          - text: Rekam medis, catatan tindakan, dan foto klinis.
+  - main [ref=e708]:
+    - generic [ref=e709]:
+      - complementary [ref=e710]:
+        - generic [ref=e711]: Rekam medis
+        - combobox [ref=e712]:
+          - option "Alya Maharani · RM-2026-0018" [selected]
+          - option "Dewi Lestari · RM-2026-0021"
+        - heading "Alya Maharani" [level=2] [ref=e713]
+        - paragraph [ref=e714]: RM-2026-0018 · 29 tahun · 2 tindakan · 5 foto
+        - generic [ref=e715]:
+          - generic [ref=e716]:
+            - term [ref=e717]: Keluhan
+            - definition [ref=e718]: Bekas jerawat dan tekstur kulit
+          - generic [ref=e719]:
+            - term [ref=e720]: Kontak
+            - definition [ref=e721]: 0812-4400-1188
+          - generic [ref=e722]:
+            - term [ref=e723]: Catatan risiko
+            - definition [ref=e724]: Sensitif terhadap retinol tinggi
+        - paragraph [ref=e725]: Diperbarui 0s lalu
+      - generic [ref=e727]:
+        - generic [ref=e729]:
+          - generic [ref=e730]: Timeline treatment
+          - heading "Riwayat kronologis" [level=2] [ref=e731]
+        - generic [ref=e732]:
+          - group [ref=e733]:
+            - generic "25 Mei1 catatan · 1 foto" [ref=e734]:
+              - img [ref=e735] [cursor=pointer]
+              - text: 25 Mei1 catatan · 1 foto
+            - generic [ref=e737]:
+              - img [ref=e738]
+              - emphasis [ref=e741]: "\"Patch test aman, foto after tersimpan.\""
+            - img "Foto After" [ref=e743]
+          - group [ref=e744]:
+            - generic "2026-06-160 catatan · 2 foto" [ref=e745]:
+              - img [ref=e746] [cursor=pointer]
+              - text: 2026-06-160 catatan · 2 foto
+          - group [ref=e748]:
+            - generic "18 Mei1 catatan · 1 foto" [ref=e749]:
+              - img [ref=e750] [cursor=pointer]
+              - text: 18 Mei1 catatan · 1 foto
+          - group [ref=e752]:
+            - generic "15 Jun0 catatan · 1 foto" [ref=e753]:
+              - img [ref=e754] [cursor=pointer]
+              - text: 15 Jun0 catatan · 1 foto
+        - list [ref=e756]:
+          - listitem [ref=e757]:
+            - time [ref=e758]: 18 Mei
+            - generic [ref=e759]:
+              - strong [ref=e760]: Acne Calm Facial
+              - text: Sinta
+              - paragraph [ref=e761]: Kemerahan turun, lanjut barrier repair.
+              - generic [ref=e762]:
+                - button "Edit" [ref=e763] [cursor=pointer]:
+                  - img [ref=e764]
+                  - text: Edit
+                - button "Hapus" [ref=e767] [cursor=pointer]:
+                  - img [ref=e768]
+                  - text: Hapus
+          - listitem [ref=e771]:
+            - time [ref=e772]: 25 Mei
+            - generic [ref=e773]:
+              - strong [ref=e774]: Bright Peel Mild
+              - text: Rani
+              - paragraph [ref=e775]: Patch test aman, foto after tersimpan.
+              - generic [ref=e776]:
+                - button "Edit" [ref=e777] [cursor=pointer]:
+                  - img [ref=e778]
+                  - text: Edit
+                - button "Hapus" [ref=e781] [cursor=pointer]:
+                  - img [ref=e782]
+                  - text: Hapus
+      - generic [ref=e785]:
+        - generic [ref=e786]:
+          - generic [ref=e787]:
+            - generic [ref=e788]: Before / After
+            - heading "Referensi object storage" [level=2] [ref=e789]
+          - img [ref=e790]
+        - generic [ref=e793]:
+          - generic [ref=e794]:
+            - img "Before" [ref=e796]
+            - generic [ref=e797]:
+              - generic [ref=e798]:
+                - strong [ref=e799]: Before
+                - button "Hapus" [ref=e800] [cursor=pointer]:
+                  - img [ref=e801]
+                  - text: Hapus
+              - generic [ref=e804]: 18 Mei
+              - link "local://clinical/RM-2026-0018/before-1805.jpg" [ref=e805] [cursor=pointer]:
+                - /url: http://43.133.142.74/api/photos/1/raw?expires=1781623990&signature=5e249cd3bdddfa4c2a3aeb9bd29f60dabc7c85a7150d25595fc72658ad159f41
+                - img [ref=e806]
+                - text: local://clinical/RM-2026-0018/before-1805.jpg
+          - generic [ref=e808]:
+            - img "After" [ref=e810]
+            - generic [ref=e811]:
+              - generic [ref=e812]:
+                - strong [ref=e813]: After
+                - button "Hapus" [ref=e814] [cursor=pointer]:
+                  - img [ref=e815]
+                  - text: Hapus
+              - generic [ref=e818]: 25 Mei
+              - link "local://clinical/RM-2026-0018/after-2505.jpg" [ref=e819] [cursor=pointer]:
+                - /url: http://43.133.142.74/api/photos/2/raw?expires=1781623990&signature=a9048cb6c5767b2d9dc121a75f5aabbe123ec7eb3e28d413c416955c5c04c5fe
+                - img [ref=e820]
+                - text: local://clinical/RM-2026-0018/after-2505.jpg
+          - generic [ref=e822]:
+            - img "Before" [ref=e824]
+            - generic [ref=e825]:
+              - generic [ref=e826]:
+                - strong [ref=e827]: Before
+                - button "Hapus" [ref=e828] [cursor=pointer]:
+                  - img [ref=e829]
+                  - text: Hapus
+              - generic [ref=e832]: 15 Jun
+              - link "clinical/RM-2026-0018/003cd7c1-0909-44fa-a333-8dbcda523813-e2e.png" [ref=e833] [cursor=pointer]:
+                - /url: http://43.133.142.74/api/photos/5/raw?expires=1781623990&signature=703cee6fd02a61e0ec8eff2c8257c91ecf13798578a245b3925aeb07813dfd4d
+                - img [ref=e834]
+                - text: clinical/RM-2026-0018/003cd7c1-0909-44fa-a333-8dbcda523813-e2e.png
+          - generic [ref=e836]:
+            - img "Before" [ref=e838]
+            - generic [ref=e839]:
+              - generic [ref=e840]:
+                - strong [ref=e841]: Before
+                - button "Hapus" [ref=e842] [cursor=pointer]:
+                  - img [ref=e843]
+                  - text: Hapus
+              - generic [ref=e846]: 2026-06-16
+              - link "clinical/RM-2026-0018/56eefea7-047a-40b1-9527-16c1d36fce2a-1.png" [ref=e847] [cursor=pointer]:
+                - /url: http://43.133.142.74/api/photos/6/raw?expires=1781623990&signature=97fdf396cda0d8e32d02833076cabd9e08aa2abf9c2a350f696374b01c2f6955
+                - img [ref=e848]
+                - text: clinical/RM-2026-0018/56eefea7-047a-40b1-9527-16c1d36fce2a-1.png
+          - generic [ref=e850]:
+            - img "After" [ref=e852]
+            - generic [ref=e853]:
+              - generic [ref=e854]:
+                - strong [ref=e855]: After
+                - button "Hapus" [ref=e856] [cursor=pointer]:
+                  - img [ref=e857]
+                  - text: Hapus
+              - generic [ref=e860]: 2026-06-16
+              - link "clinical/RM-2026-0018/16009f79-a7fa-49b4-bc09-59aa038b1790-2.png" [ref=e861] [cursor=pointer]:
+                - /url: http://43.133.142.74/api/photos/7/raw?expires=1781623990&signature=d2eaf5d2fb893a3688aa880079b386ed522749f233a5dc4d8f07020be72b34dc
+                - img [ref=e862]
+                - text: clinical/RM-2026-0018/16009f79-a7fa-49b4-bc09-59aa038b1790-2.png
+        - generic [ref=e864] [cursor=pointer]:
+          - button "Choose File" [ref=e865]
+          - generic [ref=e866]:
+            - img [ref=e867]
+            - strong [ref=e870]: Pilih atau drop foto klinis (bisa lebih dari 1)
+            - text: JPG/PNG, maks 10 foto sekaligus, tersimpan sebagai object reference lokal.
+        - generic [ref=e871]:
+          - generic [ref=e872]:
+            - text: Label foto
+            - combobox "Label foto" [ref=e873]:
+              - option "Before"
+              - option "After" [selected]
+          - generic [ref=e874]:
+            - checkbox "Consent pasien sudah diverifikasi" [ref=e875]
+            - generic [ref=e876]:
+              - img [ref=e877]
+              - text: Consent pasien sudah diverifikasi
+        - generic [ref=e880]:
+          - text: Catatan tindakan
+          - textbox "Catatan tindakan" [ref=e881]
+        - button "Simpan catatan" [ref=e882] [cursor=pointer]:
+          - img [ref=e883]
+          - text: Simpan catatan
+        - button "Upload foto klinis" [disabled] [ref=e887]:
+          - img [ref=e888]
+          - text: Upload foto klinis

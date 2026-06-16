@@ -1,0 +1,146 @@
+- generic [ref=e43]:
+  - banner [ref=e44]:
+    - generic [ref=e45]:
+      - link "SIM-KK beranda" [ref=e46] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e47]: SK
+        - generic [ref=e48]:
+          - strong [ref=e49]: SIM-KK
+          - generic [ref=e50]: Samarinda
+      - generic [ref=e51]:
+        - img
+        - searchbox "Cari data di modul aktif" [ref=e52]
+        - generic:
+          - generic: ⌘
+          - generic: K
+      - generic [ref=e53]:
+        - button "Live · klik untuk aktifkan" [ref=e54] [cursor=pointer]:
+          - img [ref=e55]
+          - generic [ref=e57]: Live · klik untuk aktifkan
+        - generic [ref=e58]:
+          - img [ref=e59]
+          - generic [ref=e62]: Gudang
+          - generic [ref=e63]: / Shift Gudang
+        - generic [ref=e64]:
+          - generic [ref=e65]: RP
+          - generic [ref=e66]:
+            - generic [ref=e67]: Raka Pramana
+            - generic [ref=e68]: Login terkunci
+        - button "Keluar" [ref=e69] [cursor=pointer]:
+          - img [ref=e70]
+          - generic [ref=e73]: Keluar
+    - navigation "Pintasan modul klinik" [ref=e74]:
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - img [ref=e78]
+          - text: Modul aktif
+        - button "Gudang FIFO & HPP" [ref=e82] [cursor=pointer]:
+          - img [ref=e83]
+          - generic [ref=e93]: Gudang
+          - generic [ref=e94]: FIFO & HPP
+        - generic [ref=e95]:
+          - img [ref=e96]
+          - text: Stok, batch FIFO, HPP, dan barang masuk.
+  - main [ref=e99]:
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]: Gudang
+            - heading "Stok, batch, dan HPP" [level=2] [ref=e105]
+          - button "Barang masuk" [ref=e106] [cursor=pointer]:
+            - img [ref=e107]
+            - text: Barang masuk
+        - generic [ref=e111]:
+          - button "Skincare3 produk" [ref=e112] [cursor=pointer]:
+            - img [ref=e113]
+            - text: Skincare3 produk
+          - table [ref=e116]:
+            - rowgroup [ref=e117]:
+              - row "Produk Total Batch awal Expired HPP Status" [ref=e118]:
+                - columnheader "Produk" [ref=e119]
+                - columnheader "Total" [ref=e120]
+                - columnheader "Batch awal" [ref=e121]
+                - columnheader "Expired" [ref=e122]
+                - columnheader "HPP" [ref=e123]
+                - columnheader "Status" [ref=e124]
+            - rowgroup [ref=e125]:
+              - row "Barrier Serum 52 BS-0426-A 2026-09-12 Rp 98.000 Aman" [ref=e126] [cursor=pointer]:
+                - cell "Barrier Serum" [ref=e127]
+                - cell "52" [ref=e128]
+                - cell "BS-0426-A" [ref=e129]
+                - cell "2026-09-12" [ref=e130]
+                - cell "Rp 98.000" [ref=e131]
+                - cell "Aman" [ref=e132]:
+                  - generic [ref=e133]: Aman
+              - row "Daily Sunscreen SPF50 18 DS-1225-X 2026-06-30 Rp 72.000 Prioritas" [ref=e134] [cursor=pointer]:
+                - cell "Daily Sunscreen SPF50" [ref=e135]
+                - cell "18" [ref=e136]
+                - cell "DS-1225-X" [ref=e137]
+                - cell "2026-06-30" [ref=e138]
+                - cell "Rp 72.000" [ref=e139]
+                - cell "Prioritas" [ref=e140]:
+                  - generic [ref=e141]: Prioritas
+              - row "Calming Toner 9 CT-0326-C 2026-11-01 Rp 61.000 Menipis" [ref=e142] [cursor=pointer]:
+                - cell "Calming Toner" [ref=e143]
+                - cell "9" [ref=e144]
+                - cell "CT-0326-C" [ref=e145]
+                - cell "2026-11-01" [ref=e146]
+                - cell "Rp 61.000" [ref=e147]
+                - cell "Menipis" [ref=e148]:
+                  - generic [ref=e149]: Menipis
+        - button "Treatment3 produk" [ref=e151] [cursor=pointer]:
+          - img [ref=e152]
+          - text: Treatment3 produk
+        - button "Alat1 produk" [ref=e155] [cursor=pointer]:
+          - img [ref=e156]
+          - text: Alat1 produk
+        - button "Consumable1 produk" [ref=e159] [cursor=pointer]:
+          - img [ref=e160]
+          - text: Consumable1 produk
+      - complementary [ref=e162]:
+        - generic [ref=e164]:
+          - generic [ref=e165]: FIFO queue
+          - heading "Barrier Serum" [level=2] [ref=e166]
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - strong [ref=e170]: BS-0426-A
+              - generic [ref=e171]: 12 unit - Rp 98.000
+              - generic [ref=e172]: 2026-09-12 - PT Dermalab
+              - generic [ref=e173]: FIRST OUT
+            - button "Hapus" [ref=e175] [cursor=pointer]:
+              - img [ref=e176]
+              - text: Hapus
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - strong [ref=e181]: BS-0526-B
+              - generic [ref=e182]: 22 unit - Rp 102.000
+              - generic [ref=e183]: 2027-01-20 - PT Dermalab
+            - button "Hapus" [ref=e185] [cursor=pointer]:
+              - img [ref=e186]
+              - text: Hapus
+          - generic [ref=e189]:
+            - generic [ref=e190]:
+              - strong [ref=e191]: E2E-VERIFY-001
+              - generic [ref=e192]: 3 unit - Rp 50.000
+              - generic [ref=e193]: 2027-08-15 - PT Dermalab
+            - button "Hapus" [ref=e195] [cursor=pointer]:
+              - img [ref=e196]
+              - text: Hapus
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - strong [ref=e201]: E2E-1781527907522
+              - generic [ref=e202]: 10 unit - Rp 50.000
+              - generic [ref=e203]: 2027-12-31 - PT E2E
+            - button "Hapus" [ref=e205] [cursor=pointer]:
+              - img [ref=e206]
+              - text: Hapus
+          - generic [ref=e209]:
+            - generic [ref=e210]:
+              - strong [ref=e211]: BATCH.OK-1781527907672
+              - generic [ref=e212]: 5 unit - Rp 30.000
+              - generic [ref=e213]: Reusable - PT X
+            - button "Hapus" [ref=e215] [cursor=pointer]:
+              - img [ref=e216]
+              - text: Hapus

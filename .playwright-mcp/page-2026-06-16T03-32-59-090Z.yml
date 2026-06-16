@@ -1,0 +1,41 @@
+- main [ref=e618]:
+  - generic [ref=e619]:
+    - region "Identitas SIM-KK" [ref=e620]:
+      - generic [ref=e623]:
+        - generic [ref=e624]:
+          - img [ref=e625]
+          - text: Operasional klinik
+        - heading "SIM-KK" [level=1] [ref=e628]
+        - paragraph [ref=e629]: Sistem klinik kecantikan untuk kasir, rekam medis, inventaris FIFO, dan laporan manajer.
+        - generic [ref=e630]:
+          - generic [ref=e631]:
+            - img [ref=e632]
+            - text: Komisi terkunci saat Lunas
+          - generic [ref=e634]: Rekam medis ramah tablet
+          - generic [ref=e636]: Export PDF/XLSX asli
+    - region "Form login" [ref=e638]:
+      - generic [ref=e639]:
+        - text: Akses pengguna
+        - heading "Masuk" [level=2] [ref=e640]
+        - generic [ref=e641]:
+          - generic [ref=e642]:
+            - text: Username
+            - textbox "Username" [active] [ref=e643]: terapis
+          - generic [ref=e644]:
+            - text: Password
+            - generic [ref=e645]:
+              - textbox "Password" [ref=e646]: simkk-2026
+              - button "Tampilkan password" [ref=e647] [cursor=pointer]:
+                - img [ref=e648]
+          - generic [ref=e651]:
+            - text: Role demo
+            - combobox "Role demo" [ref=e653]:
+              - option "Kasir"
+              - option "Terapis" [selected]
+              - option "Gudang"
+              - option "Manajer"
+              - option "Admin"
+            - paragraph [ref=e654]: Masuk ke timeline pasien, catatan tindakan, dan foto before/after.
+          - button "Masuk" [ref=e655] [cursor=pointer]:
+            - text: Masuk
+            - img [ref=e656]

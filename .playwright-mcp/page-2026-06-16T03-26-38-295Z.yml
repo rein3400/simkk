@@ -1,0 +1,41 @@
+- main [ref=e346]:
+  - generic [ref=e347]:
+    - region "Identitas SIM-KK" [ref=e348]:
+      - generic [ref=e351]:
+        - generic [ref=e352]:
+          - img [ref=e353]
+          - text: Operasional klinik
+        - heading "SIM-KK" [level=1] [ref=e356]
+        - paragraph [ref=e357]: Sistem klinik kecantikan untuk kasir, rekam medis, inventaris FIFO, dan laporan manajer.
+        - generic [ref=e358]:
+          - generic [ref=e359]:
+            - img [ref=e360]
+            - text: Komisi terkunci saat Lunas
+          - generic [ref=e362]: Rekam medis ramah tablet
+          - generic [ref=e364]: Export PDF/XLSX asli
+    - region "Form login" [ref=e366]:
+      - generic [ref=e367]:
+        - text: Akses pengguna
+        - heading "Masuk" [level=2] [ref=e368]
+        - generic [ref=e369]:
+          - generic [ref=e370]:
+            - text: Username
+            - textbox "Username" [active] [ref=e371]: gudang
+          - generic [ref=e372]:
+            - text: Password
+            - generic [ref=e373]:
+              - textbox "Password" [ref=e374]: simkk-2026
+              - button "Tampilkan password" [ref=e375] [cursor=pointer]:
+                - img [ref=e376]
+          - generic [ref=e379]:
+            - text: Role demo
+            - combobox "Role demo" [ref=e381]:
+              - option "Kasir"
+              - option "Terapis"
+              - option "Gudang" [selected]
+              - option "Manajer"
+              - option "Admin"
+            - paragraph [ref=e382]: Masuk ke stok, batch FIFO, HPP, dan pembelian supplier.
+          - button "Masuk" [ref=e383] [cursor=pointer]:
+            - text: Masuk
+            - img [ref=e384]
