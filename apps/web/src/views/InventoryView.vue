@@ -89,11 +89,7 @@ const ensureFirstCategoryOpen = () => {
   }
 };
 const toggleCategory = (category: string) => {
-  // eslint-disable-next-line no-console
-  console.log('toggleCategory', category, 'before=', openCategories.value);
   openCategories.value = { ...openCategories.value, [category]: !openCategories.value[category] };
-  // eslint-disable-next-line no-console
-  console.log('toggleCategory after=', openCategories.value);
 };
 
 const selectedProduct = computed(() => (
@@ -179,7 +175,7 @@ const confirmDeleteBatch = async (id: number) => {
           class="category-head"
           :class="{ 'is-open': openCategories[group.category] }"
           :data-testid="`category-toggle-${group.category}`"
-          @click="toggleCategory(group.category)"
+          @click="openCategories[group.category] = !openCategories[group.category]"
         >
           <ChevronDown :size="18" class="drag-down-toggle" :class="{ 'is-open': openCategories[group.category], 'chevron-pulse': group === groupedByCategory[0] }" />
           <span class="category-name">{{ group.category }}</span>
