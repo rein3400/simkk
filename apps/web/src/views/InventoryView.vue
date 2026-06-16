@@ -79,18 +79,17 @@ const groupedByCategory = computed(() => {
 });
 
 // Per revisi A7 — first kategori default-expanded, others collapsed.
-const openCategories = ref<Set<string>>(new Set());
+// Use Record<kategori, boolean> with a new object reference on toggle so
+// Vue's reactivity tracks the change. (Set/Map mutations don't trigger
+// re-render when used inside a ref.)
+const openCategories = ref<Record<string, boolean>>({});
 const ensureFirstCategoryOpen = () => {
-  if (openCategories.value.size === 0 && groupedByCategory.value.length > 0) {
-    openCategories.value.add(groupedByCategory.value[0].category);
+  if (Object.keys(openCategories.value).length === 0 && groupedByCategory.value.length > 0) {
+    openCategories.value = { [groupedByCategory.value[0].category]: true };
   }
 };
 const toggleCategory = (category: string) => {
-  if (openCategories.value.has(category)) {
-    openCategories.value.delete(category);
-  } else {
-    openCategories.value.add(category);
-  }
+  openCategories.value = { ...openCategories.value, [category]: !openCategories.value[category] };
 };
 
 const selectedProduct = computed(() => (
@@ -174,15 +173,15 @@ const confirmDeleteBatch = async (id: number) => {
         <button
           type="button"
           class="category-head"
-          :class="{ 'is-open': openCategories.has(group.category) }"
+          :class="{ 'is-open': openCategories[group.category] }"
           :data-testid="`category-toggle-${group.category}`"
           @click="toggleCategory(group.category)"
         >
-          <ChevronDown :size="18" class="drag-down-toggle" :class="{ 'is-open': openCategories.has(group.category), 'chevron-pulse': group === groupedByCategory[0] }" />
+          <ChevronDown :size="18" class="drag-down-toggle" :class="{ 'is-open': openCategories[group.category], 'chevron-pulse': group === groupedByCategory[0] }" />
           <span class="category-name">{{ group.category }}</span>
           <span class="category-count">{{ group.products.length }} produk</span>
         </button>
-        <div v-if="openCategories.has(group.category)" class="table-wrap">
+        <div v-if="openCategories[group.category]" class="table-wrap">
           <table>
             <thead>
               <tr>
