@@ -542,7 +542,7 @@ export interface DailyReportStatus {
   tanggal: string;
   status: "pending" | "submitted" | "approved" | "empty" | null;
   total_penjualan: number;
-  total_komisi: number;
+  total_komisi: number | null;
   transaction_count: number;
   closing_id: number | null;
 }

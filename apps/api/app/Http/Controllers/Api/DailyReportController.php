@@ -39,6 +39,10 @@ class DailyReportController extends Controller
             ], 422);
         }
 
+        // Per revisi R12 — nilai komisi hanya untuk Manajer. Role lain
+        // (Kasir/Terapis/Gudang) tidak boleh lihat angka komisi.
+        $isManajer = $request->user() && $request->user()->level === 'Manajer';
+
         $date    = CarbonImmutable::parse($tanggal)->startOfDay();
         $dateEnd = $date->endOfDay();
 
@@ -74,10 +78,11 @@ class DailyReportController extends Controller
             'approved_at'       => optional($closing?->approved_at)?->toIso8601String(),
             'approved_by'       => $closing?->manajer?->nama_lengkap,
             'total_penjualan'   => (int) ($closing?->total_penjualan ?? $lunasTotal),
-            'total_komisi'      => (int) Transaksi::query()
+            // Per revisi R12 — komisi hanya di-expose ke Manajer.
+            'total_komisi'      => $isManajer ? (int) Transaksi::query()
                 ->where('status', 'Lunas')
                 ->whereBetween('created_at', [$date, $dateEnd])
-                ->sum('komisi_total'),
+                ->sum('komisi_total') : null,
             'transaction_count' => $lunasCount,
         ]);
     }

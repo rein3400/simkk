@@ -262,6 +262,7 @@ const confirmVoid = async () => {
       :busy="paying"
       :item-count="itemCount"
       :receipt-id="lastReceiptId"
+      :show-commission="isManajer"
       @update:discount-input="discount = $event"
       @update:payment-method="paymentMethod = $event"
       @increase="setQty($event, (cart[$event] ?? 0) + 1)"

@@ -36,6 +36,9 @@ defineProps<{
   busy: boolean;
   itemCount: number;
   receiptId: string;
+  // Per revisi R12 — nilai komisi hanya untuk Manajer. Role lain tidak
+  // boleh lihat angka komisi sama sekali (bukan di-hide, di-hilangkan).
+  showCommission?: boolean;
 }>();
 
 defineEmits<{
@@ -166,7 +169,8 @@ const readText = (event: Event) => (event.target as HTMLSelectElement).value;
         <span class="eyebrow">Total tagihan</span>
         <strong class="ps-total-amount">{{ rupiah(total) }}</strong>
       </div>
-      <div class="ps-commission" :class="{ locked: paid }">
+      <!-- Per revisi R12 — nilai komisi hanya untuk Manajer. -->
+      <div v-if="showCommission !== false" class="ps-commission" :class="{ locked: paid }">
         <span class="ps-commission-icon" aria-hidden="true">
           <LockKeyhole v-if="paid" :size="13" />
           <ShieldCheck v-else :size="13" />

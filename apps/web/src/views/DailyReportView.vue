@@ -138,7 +138,8 @@ onMounted(() => {
             <span class="eyebrow">Total Penjualan</span>
             <strong>{{ rupiah(status.total_penjualan) }}</strong>
           </div>
-          <div class="summary-cell">
+          <!-- Per revisi R12 — nilai komisi hanya untuk Manajer. -->
+          <div v-if="isManajer && status.total_komisi !== null" class="summary-cell">
             <span class="eyebrow">Total Komisi</span>
             <strong>{{ rupiah(status.total_komisi) }}</strong>
           </div>

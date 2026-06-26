@@ -69,7 +69,9 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware('role:Manajer');
 
     // Daily Report (PRD 3.3.1) — multi-section PDF with dual TTD.
-    Route::get('/daily-reports/status', [DailyReportController::class, 'status']);
+    // Per revisi R12 — status endpoint expose total_komisi, jadi Manajer+Admin only.
+    Route::get('/daily-reports/status', [DailyReportController::class, 'status'])
+        ->middleware('role:Manajer,Admin');
     Route::get('/daily-reports/{tanggal}/export', [DailyReportController::class, 'export'])
         ->middleware('role:Manajer');
     Route::post('/daily-reports/{tanggal}/submit', [DailyReportController::class, 'submit'])
