@@ -272,7 +272,7 @@ export interface ProdukRecord {
   nama: string;
   kategori: string;
   total_stok: number;
-  status: "Aman" | "Menipis" | "Prioritas";
+  status: "Aman" | "Pending" | "Habis";
   created_at?: string;
   updated_at?: string;
 }
@@ -477,6 +477,22 @@ export async function getAvailability(token: string, params: { terapis_id: numbe
     headers: authHeaders(token),
   });
   return parseJson<AvailabilityResponse>(response);
+}
+
+// Per revisi R3 — suggest next 5 available 60-min slots on a date
+// across all terapis ("klien B bisa pilih jam 4 setelah klien A 2-4").
+export interface NextAvailableResponse {
+  date: string;
+  duration_min: number;
+  suggested_slots: { start: string; end: string }[];
+}
+
+export async function getNextAvailable(token: string, params: { date: string; duration_min?: number }) {
+  const q = new URLSearchParams({ date: params.date, duration_min: String(params.duration_min ?? 60) });
+  const response = await fetch(apiUrl(`/api/bookings/next-available?${q.toString()}`), {
+    headers: authHeaders(token),
+  });
+  return parseJson<NextAvailableResponse>(response);
 }
 
 export async function listBookings(token: string, params?: { date?: string; terapis_id?: number; status?: string }) {

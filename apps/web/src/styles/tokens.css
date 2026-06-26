@@ -710,13 +710,18 @@ button:disabled { cursor: not-allowed; opacity: 0.52; }
   color: var(--color-forest, #1f3d36);
 }
 .status-chip.aman { background: #e8f1ec; color: #1d4a3a; }
-.status-chip.menipis,
-.status-chip.low { background: #fdf2dc; color: #8a6a1f; }
+/* Per revisi R8 — status gudang: Pending = akan expired, Habis = stok menipis/habis. */
+.status-chip.pending { background: #fdf2dc; color: #7d4f1f; border: 1px solid #e7c89a; }
+.status-chip.habis,
+.status-chip.low { background: #fdecec; color: #7d1f1f; border: 1px solid #e8b5b5; }
+/* Legacy aliases (Prioritas/Menipis) — keep so cached JS still styles them. */
+.status-chip.menipis { background: #fdecec; color: #7d1f1f; border: 1px solid #e8b5b5; }
+.status-chip.prioritas { background: #fdf2dc; color: #7d4f1f; border: 1px solid #e7c89a; }
+/* Daily report status (separate from stock status). */
 .status-chip.kadaluarsa,
 .status-chip.expired { background: #fdecec; color: #7d1f1f; }
-.status-chip.prioritas { background: #fdf2dc; color: #7d4f1f; border: 1px solid #e7c89a; }
 .status-chip.submitted { background: #e8eef5; color: #1f3d6b; border: 1px solid #b8c6dc; }
-.status-chip.pending { background: var(--color-parchment, #efe9dc); color: var(--color-sage, #6b7a72); }
+.status-chip.daily-pending { background: var(--color-parchment, #efe9dc); color: var(--color-sage, #6b7a72); }
 .status-chip.approved { background: #e8f1ec; color: #1d4a3a; border: 1px solid #b5d3c0; }
 .status-chip.empty { background: var(--color-parchment, #efe9dc); color: var(--color-sage, #6b7a72); }
 .batch-stack {

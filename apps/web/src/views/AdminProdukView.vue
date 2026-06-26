@@ -9,7 +9,7 @@ interface FormState {
   nama: string;
   kategori: string;
   total_stok: number;
-  status: "Aman" | "Menipis" | "Prioritas";
+  status: "Aman" | "Pending" | "Habis";
 }
 
 const records = ref<ProdukRecord[]>([]);
@@ -212,8 +212,8 @@ onMounted(() => {
           <label>Status
             <select v-model="form.status">
               <option>Aman</option>
-              <option>Menipis</option>
-              <option>Prioritas</option>
+              <option>Pending</option>
+              <option>Habis</option>
             </select>
           </label>
           <p v-if="errorMessage" class="error-note" role="alert">{{ errorMessage }}</p>

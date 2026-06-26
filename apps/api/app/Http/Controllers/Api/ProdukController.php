@@ -26,11 +26,14 @@ class ProdukController extends Controller
         $rows = $query->get()->map(function (Produk $p) {
             $total = (int) $p->batches()->where('qty', '>', 0)->sum('qty');
             $firstExpiry = optional($p->batches()->where('qty', '>', 0)->orderByRaw("CASE WHEN kadaluarsa IS NULL THEN '9999-12-31' ELSE kadaluarsa END ASC")->first())->kadaluarsa?->format('Y-m-d') ?? '9999-12-31';
+            // Per revisi R8 — status: Aman / Pending / Habis.
             $status = 'Aman';
-            if ($firstExpiry !== '9999-12-31' && $firstExpiry <= config('sim-kk.stock.prioritas_expiry', '2026-07-31')) {
-                $status = 'Prioritas';
+            if ($total <= 0) {
+                $status = 'Habis';
+            } elseif ($firstExpiry !== '9999-12-31' && $firstExpiry <= config('sim-kk.stock.prioritas_expiry', '2026-07-31')) {
+                $status = 'Pending';
             } elseif ($total <= config('sim-kk.stock.menipis_threshold', 12)) {
-                $status = 'Menipis';
+                $status = 'Habis';
             }
             return $this->serialize($p, $total, $status);
         });

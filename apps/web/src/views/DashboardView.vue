@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import { ArrowDown, ArrowUp, Calendar, Database, ShieldCheck, Sparkles, TrendingUp, UserCircle, Wallet } from "@lucide/vue";
-import { getDashboard, triggerBackup, type DashboardResponse } from "../services/api";
+import { ArrowDown, ArrowUp, Calendar, Clock4, Database, ShieldCheck, Sparkles, TrendingUp, UserCircle, Wallet } from "@lucide/vue";
+import { getDashboard, getNextAvailable, triggerBackup, type DashboardResponse, type NextAvailableResponse } from "../services/api";
 import { percent, rupiah, shortDay } from "../utils/format";
 
 const props = defineProps<{ token: string; searchQuery?: string }>();
 
 const data = ref<DashboardResponse | null>(null);
 const loading = ref(false);
+const suggestedSlots = ref<NextAvailableResponse | null>(null);
 const backing = ref(false);
 const toastVisible = ref(false);
 const toastMessage = ref("");
@@ -35,10 +36,27 @@ const formatBookingTime = (iso: string): string => {
   });
 };
 
+// HH:mm only — for slot chips.
+const formatSlotTime = (iso: string): string => {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", hour12: false });
+};
+
 const load = async () => {
   loading.value = true;
   try {
     data.value = await getDashboard(props.token);
+    // Per revisi R3 — also fetch next-available slots so the dashboard
+    // can suggest "klien B bisa pilih jam 4 setelah klien A 2-4".
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dateStr = tomorrow.toISOString().slice(0, 10);
+    try {
+      suggestedSlots.value = await getNextAvailable(props.token, { date: dateStr, duration_min: 60 });
+    } catch {
+      suggestedSlots.value = null;
+    }
   } catch (error) {
     showToast(error instanceof Error ? error.message : "Gagal memuat dashboard.", "error");
   } finally {
@@ -195,6 +213,21 @@ onMounted(() => {
                 <p v-if="d.last_note" class="text-xs text-sage italic">"{{ d.last_note }}"</p>
               </li>
             </ul>
+          </article>
+
+          <!-- Per revisi R3 — saran slot kosong terdekat untuk booking besok. -->
+          <article v-if="suggestedSlots?.suggested_slots?.length" class="panel" data-testid="next-available">
+            <span class="eyebrow">Saran slot terdekat</span>
+            <h3 class="panel-title">Besok tersedia</h3>
+            <ul class="ranked-list">
+              <li v-for="(slot, idx) in suggestedSlots.suggested_slots" :key="idx">
+                <Clock4 :size="14" />
+                <strong>{{ formatSlotTime(slot.start) }}</strong>
+                <span class="font-mono text-xs">— {{ formatSlotTime(slot.end) }}</span>
+                <span class="font-mono text-xs text-sage">{{ suggestedSlots.duration_min }}m</span>
+              </li>
+            </ul>
+            <p class="quiet-empty">Klien B bisa pilih setelah klien A selesai.</p>
           </article>
         </div>
       </template>

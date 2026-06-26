@@ -30,7 +30,10 @@ const statusBadge = computed(() => {
   switch (status.value.status) {
     case "approved": return { label: "Approved", cls: "approved" };
     case "submitted": return { label: "Submitted", cls: "submitted" };
-    case "pending": return { label: "Pending", cls: "pending" };
+    // Daily-report "pending" status uses daily-pending class (distinct from
+    // Gudang stock-status "pending" which now uses .status-chip.pending
+    // with orange-ish colors per revisi R8).
+    case "pending": return { label: "Pending", cls: "daily-pending" };
     case "empty": return { label: "Kosong", cls: "empty" };
     default: return { label: "—", cls: "empty" };
   }

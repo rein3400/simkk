@@ -156,6 +156,38 @@ class BookingController extends Controller
     }
 
     /**
+     * GET /api/bookings/next-available
+     * Per revisi R3 — returns the next 5 free 60-min slots across all
+     * terapis on a given date. Used to suggest "klien B bisa pilih
+     * jam 4 setelah klien A jam 2-4".
+     */
+    public function nextAvailable(Request $request): JsonResponse
+    {
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d',
+            'duration_min' => 'nullable|integer|min:15|max:480',
+        ]);
+        $date = $request->query('date');
+        $duration = (int) $request->query('duration_min', 60);
+        $dayStart = CarbonImmutable::parse("$date 09:00");
+        $dayEnd = CarbonImmutable::parse("$date 21:00");
+        $cursor = $dayStart;
+        $slots = [];
+        while ($cursor->lt($dayEnd) && count($slots) < 5) {
+            $slotEnd = $cursor->addMinutes($duration);
+            $conflict = Booking::whereIn('status', ['booked', 'confirmed'])
+                ->where('scheduled_at', '<', $slotEnd)
+                ->where(DB::raw("datetime(scheduled_at, '+' || duration_min || ' minutes')"), '>', $cursor)
+                ->first();
+            if (!$conflict) {
+                $slots[] = ['start' => $cursor->format('Y-m-d\TH:i:s'), 'end' => $slotEnd->format('Y-m-d\TH:i:s')];
+            }
+            $cursor = $cursor->addMinutes(30);
+        }
+        return response()->json(['date' => $date, 'duration_min' => $duration, 'suggested_slots' => $slots]);
+    }
+
+    /**
      * Returns the first conflicting Booking (excluding $ignoreId if given)
      * for a given terapis + time range. Null if no conflict.
      */

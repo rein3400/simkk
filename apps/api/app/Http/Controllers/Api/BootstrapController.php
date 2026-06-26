@@ -224,11 +224,17 @@ class BootstrapController extends Controller
             $batches = $p->batches;
             $total = $batches->sum('qty');
             $firstExpiry = $batches->first()?->kadaluarsa?->format('Y-m-d') ?? '9999-12-31';
+            // Per revisi R8 — status: Aman / Pending / Habis.
+            // Aman   = stok cukup + expired jauh
+            // Pending = expired dekat (akan datang) — sebelumnya "Prioritas"
+            // Habis  = stok 0 atau < threshold — sebelumnya "Menipis"
             $status = 'Aman';
-            if ($firstExpiry !== '9999-12-31' && $firstExpiry <= config('sim-kk.stock.prioritas_expiry', '2026-07-31')) {
-                $status = 'Prioritas';
+            if ($total <= 0) {
+                $status = 'Habis';
+            } elseif ($firstExpiry !== '9999-12-31' && $firstExpiry <= config('sim-kk.stock.prioritas_expiry', '2026-07-31')) {
+                $status = 'Pending';
             } elseif ($total <= config('sim-kk.stock.menipis_threshold', 12)) {
-                $status = 'Menipis';
+                $status = 'Habis';
             }
             return [
                 'id'          => $p->id,

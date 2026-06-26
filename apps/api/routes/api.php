@@ -49,6 +49,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Per revisi R1/R2 — booking system with time-slot anti-overlap.
     Route::get('/bookings/availability', [BookingController::class, 'availability'])
         ->middleware('role:Kasir,Terapis,Manajer');
+    // Per revisi R3 — suggest next available slots ("klien B bisa pilih jam 4").
+    Route::get('/bookings/next-available', [BookingController::class, 'nextAvailable'])
+        ->middleware('role:Kasir,Terapis,Manajer');
     Route::get('/bookings', [BookingController::class, 'index'])
         ->middleware('role:Kasir,Terapis,Manajer');
     Route::post('/bookings', [BookingController::class, 'store'])

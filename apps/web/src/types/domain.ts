@@ -110,7 +110,7 @@ export interface InventoryProduct {
   name: string;
   category: string;
   totalStock: number;
-  status: "Aman" | "Menipis" | "Prioritas";
+  status: "Aman" | "Pending" | "Habis";
   batches: InventoryBatch[];
 }
 
